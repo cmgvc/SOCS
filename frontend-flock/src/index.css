@@ -14,8 +14,8 @@
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
-  --border-radius: 8px;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --border-radius: 40px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -25,7 +25,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
   font-family: var(--font-body);
   background-color: var(--light-gray);
 }
