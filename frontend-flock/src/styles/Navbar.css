@@ -15,7 +15,7 @@
     padding: 30px;
     height: 10vh;
     width: 25vw;
-    margin: -3vh 0 0 7vw;
+    margin: -3vh 0 0 5vw;
     transform: translateY(10%);
     box-shadow: var(--box-shadow);
     z-index: 5; 
@@ -39,6 +39,9 @@
     display: flex;
     margin-right: 3vw;
     gap: 2vw;
+    a {
+        text-decoration: none;
+    }
 }
 
 .navbar-hamburger {
@@ -63,6 +66,7 @@
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    cursor: pointer;
 }
 
 .navbar-profile p {
@@ -70,8 +74,56 @@
     margin: 0;
 }
 
-.navbar-profile-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-  }
+.dropdown-menu {
+    position: absolute;
+    top: 135px; 
+    right: 40px;
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+    padding: 3vh 3vw 3vh 3vw;
+    animation: slideIn 0.5s;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(110%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    text-align: left;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+}
+
+.dropdown-menu a {
+    text-decoration: none;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
