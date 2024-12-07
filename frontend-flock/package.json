@@ -45,5 +45,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0"
+  }
 }
