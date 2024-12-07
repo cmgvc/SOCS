@@ -1,0 +1,10 @@
+.login-page {
+  background-color: #efefef;
+}
+
+.login-title {
+  font-size: 50px;
+  color: #222;
+  font-weight: 600; /* Semi-bold */
+  margin-top: 4rem;
+}

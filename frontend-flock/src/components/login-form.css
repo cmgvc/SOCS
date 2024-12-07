@@ -1,0 +1,72 @@
+.login-form-container {
+  background: white;
+  border-radius: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Input field styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 90%;
+  height: 30px;
+  padding: 0.75rem;
+  padding-left: 30px;
+  border: none;
+  border-radius: 40px;
+  font-size: 20px;
+  background-color: #f3f3f3;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input::placeholder {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  color: #000000;
+  opacity: 50%;
+  font-weight: 400;
+}
+
+/* Button styles */
+.login-button {
+  background: linear-gradient(90deg, #382a2a 24%, #ff3f42 100%);
+  color: white; /* Ensure text is visible on the gradient */
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem; /* Adjust as needed */
+  font-size: 20px;
+  font-weight: 600; /* Semi-bold */
+  cursor: pointer;
+  width: 35%; /* Stretch button to full width, optional */
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #ff3f42 24%, #382a2a 100%);
+}
+
+/* Footer link */
+.login-footer {
+  margin-top: 1rem;
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
