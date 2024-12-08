@@ -26,7 +26,7 @@ function Navbar() {
             src={FlockFavicon}
             alt="Logo"
             className="navbar-icon"
-            style={{ width: "7rem", height: "7rem", marginTop: "1rem" }}
+            style={{ width: "8rem", height: "8rem" }}
           />
           <div className="navbar-text">
             <h1>Flock</h1>
