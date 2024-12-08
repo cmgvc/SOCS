@@ -1,5 +1,4 @@
 .login-page {
-  background-color: #efefef;
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -21,7 +20,7 @@
 
 .birds-background {
   position: absolute;
-  top: 6rem;
+  top: 7rem;
   left: 20rem;
   width: 100%;
   height: 100%;
