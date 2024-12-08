@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginForm from "../components/LoginForm";
-import { ReactComponent as Birds } from "../svg/birds2.svg";
+import { ReactComponent as Tree } from "../svg/tree2.svg";
 import "./login.css";
 
 const Login = () => {
+  useEffect(() => {
+    document.body.classList.add("login-body");
+
+    return () => {
+      document.body.classList.remove("login-body");
+    };
+  }, []);
+
   return (
     <div className="login-page">
-      <Birds className="birds-background" />
+      <Tree className="tree-background" />
       <div className="login-content">
-        <h1 className="login-title">Create a new Flock Account</h1>
+        <h1 className="login-title">Welcome to Flock</h1>
         <LoginForm />
       </div>
     </div>

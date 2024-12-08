@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 :root {
-  --primary-red: #EC2227;
-  --dark-gray: #9E9E9E; 
-  --light-gray: #EFEFEF; 
-  --white: #ffffff; 
-  --black: #000000; 
+  --primary-red: #ec2227;
+  --dark-gray: #9e9e9e;
+  --light-gray: #efefef;
+  --white: #ffffff;
+  --black: #000000;
 
-  --font-heading: 'Poppins', sans-serif; 
-  --font-body: 'Poppins', sans-serif;
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
 
   /* button styling */
   --spacing-sm: 8px;
@@ -20,8 +20,8 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,7 +29,12 @@ body {
   background-color: var(--light-gray);
 }
 
+.login-body,
+.signup-body {
+  overflow: hidden;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
