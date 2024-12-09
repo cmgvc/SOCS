@@ -5,8 +5,15 @@ import Hamburger from "hamburger-react";
 import FlockFavicon from "../svg/flock-favicon.svg";
 
 function Navbar() {
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [name, setName] = useState(localStorage.getItem("name") || "login");
   const [isOpen, setOpen] = useState(false);
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,21 +42,13 @@ function Navbar() {
         </div>
         <div className="navbar-links">
           <Hamburger toggled={isOpen} toggle={setOpen} />
-          {username ? (
-            <a href="/dashboard">
-              <button className="navbar-profile">
-                <PersonIcon />
-                <p>{username}</p>
-              </button>
-            </a>
-          ) : (
-            <a href="/auth">
-              <button className="navbar-profile">
-                <PersonIcon />
-                <p>Login</p>
-              </button>
-            </a>
-          )}
+          <a href="/auth">
+            <button className="navbar-profile">
+              <PersonIcon />
+              <p>{name}</p>
+            </button>
+          </a>
+          {/* )} */}
         </div>
       </nav>
       {isOpen && <div className="overlay"></div>}
@@ -65,7 +64,7 @@ function Navbar() {
             <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {username ? (
+            {name !== "login" && (
               <>
                 <li>
                   <a href="/create">Create Meeting</a>
@@ -74,7 +73,7 @@ function Navbar() {
                   <a href="/request">Request Meeting</a>
                 </li>
               </>
-            ) : null}
+            )}
           </ul>
         </div>
       )}
