@@ -5,7 +5,8 @@ import Hamburger from "hamburger-react";
 import FlockFavicon from "../svg/flock-favicon.svg";
 
 function Navbar() {
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  // const [username, setUsername] = useState(localStorage.getItem("username"));
+  const username = "Jacob";
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
@@ -72,6 +73,9 @@ function Navbar() {
                 </li>
                 <li>
                   <a href="/request">Request Meeting</a>
+                </li>
+                <li>
+                  <a href="/profLookup">Look Up Professor</a>
                 </li>
               </>
             ) : null}
