@@ -80,3 +80,7 @@ input::placeholder {
 .login-footer a:hover {
   text-decoration: underline;
 }
+
+.valid-icon {
+  opacity: 1;
+}
