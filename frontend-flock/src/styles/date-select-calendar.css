@@ -1,16 +1,17 @@
 #calendar-container {
-    width: 150px;
     font-family: "Poppins", sans-serif;
     border: 1px solid #ddd;
     padding: 20px;
-    background-color: #ffffff;
+    margin-left: 150px;
+    margin-right: 250px;
+    background-color: white;
+    width: 50%;
 }
 
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .calendar-header button {
@@ -30,6 +31,7 @@
 #calendar-grid {
     width: 100%;
     border-collapse: collapse; /* Removes the default table borders */
+    align-items: center;
 }
 
 #calendar-grid th,
@@ -43,7 +45,6 @@
 }
 
 #calendar-grid th {
-    background-color: #f2f2f2;
     font-weight: bold;
 }
 
@@ -79,6 +80,5 @@
 }
 
 .selected-date-info p {
-    margin: 0;
     font-weight: bold;
 }

@@ -78,7 +78,7 @@ const CalendarComponent = () => {
     const year = currentDate.getFullYear();
 
     return (
-        <div className="calendar-container" style={{ width: '30%' }}>
+        <div id="calendar-container">
             <div className="calendar-header">
                 <button onClick={() => changeMonth(-1)}>{'<'}</button>
                 <span id="month-year">{`${monthName} ${year}`}</span>
