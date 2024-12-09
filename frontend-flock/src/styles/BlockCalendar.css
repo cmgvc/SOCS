@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    background: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .app-header {
+    background: #a42c2c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flock-logo {
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .header-title {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  
+  .user-section {
+    font-size: 0.9rem;
+  }
+  
+  .content-container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+  }
+  

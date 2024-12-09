@@ -1,0 +1,135 @@
+/*  the month/year display */
+.styled-calendar-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+    color: #000000;
+    flex: 1;
+    justify-content: left;
+  }
+  
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .month-year {
+    margin: 0 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+ 
+  /*  the arrows */
+  .nav-arrow {
+    background: none;
+    border: none;
+    color: #000;
+    background: #EFEFEF;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 32px;
+    text-align: center;
+  }
+
+  /*  the grey container */
+
+  .days-container {
+    background: #212121;
+    border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 50px;
+  }
+  
+  .days-header-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .day-header {
+    flex: 1;
+    text-align: center;
+    color: #CBCBCB;
+  }
+  
+  .day-header.placeholder {
+    flex: 0 0 50px; /* Reserve space for the times column */
+  }
+  
+  .day-name {
+    font-size: 0.8rem;
+  }
+  
+  .day-date {
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+  
+  .days-grid {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+  
+  .times-column {
+    flex: 0 0 50px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+    
+  }
+  
+  .time-row {
+    height: 50px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-right: 5px;
+  }
+  
+  .hour-label {
+    font-size: 12px;
+    color: #CCC;
+    line-height: 0;
+    
+  }
+  
+  .day-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+  }
+  
+  .hour-slot {
+    height: 50px;
+    border-top: 1px solid #333;
+    position: relative;
+    
+  }
+  
+  .hour-slot.unavailable {
+    background-color: #A09999;
+    cursor: not-allowed;
+    border-radius: 10px;
+  }
+  
+  .hour-slot.selected {
+    background-color: #FF2424;
+    border-radius: 10px;
+  }
+  
+  .hour-slot.current-selection {
+    background-color: lightcoral;
+    border-radius: 10px;
+  }
+  
