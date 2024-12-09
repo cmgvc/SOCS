@@ -3,13 +3,16 @@ import "../styles/Navbar.css";
 import PersonIcon from "@mui/icons-material/Person";
 import Hamburger from "hamburger-react";
 import FlockFavicon from "../svg/flock-favicon.svg";
+import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Navbar() {
-  const [name, setName] = useState(localStorage.getItem("name") || "login");
+  const [firstName, setName] = useState(
+    localStorage.getItem("firstName") || "login"
+  );
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
-    const storedName = localStorage.getItem("name");
+    const storedName = localStorage.getItem("firstName");
     if (storedName) {
       setName(storedName);
     }
@@ -42,13 +45,19 @@ function Navbar() {
         </div>
         <div className="navbar-links">
           <Hamburger toggled={isOpen} toggle={setOpen} />
+          {firstName !== "login" && (
+            <>
+              <a href="/settings">
+                {<SettingsSvg className="settings-icon" />}
+              </a>
+            </>
+          )}
           <a href="/auth">
             <button className="navbar-profile">
               <PersonIcon />
-              <p>{name}</p>
+              <p>{firstName}</p>
             </button>
           </a>
-          {/* )} */}
         </div>
       </nav>
       {isOpen && <div className="overlay"></div>}
@@ -64,10 +73,13 @@ function Navbar() {
             <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {name !== "login" && (
+            {firstName !== "login" && (
               <>
                 <li>
                   <a href="/create">Create Meeting</a>
+                </li>
+                <li>
+                  <a href="/block">Block Off Times</a>
                 </li>
                 <li>
                   <a href="/request">Request Meeting</a>

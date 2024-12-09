@@ -38,7 +38,7 @@
   justify-content: right;
   display: flex;
   margin-right: 3vw;
-  gap: 2vw;
+  gap: 1.5vw;
   a {
     text-decoration: none;
   }
@@ -126,4 +126,11 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+.settings-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.3rem;
+  opacity: 0.75;
 }

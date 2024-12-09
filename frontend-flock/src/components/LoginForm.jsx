@@ -47,8 +47,10 @@ const LoginForm = () => {
         const data = await response.json();
         if (response.ok) {
           localStorage.setItem("token", data.token);
-          localStorage.setItem("name", `${data.user.firstName}`);
-          navigate("/dashboard");
+          localStorage.setItem("firstName", `${data.user.firstName}`);
+          localStorage.setItem("lastName", `${data.user.lastName}`);
+          localStorage.setItem("email", `${data.user.email}`);
+          navigate("/");
         } else {
           setErrorMessage(data.message || "Login failed. Please try again.");
         }
