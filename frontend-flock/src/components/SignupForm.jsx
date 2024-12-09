@@ -28,6 +28,7 @@ const SignupForm = () => {
 
       if (response.ok) {
         alert("Signup successful!");
+        localStorage.setItem("name", `${data.user.firstName}`);
         navigate("/dashboard"); // redirect to the dashboard
       } else {
         setErrorMessage(data.message || "Signup failed.");
