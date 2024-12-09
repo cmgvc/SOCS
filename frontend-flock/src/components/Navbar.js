@@ -79,6 +79,9 @@ function Navbar() {
                   <a href="/create">Create Meeting</a>
                 </li>
                 <li>
+                  <a href="/block">Block Off Times</a>
+                </li>
+                <li>
                   <a href="/request">Request Meeting</a>
                 </li>
               </>

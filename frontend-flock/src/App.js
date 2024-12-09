@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Settings from "./pages/Settings";
 import CreateBooking from "./pages/CreateBooking";
 import Footer from "./components/Footer";
+import BlockCalendar from "./pages/BlockCalendar";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/create" element={<CreateBooking />} />
+          <Route path="/block" element={<BlockCalendar />} />
         </Routes>
         <Footer />
       </Router>
