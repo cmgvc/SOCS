@@ -1,0 +1,84 @@
+#calendar-container {
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-left: 150px;
+    margin-right: 250px;
+    background-color: white;
+    width: 50%;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-header button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.calendar-header button:hover {
+    background-color: #eb5757;
+}
+
+#calendar-grid {
+    width: 100%;
+    border-collapse: collapse; /* Removes the default table borders */
+    align-items: center;
+}
+
+#calendar-grid th,
+#calendar-grid td {
+    width: 14.28%;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    padding: 8px 0;
+}
+
+#calendar-grid th {
+    font-weight: bold;
+}
+
+.day-cell {
+    cursor: default;
+    transition: background-color 0.3s;
+}
+
+.day-cell.current-month {
+    /* Make current month days clickable */
+    cursor: pointer;
+}
+
+.day-cell.current-month:hover {
+    background-color: #eb5757;
+}
+
+.day-cell.adjacent-month {
+    color: #aaa; /* Pale grey color */
+    /* Ensure cursor is default */
+    cursor: default;
+}
+
+.day-cell.selected-date {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+}
+
+.selected-date-info {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.selected-date-info p {
+    font-weight: bold;
+}
