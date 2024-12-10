@@ -38,6 +38,7 @@ function Navbar() {
             className="navbar-icon"
             style={{ width: "8rem", height: "8rem" }}
           />
+          <div className="banner-bar"></div>
           <div className="navbar-text">
             <h1>Flock</h1>
             <p>by McGill SOCS</p>
