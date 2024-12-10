@@ -5,10 +5,19 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-// signup endpoint
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(req.body);
+
+  // split the name into first and last names
+  const nameParts = name.trim().split(" ");
+  if (nameParts.length < 2) {
+    return res
+      .status(400)
+      .json({ message: "Please provide both first and last name" });
+  }
+
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(" "); // handles multi-part last names like "Van Gogh"
 
   // validate McGill email
   if (!/^[\w-\.]+@mail\.mcgill\.ca$/.test(email)) {
@@ -27,10 +36,18 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // create and save the new user
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({
+      message: "User registered successfully",
+      user: { firstName, lastName },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -56,7 +73,10 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    res.json({
+      token,
+      user,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
