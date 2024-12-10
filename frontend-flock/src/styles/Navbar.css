@@ -39,7 +39,7 @@
   justify-content: right;
   display: flex;
   margin-right: 3vw;
-  gap: 1.5vw;
+  gap: 1vw;
   a {
     text-decoration: none;
   }
@@ -130,9 +130,9 @@
 }
 
 .settings-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-top: 0.3rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-top: 0.45rem;
   opacity: 0.75;
 }
 
