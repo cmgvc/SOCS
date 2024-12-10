@@ -1,45 +1,37 @@
-const CreateBookingSidebar = ({ onSave }) => {
+import React, { useState } from "react";
+import "./create-booking-sidebar.css";
+
+const CreateBookingSidebar = () => {
+  const [repeatWeekly, setRepeatWeekly] = useState(false);
+  const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
   return (
-    <aside className="sidebar">
-      <h3>Bookable Meeting Schedule</h3>
-      <form onSubmit={onSave}>
-        <label>
-          Add title:
-          <input type="text" name="title" placeholder="Title" required />
-        </label>
-        <label>
-          Meeting type:
-          <select name="meetingType">
-            <option value="1-1">1-1 Meeting</option>
-            <option value="group">Group Meeting</option>
-          </select>
-        </label>
-        <label>
-          Meeting duration:
-          <select name="duration">
-            <option value="30">30 minutes</option>
-            <option value="60">1 hour</option>
-          </select>
-        </label>
-        <h4>General availability</h4>
-        {/* Repeat Weekly Toggle */}
-        <div>
-          <label>Repeat Weekly:</label>
-          <input type="checkbox" name="repeatWeekly" />
-        </div>
-        {/* Days and Times */}
-        {["MON", "TUE", "WED", "THU", "FRI"].map((day) => (
-          <div key={day}>
-            <label>{day}</label>
-            <input type="time" name={`${day}-start`} />
-            <input type="time" name={`${day}-end`} />
-          </div>
-        ))}
-        <h4>Adjusted Availability</h4>
-        <button type="button">Change a date's availability</button>
-        <button type="submit">Save</button>
-      </form>
-    </aside>
+    <div className="create-meeting-sidebar">
+      <h3 className="booking-sidebar-title">BOOKABLE MEETING SCHEDULE</h3>
+      <h3 className="add-title">Add title</h3>
+      <hr className="sidebar-divider" />
+      <div className="gap"></div>
+      <h3 className="bold-title">Meeting type</h3>
+      <h4 className="booking-subtitle">What kind of meeting is this?</h4>
+      <hr className="sidebar-divider" />
+      <h3 className="bold-title">Meeting duration</h3>
+      <h4 className="booking-subtitle">How long should each meeting last?</h4>
+      <hr className="sidebar-divider" />
+      <h3 className="bold-title">General availability</h3>
+      <h4 className="booking-subtitle">
+        Set when you're regularly available for meetings.
+      </h4>
+      <hr className="sidebar-divider" />
+      <h3 className="bold-title">Scheduling window</h3>
+      <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
+      <hr className="sidebar-divider" />
+      <h3 className="bold-title">Adjusted availability</h3>
+      <h4 className="booking-subtitle">
+        Indicate times you're available for specific dates
+      </h4>
+
+      <button className="save-btn">Save</button>
+    </div>
   );
 };
 
