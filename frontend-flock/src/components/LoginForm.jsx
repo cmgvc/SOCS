@@ -1,3 +1,5 @@
+// coded by Danielle Wahrhaftig
+
 import React, { useState } from "react";
 import { ReactComponent as MailIcon } from "../svg/mail.svg";
 import { ReactComponent as CheckIcon } from "../svg/check.svg";
@@ -11,6 +13,7 @@ const LoginForm = () => {
   const [isEmailValid, setIsEmailValid] = useState(null); // null: initial, true: valid, false: invalid
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(null);
+  const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -33,6 +36,10 @@ const LoginForm = () => {
     const value = e.target.value;
     setPassword(value);
     validatePassword(value);
+  };
+
+  const handleRememberMeChange = (e) => {
+    setRememberMe(e.target.checked);
   };
 
   const handleSubmit = async (e) => {
@@ -102,6 +109,23 @@ const LoginForm = () => {
             minLength="8" // Enforces minimum length at the browser level
           />
         </div>
+        <div className="form-group-two">
+          <div className="remember-me">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={handleRememberMeChange}
+            />
+            <label htmlFor="rememberMe" className="remember-me-label">
+              Remember Me
+            </label>
+          </div>
+          <div className="forgot-password">
+            <a href="/forgot-password">Forgot your password?</a>
+          </div>
+        </div>
+
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit" className="login-button">
           Sign In

@@ -1,3 +1,5 @@
+// coded by Danielle Wahrhaftig
+
 import React, { useState } from "react";
 import "../styles/Calendar.css";
 

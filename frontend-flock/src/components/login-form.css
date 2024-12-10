@@ -84,3 +84,36 @@ input::placeholder {
 .valid-icon {
   opacity: 1;
 }
+
+.form-group-two {
+  display: flex;
+  justify-content: space-between; /* Align checkbox and link */
+  align-items: center; /* Center vertically */
+  margin-bottom: 1rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 0 !important;
+}
+
+.forgot-password a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d9534f; /* Example color */
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
