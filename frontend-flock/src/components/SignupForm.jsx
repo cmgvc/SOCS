@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ReactComponent as UserIcon } from "../svg/user-1.svg";
 import { ReactComponent as MailIcon } from "../svg/mail.svg";
 import { ReactComponent as KeyIcon } from "../svg/key.svg";
@@ -7,8 +6,8 @@ import { ReactComponent as KeyIcon } from "../svg/key.svg";
 import "./signup-form.css";
 
 const SignupForm = () => {
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -27,12 +26,19 @@ const SignupForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Signup successful!");
+        // show success modal
+        setShowModal(true);
+
         localStorage.setItem("firstName", `${data.user.firstName}`);
         localStorage.setItem("lastName", `${data.user.lastName}`);
         localStorage.setItem("email", `${data.user.email}`);
         localStorage.setItem("token", `${data.token}`);
-        window.open("/", "_self");
+
+        // redirect to home page after a short delay
+        setTimeout(() => {
+          setShowModal(false);
+          window.open("/", "_self");
+        }, 2000);
       } else {
         setErrorMessage(data.message || "Signup failed.");
       }
@@ -83,6 +89,16 @@ const SignupForm = () => {
           <strong>Log in here</strong>
         </a>
       </p>
+
+      {/* Modal Popup */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Signup Successful</h2>
+            <p>Welcome to Flock by McGill SOCS!</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
