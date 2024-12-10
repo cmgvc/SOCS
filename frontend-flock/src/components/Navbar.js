@@ -76,7 +76,7 @@ function Navbar() {
             {firstName !== "login" && (
               <>
                 <li>
-                  <a href="/create">Create Meeting</a>
+                  <a href="/create">Create Booking</a>
                 </li>
                 <li>
                   <a href="/block">Block Off Times</a>
