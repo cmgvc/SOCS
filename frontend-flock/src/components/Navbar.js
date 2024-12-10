@@ -54,10 +54,10 @@ function Navbar() {
               </a>
             </>
           )}
-          <a href="/auth">
+          <a href={!token ? "/auth" : "/"}>
             <button className="navbar-profile">
               <PersonIcon />
-              <p>{firstName}</p>
+              {token ? <p>{firstName}</p> : <p>Login</p>}
             </button>
           </a>
         </div>

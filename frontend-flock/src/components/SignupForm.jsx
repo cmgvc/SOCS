@@ -31,7 +31,8 @@ const SignupForm = () => {
         localStorage.setItem("firstName", `${data.user.firstName}`);
         localStorage.setItem("lastName", `${data.user.lastName}`);
         localStorage.setItem("email", `${data.user.email}`);
-        navigate("/dashboard"); // redirect to the dashboard
+        localStorage.setItem("token", `${data.token}`);
+        window.open("/", "_self");
       } else {
         setErrorMessage(data.message || "Signup failed.");
       }
