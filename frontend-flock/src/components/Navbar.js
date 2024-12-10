@@ -7,7 +7,7 @@ import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Navbar() {
   const [firstName, setName] = useState(
-    localStorage.getItem("firstName") || "login"
+    localStorage.getItem("firstName") || "Login"
   );
   const [isOpen, setOpen] = useState(false);
 
@@ -46,7 +46,7 @@ function Navbar() {
         </div>
         <div className="navbar-links">
           <Hamburger toggled={isOpen} toggle={setOpen} />
-          {firstName !== "login" && (
+          {firstName !== "Login" && (
             <>
               <a href="/settings">
                 {<SettingsSvg className="settings-icon" />}
@@ -74,7 +74,7 @@ function Navbar() {
             <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {firstName !== "login" && (
+            {firstName !== "Login" && (
               <>
                 <li>
                   <a href="/create">Create Booking</a>
