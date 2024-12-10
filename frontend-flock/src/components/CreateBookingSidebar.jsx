@@ -22,6 +22,13 @@ const CreateBookingSidebar = () => {
         Set when you're regularly available for meetings.
       </h4>
       <hr className="sidebar-divider" />
+      <h3 className="bold-title">Scheduling window</h3>
+      <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
+      <hr className="sidebar-divider" />
+      <h3 className="bold-title">Adjusted availability</h3>
+      <h4 className="booking-subtitle">
+        Indicate times you're available for specific dates
+      </h4>
 
       <button className="save-btn">Save</button>
     </div>
