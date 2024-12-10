@@ -6,6 +6,7 @@ import FlockFavicon from "../svg/flock-favicon.svg";
 import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Navbar() {
+  const token = localStorage.getItem("token");
   const [firstName, setName] = useState(
     localStorage.getItem("firstName") || "Login"
   );
@@ -46,7 +47,7 @@ function Navbar() {
         </div>
         <div className="navbar-links">
           <Hamburger toggled={isOpen} toggle={setOpen} />
-          {firstName !== "Login" && (
+          {token && (
             <>
               <a href="/settings">
                 {<SettingsSvg className="settings-icon" />}
@@ -74,7 +75,7 @@ function Navbar() {
             <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {firstName !== "Login" && (
+            {token && (
               <>
                 <li>
                   <a href="/create">Create Booking</a>
