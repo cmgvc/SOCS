@@ -10,9 +10,9 @@ import CreateBooking from "./pages/CreateBooking";
 import Footer from "./components/Footer";
 import ProfLookup from "./private/ProfLookup"
 import MeetingRequest from "./private/MeetingRequest"
-import CalendarWithSidebar from "./pages/BlockCalendar"
-
+import BookMeeting from "./pages/BookMeeting";
 import BlockCalendar from "./pages/BlockCalendar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -21,15 +21,15 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/profLookup" element={<ProfLookup />} />
           <Route path="/meetingRequest" element={<MeetingRequest />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/calendar" element={<CalendarWithSidebar />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/create" element={<CreateBooking />} />
           <Route path="/block" element={<BlockCalendar />} />
+          <Route path="/book" element={<BookMeeting />} />
         </Routes>
         <Footer />
       </Router>
