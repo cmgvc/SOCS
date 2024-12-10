@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
-    margin: 0;
+    
     background: #f1f1f1;
     font-family: 'Poppins', sans-serif;
   }
@@ -10,16 +10,9 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    
   }
   
-  .app-header {
-    background: #a42c2c;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-    padding: 10px 20px;
-  }
   
   .logo-section {
     display: flex;
@@ -45,5 +38,6 @@ body {
     flex: 1;
     padding: 20px;
     gap: 20px;
+    
   }
   

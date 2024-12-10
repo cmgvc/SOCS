@@ -8,8 +8,9 @@ import Signup from "./pages/Signup";
 import Settings from "./pages/Settings";
 import CreateBooking from "./pages/CreateBooking";
 import Footer from "./components/Footer";
-import ProfLookup from "./private/ProfLookup";
-import MeetingRequest from "./private/MeetingRequest";
+import ProfLookup from "./private/ProfLookup"
+import MeetingRequest from "./private/MeetingRequest"
+import CalendarWithSidebar from "./pages/BlockCalendar"
 
 import BlockCalendar from "./pages/BlockCalendar";
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/profLookup" element={<ProfLookup />} />
           <Route path="/meetingRequest" element={<MeetingRequest />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/calendar" element={<CalendarWithSidebar />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/create" element={<CreateBooking />} />
           <Route path="/block" element={<BlockCalendar />} />
