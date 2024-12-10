@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
+  const lowercaseEmail = email.toLowerCase();
 
   // split the name into first and last names
   const nameParts = name.trim().split(" ");
@@ -26,7 +27,7 @@ router.post("/signup", async (req, res) => {
 
   try {
     // check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: lowercaseEmail });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -46,7 +47,7 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({
       message: "User registered successfully",
-      user: { firstName, lastName },
+      user: { firstName, lastName, email: lowercaseEmail },
     });
   } catch (error) {
     console.error(error);
@@ -57,9 +58,10 @@ router.post("/signup", async (req, res) => {
 // login endpoint
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  const lowercaseEmail = email.toLowerCase();
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: lowercaseEmail });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
