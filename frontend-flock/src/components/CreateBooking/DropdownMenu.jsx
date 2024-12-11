@@ -17,6 +17,7 @@ const DropdownMenu = ({ options, defaultOption, onChange }) => {
     <div className="dropdown-container-booking">
       <button
         className="dropdown-button-booking"
+        aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)} // toggle dropdown visibility
       >
         {selectedOption} <span className="arrow">&#9662;</span>

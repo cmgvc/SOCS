@@ -34,6 +34,7 @@
   padding: 0;
   margin: 0;
   margin-top: 1rem;
+  caret-color: #ff0000;
 }
 
 .add-title-input::placeholder {
@@ -41,10 +42,16 @@
   opacity: 0.9;
 }
 
+.add-title-input:focus + .sidebar-divider {
+  border-top-color: #ff0000; /* Change color */
+  transform: scaleY(4);
+}
+
 .sidebar-divider {
   border: none;
-  border-top: 1px solid #cbcbcb;
   margin: 5px 0 2px 0;
+  border-top: 1px solid #cbcbcb;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .panel-description {

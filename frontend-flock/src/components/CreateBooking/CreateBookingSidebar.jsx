@@ -30,7 +30,7 @@ const CreateBookingSidebar = () => {
       <h3 className="bold-title">Meeting type</h3>
       <h4 className="booking-subtitle">What kind of meeting is this?</h4>
       <DropdownMenu
-        options={["1-1", "Group", "Any"]}
+        options={["1-1", "Group", "Custom..."]}
         defaultOption={meetingType}
         onChange={(selected) => setMeetingType(selected)}
       />
