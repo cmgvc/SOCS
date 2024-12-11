@@ -14,19 +14,19 @@ const DropdownMenu = ({ options, defaultOption, onChange }) => {
   };
 
   return (
-    <div className="dropdown-container">
+    <div className="dropdown-container-booking">
       <button
-        className="dropdown-button"
+        className="dropdown-button-booking"
         onClick={() => setIsOpen(!isOpen)} // toggle dropdown visibility
       >
         {selectedOption} <span className="arrow">&#9662;</span>
       </button>
       {isOpen && (
-        <ul className="dropdown-menu">
+        <ul className="dropdown-menu-booking">
           {options.map((option, index) => (
             <li
               key={index}
-              className="dropdown-item"
+              className="dropdown-item-booking"
               onClick={() => handleOptionClick(option)}
             >
               {option}

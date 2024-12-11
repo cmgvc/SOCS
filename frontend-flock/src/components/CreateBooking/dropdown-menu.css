@@ -1,9 +1,9 @@
-.dropdown-container {
+.dropdown-container-booking {
   position: relative; /* set relative positioning for the container */
   display: inline-block; /* keep the button and dropdown aligned */
 }
 
-.dropdown-button {
+.dropdown-button-booking {
   border-radius: 10px;
   border: none;
   background-color: #8b8686;
@@ -20,14 +20,14 @@
   font-size: 1rem;
 }
 
-.dropdown-button .arrow {
+.dropdown-button-booking .arrow {
   color: black;
   margin-left: 0.5rem;
   font-size: 1.1rem;
   margin-bottom: 0.25rem;
 }
 
-.dropdown-menu {
+.dropdown-menu-booking {
   position: absolute;
   top: 100%;
   left: 0;
@@ -45,13 +45,13 @@
   transition: max-height 0.3s ease, padding 0.3s ease; /* Smooth expanding */
 }
 
-.dropdown-item {
+.dropdown-item-booking {
   padding: 0.5rem 1rem;
   color: #333;
   font-size: 0.9rem;
   cursor: pointer;
 }
 
-.dropdown-item:hover {
+.dropdown-item-booking:hover {
   background-color: #f0f0f0; /* highlight item on hover */
 }
