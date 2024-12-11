@@ -1,24 +1,40 @@
 // coded by Danielle Wahrhaftig
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./dropdown-menu.css";
 
 const DropdownMenu = ({ options, defaultOption, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
+  const dropdownRef = useRef(null); // Ref to the dropdown container
+
+  // Close the dropdown if a click occurs outside the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false); // Close the dropdown
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    setIsOpen(false); // close the dropdown
-    if (onChange) onChange(option); // notify parent about the selection
+    setIsOpen(false); // Close the dropdown
+    if (onChange) onChange(option); // Notify parent about the selection
   };
 
   return (
-    <div className="dropdown-container-booking">
+    <div className="dropdown-container-booking" ref={dropdownRef}>
       <button
         className="dropdown-button-booking"
         aria-expanded={isOpen}
-        onClick={() => setIsOpen(!isOpen)} // toggle dropdown visibility
+        onClick={() => setIsOpen(!isOpen)} // Toggle dropdown visibility
       >
         {selectedOption} <span className="arrow">&#9662;</span>
       </button>
