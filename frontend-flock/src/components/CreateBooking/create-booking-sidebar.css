@@ -1,5 +1,4 @@
-/* coded by Danielle Wahrhaftig */
-
+/* Coded by Danielle Wahrhaftig */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 .create-meeting-sidebar {
@@ -24,7 +23,7 @@
 }
 
 .add-title-input {
-  all: unset; /* Removes default input styling */
+  all: unset; /* removes default input styling */
   font-size: 1.2rem;
   font-weight: 400;
   color: white;
@@ -43,7 +42,7 @@
 }
 
 .add-title-input:focus + .sidebar-divider {
-  border-top-color: #ff0000; /* Change color */
+  border-top-color: #ff0000;
   transform: scaleY(4);
 }
 

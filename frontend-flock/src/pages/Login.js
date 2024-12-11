@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/Login/LoginForm";
 import { ReactComponent as Tree } from "../svg/tree2.svg";
 import "./login.css";
 

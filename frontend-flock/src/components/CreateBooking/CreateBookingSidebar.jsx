@@ -1,13 +1,14 @@
-// coded by Danielle Wahrhaftig
-
+// Coded by Danielle Wahrhaftig
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
+import CustomDurationModal from "./CustomDurationModal";
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
   const [meetingType, setMeetingType] = useState("1-1");
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
   const [availability, setAvailability] = useState("Repeat Weekly");
+  const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
 
   const handleSave = () => {
     const bookingData = {
@@ -20,6 +21,18 @@ const CreateBookingSidebar = () => {
     console.log("Booking Data:", bookingData);
     // Handle save logic (e.g., send to API)
   };
+
+  const handleCustomDurationSubmit = (duration) => {
+    console.log(duration);
+    setMeetingDuration(duration);
+    console.log(meetingDuration);
+    setShowCustomDurationModal(false);
+  };
+
+  React.useEffect(() => {
+    console.log("Updated meetingDuration:", meetingDuration);
+    setMeetingDuration(meetingDuration);
+  }, [meetingDuration]);
 
   return (
     <div className="create-meeting-sidebar">
@@ -48,7 +61,11 @@ const CreateBookingSidebar = () => {
           "Custom...",
         ]}
         defaultOption={meetingDuration}
-        onChange={(selected) => setMeetingDuration(selected)}
+        onChange={(selected) =>
+          selected === "Custom..."
+            ? setShowCustomDurationModal(true)
+            : setMeetingDuration(selected)
+        }
       />
       <hr className="sidebar-divider" />
       <h3 className="bold-title">General availability</h3>
@@ -71,6 +88,15 @@ const CreateBookingSidebar = () => {
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>
+      {showCustomDurationModal && (
+        <CustomDurationModal
+          isVisible={showCustomDurationModal}
+          onClose={() => setShowCustomDurationModal(false)}
+          onSubmit={handleCustomDurationSubmit}
+          defaultValue={1}
+          defaultUnit="hours"
+        />
+      )}
     </div>
   );
 };

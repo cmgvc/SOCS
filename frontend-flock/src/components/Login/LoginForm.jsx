@@ -1,10 +1,9 @@
 // coded by Danielle Wahrhaftig
-
 import React, { useState } from "react";
-import { ReactComponent as MailIcon } from "../svg/mail.svg";
-import { ReactComponent as CheckIcon } from "../svg/check.svg";
-import { ReactComponent as XIcon } from "../svg/cross.svg";
-import { ReactComponent as KeyIcon } from "../svg/key.svg";
+import { ReactComponent as MailIcon } from "../../svg/mail.svg";
+import { ReactComponent as CheckIcon } from "../../svg/check.svg";
+import { ReactComponent as XIcon } from "../../svg/cross.svg";
+import { ReactComponent as KeyIcon } from "../../svg/key.svg";
 import { useNavigate } from "react-router-dom";
 import "./login-form.css";
 

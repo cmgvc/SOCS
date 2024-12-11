@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SignupForm from "../components/SignupForm";
+import SignupForm from "../components/Signup/SignupForm";
 import { ReactComponent as Birds } from "../svg/birds2.svg";
 import "./signup.css";
 
