@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import CustomDurationModal from "./CustomDurationModal";
+import CustomMeetingModal from "./CustomMeetingModal"; // Import Custom Meeting Modal
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
@@ -9,6 +10,7 @@ const CreateBookingSidebar = () => {
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
   const [availability, setAvailability] = useState("Repeat Weekly");
   const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
+  const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false); // Manage Custom Meeting Modal
 
   const handleSave = () => {
     const bookingData = {
@@ -23,16 +25,14 @@ const CreateBookingSidebar = () => {
   };
 
   const handleCustomDurationSubmit = (duration) => {
-    console.log(duration);
     setMeetingDuration(duration);
-    console.log(meetingDuration);
     setShowCustomDurationModal(false);
   };
 
-  React.useEffect(() => {
-    console.log("Updated meetingDuration:", meetingDuration);
-    setMeetingDuration(meetingDuration);
-  }, [meetingDuration]);
+  const handleCustomMeetingSubmit = (customMeetingType) => {
+    setMeetingType(customMeetingType); // Update with custom meeting type
+    setShowCustomMeetingModal(false); // Close the modal
+  };
 
   return (
     <div className="create-meeting-sidebar">
@@ -45,7 +45,11 @@ const CreateBookingSidebar = () => {
       <DropdownMenu
         options={["1-1", "Group", "Custom..."]}
         defaultOption={meetingType}
-        onChange={(selected) => setMeetingType(selected)}
+        onChange={(selected) =>
+          selected === "Custom..."
+            ? setShowCustomMeetingModal(true)
+            : setMeetingType(selected)
+        }
       />
       <hr className="sidebar-divider" />
       <h3 className="bold-title">Meeting duration</h3>
@@ -88,6 +92,7 @@ const CreateBookingSidebar = () => {
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>
+      {/* Custom Duration Modal */}
       {showCustomDurationModal && (
         <CustomDurationModal
           isVisible={showCustomDurationModal}
@@ -95,6 +100,15 @@ const CreateBookingSidebar = () => {
           onSubmit={handleCustomDurationSubmit}
           defaultValue={1}
           defaultUnit="hours"
+        />
+      )}
+      {/* Custom Meeting Modal */}
+      {showCustomMeetingModal && (
+        <CustomMeetingModal
+          isVisible={showCustomMeetingModal}
+          onClose={() => setShowCustomMeetingModal(false)}
+          onSubmit={handleCustomMeetingSubmit}
+          defaultValue=""
         />
       )}
     </div>
