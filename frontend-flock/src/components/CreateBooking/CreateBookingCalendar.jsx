@@ -1,7 +1,7 @@
 // coded by Danielle Wahrhaftig
 
 import React, { useState } from "react";
-import "../styles/Calendar.css";
+import "./create-booking-calendar.css";
 
 const hours = [
   "8 AM",
@@ -17,7 +17,7 @@ const hours = [
   "6 PM",
   "7 PM",
 ];
-const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
 // sample unavailable times - for testing ONLY - remove later
 const unavailableTimes = [
@@ -48,7 +48,7 @@ const CreateBookingCalendar = ({ events = [] }) => {
   };
 
   const getStartOfWeek = (date) => {
-    const dayIndex = date.getDay();
+    const dayIndex = date.getDay() - 1; // start on Monday
     const diff = date.getDate() - dayIndex;
     const newDate = new Date(date);
     newDate.setDate(diff);

@@ -6,6 +6,7 @@
   background: #444040;
   color: #fff;
   padding: 30px;
+  padding-bottom: 10px;
   border-radius: 50px;
   width: 250px;
   font-family: "Poppins", sans-serif;
@@ -22,10 +23,22 @@
   margin-top: 2rem;
 }
 
-.add-title {
+.add-title-input {
+  all: unset; /* Removes default input styling */
   font-size: 1.2rem;
-  margin: 10px 0 2px 0;
-  font-weight: normal;
+  font-weight: 400;
+  color: white;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+.add-title-input::placeholder {
+  color: white;
+  opacity: 0.9;
 }
 
 .sidebar-divider {
@@ -127,12 +140,12 @@
   color: #fff;
   border: none;
   font-size: 0.9rem;
+  font-weight: 600;
   padding: 8px 20px;
   border-radius: 20px;
   cursor: pointer;
   margin-top: 30px;
-  align-self: flex-start;
-  justify-content: right;
+  align-self: flex-end;
 }
 
 .bold-title {

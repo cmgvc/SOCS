@@ -1,0 +1,57 @@
+.dropdown-container {
+  position: relative; /* set relative positioning for the container */
+  display: inline-block; /* keep the button and dropdown aligned */
+}
+
+.dropdown-button {
+  border-radius: 10px;
+  border: none;
+  background-color: #8b8686;
+  color: white;
+  height: 2.5rem;
+  padding: 0.25rem 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  width: auto; /* dynamic width */
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.dropdown-button .arrow {
+  color: black;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgb(180, 180, 180);
+  border-radius: 10px;
+  border: none;
+  margin-top: 0.25rem;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: none;
+  transition: max-height 0.3s ease, padding 0.3s ease; /* Smooth expanding */
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* highlight item on hover */
+}

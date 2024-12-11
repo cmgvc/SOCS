@@ -8,8 +8,8 @@ import Signup from "./pages/Signup";
 import Settings from "./pages/Settings";
 import CreateBooking from "./pages/CreateBooking";
 import Footer from "./components/Footer";
-import ProfLookup from "./private/ProfLookup"
-import MeetingRequest from "./private/MeetingRequest"
+import ProfLookup from "./private/ProfLookup";
+import MeetingRequest from "./private/MeetingRequest";
 import BookMeeting from "./pages/BookMeeting";
 import BlockCalendar from "./pages/BlockCalendar";
 import Dashboard from "./pages/Dashboard";
