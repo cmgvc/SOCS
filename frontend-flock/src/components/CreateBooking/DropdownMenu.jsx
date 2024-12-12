@@ -6,6 +6,7 @@ import "./dropdown-menu.css";
 const DropdownMenu = ({ options, defaultOption, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
+  const [isSelected, setIsSelected] = useState(false);
 
   const dropdownRef = useRef(null); // Ref to the dropdown container
 
@@ -19,6 +20,7 @@ const DropdownMenu = ({ options, defaultOption, onChange }) => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false); // Close the dropdown
+        setIsSelected(false);
       }
     };
 
@@ -30,14 +32,18 @@ const DropdownMenu = ({ options, defaultOption, onChange }) => {
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    setIsOpen(false); // Close the dropdown
+    setIsSelected(true);
+    setIsOpen(false);
+    // setIsOpen(false); // Close the dropdown
     if (onChange) onChange(option); // Notify parent about the selection
   };
 
   return (
     <div className="dropdown-container-booking" ref={dropdownRef}>
       <button
-        className="dropdown-button-booking"
+        className={
+          isSelected ? "dropdown-button-selected" : "dropdown-button-booking"
+        }
         aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)} // Toggle dropdown visibility
       >
