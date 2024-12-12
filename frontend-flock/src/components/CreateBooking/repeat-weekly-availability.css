@@ -88,3 +88,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 input[type="time"] {
   -moz-appearance: textfield;
 }
+
+.unavailable {
+  margin-left: 0.4rem;
+}

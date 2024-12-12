@@ -41,7 +41,7 @@ const RepeatWeeklyAvailability = () => {
           </div>
           <div className="availability-block">
             {availability[day].length === 0 ? (
-              <p className="availability">Unavailable</p>
+              <p className="availability unavailable">Unavailable</p>
             ) : (
               availability[day].map((slot, index) => (
                 <div key={index} className="time-slot">
