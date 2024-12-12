@@ -1,8 +1,53 @@
 .dashboard {
-    margin: 7vh;
+    display: flex;
+    flex-direction: column;
+    padding: 5vh;
 }
 
+.dash-header {
+    text-align: center;
+}
 
 .dashboard h1 {
     font-family: var(--font-heading);
+}
+
+.dashboard h2 {
+    font-family: var(--font-heading);
+    color: var(--dark-gray);
+    font-size: 1.3rem;
+}
+
+.dash-upcoming {
+    flex: 1;
+    text-align: left;
+    margin-left: 12vw;
+}
+
+.upcoming-panel {
+    display: flex;
+    gap: 20px;
+}
+
+.panel-arrow {
+    color: var(--dark-gray);
+    border: none;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.meeting-cards {
+    display: flex;
+    margin-top: 6vh;
+    gap: 20px;
+    justify-content: center;
+}
+
+.meeting-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 19vw;
 }
