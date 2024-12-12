@@ -1,11 +1,11 @@
-/* coded by Danielle Wahrhaftig */
-
+/* Coded by Danielle Wahrhaftig */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 .create-meeting-sidebar {
   background: #444040;
   color: #fff;
   padding: 30px;
+  padding-bottom: 10px;
   border-radius: 50px;
   width: 250px;
   font-family: "Poppins", sans-serif;
@@ -22,16 +22,35 @@
   margin-top: 2rem;
 }
 
-.add-title {
+.add-title-input {
+  all: unset; /* removes default input styling */
   font-size: 1.2rem;
-  margin: 10px 0 2px 0;
-  font-weight: normal;
+  font-weight: 400;
+  color: white;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+  caret-color: #ff0000;
+}
+
+.add-title-input::placeholder {
+  color: white;
+  opacity: 0.9;
+}
+
+.add-title-input:focus + .sidebar-divider {
+  border-top-color: #ff0000;
+  transform: scaleY(4);
 }
 
 .sidebar-divider {
   border: none;
-  border-top: 1px solid #cbcbcb;
   margin: 5px 0 2px 0;
+  border-top: 1px solid #cbcbcb;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .panel-description {
@@ -127,12 +146,12 @@
   color: #fff;
   border: none;
   font-size: 0.9rem;
+  font-weight: 600;
   padding: 8px 20px;
   border-radius: 20px;
   cursor: pointer;
   margin-top: 30px;
-  align-self: flex-start;
-  justify-content: right;
+  align-self: flex-end;
 }
 
 .bold-title {

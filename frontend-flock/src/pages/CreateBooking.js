@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CreateBookingCalendar from "../components/CreateBookingCalendar";
-import CreateBookingSidebar from "../components/CreateBookingSidebar";
+import CreateBookingCalendar from "../components/CreateBooking/CreateBookingCalendar";
+import CreateBookingSidebar from "../components/CreateBooking/CreateBookingSidebar";
 import "./create-booking-page.css";
 
 const CreateBookingPage = () => {
