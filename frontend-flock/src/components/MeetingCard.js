@@ -29,13 +29,13 @@ const MeetingCard = ({ meeting }) => {
     return (
         <div>
             <div className='meeting-card'>
-                <p>{formattedDate}</p>
+                <h4>{formattedDate}</h4>
                 <div className='meeting-date'>
-                    <p>{formattedTime}</p>
-                    <p>{duration}</p>
+                    <button>{formattedTime}</button>
+                    <button>{duration}</button>
                 </div>
                 <p>{title}</p>
-                <p>{organizer}</p>
+                <h5>{organizer}</h5>
                 <a >More Information</a>
             </div>
         </div>
