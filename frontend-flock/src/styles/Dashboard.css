@@ -19,26 +19,51 @@
 }
 
 .dash-upcoming {
+    display: flex;
+    justify-content: space-between;
     flex: 1;
     text-align: left;
     margin-left: 12vw;
 }
 
+.dash-upcoming button {
+    background-color: var(--primary-red);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    margin-right: 9vw;
+    margin-top: 3vh;
+}
+
+.dash-upcoming button:hover {
+    background-color: #d41f24;
+}
+
 .upcoming-panel {
     display: flex;
     gap: 20px;
+    justify-content: center;
 }
 
 .panel-arrow {
     color: var(--dark-gray);
     border: none;
     cursor: pointer;
-    margin-top: 40px;
+    height: 10px;
+    margin-top: 18vh;
+}
+
+.panel-arrow:disabled {
+    cursor: not-allowed;
 }
 
 .meeting-cards {
     display: flex;
-    margin-top: 6vh;
+    margin-top: 4vh;
     gap: 20px;
     justify-content: center;
 }
@@ -47,7 +72,8 @@
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 19vw;
+    height: 30vh;
 }
