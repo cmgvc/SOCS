@@ -7,7 +7,7 @@ const RepeatWeeklyAvailability = () => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [availability, setAvailability] = useState(
     days.reduce((acc, day) => {
-      acc[day] = []; // Initialize each day with an empty array for time slots
+      acc[day] = [];
       return acc;
     }, {})
   );
@@ -36,51 +36,52 @@ const RepeatWeeklyAvailability = () => {
     <div className="repeat-weekly-container">
       {days.map((day) => (
         <div key={day} className="day-row-availability">
+          {/* Day Block */}
           <div className="day-block">
             <h4 className="repeat-weekly-day">{day}</h4>
           </div>
+
+          {/* Availability Block */}
           <div className="availability-block">
             {availability[day].length === 0 ? (
               <p className="availability unavailable">Unavailable</p>
             ) : (
-              availability[day].map((slot, index) => (
-                <div key={index} className="time-slot">
-                  <input
-                    type="time"
-                    value={slot.start || "09:00"}
-                    onChange={(e) =>
-                      handleTimeChange(day, index, "start", e.target.value)
-                    }
-                  />
-                  <span className="time-separator">-</span>
-                  <input
-                    type="time"
-                    value={slot.end || "17:00"}
-                    onChange={(e) =>
-                      handleTimeChange(day, index, "end", e.target.value)
-                    }
-                  />
-                  <button
-                    className="remove-availability-button"
-                    onClick={() => removeTimeSlot(day, index)}
-                  >
-                    <CancelRightSvg />
-                  </button>
-                  <button
-                    className="remove-availability-button"
-                    onClick={() => addTimeSlot(day, index)}
-                  >
-                    <AddSquareSvg />
-                  </button>
-                </div>
-              ))
+              <div className="time-slots-wrapper">
+                {availability[day].map((slot, index) => (
+                  <div key={index} className="time-slot">
+                    <input
+                      type="time"
+                      value={slot.start || "09:00"}
+                      onChange={(e) =>
+                        handleTimeChange(day, index, "start", e.target.value)
+                      }
+                    />
+                    <span className="time-separator">-</span>
+                    <input
+                      type="time"
+                      value={slot.end || "17:00"}
+                      onChange={(e) =>
+                        handleTimeChange(day, index, "end", e.target.value)
+                      }
+                    />
+                    <button
+                      className="remove-availability-button"
+                      onClick={() => removeTimeSlot(day, index)}
+                    >
+                      <CancelRightSvg />
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
+
+          {/* Add Time Slot Button */}
           <button
             className="add-availability-button"
             onClick={() => addTimeSlot(day)}
           >
-            {availability[day].length === 0 ? <AddSquareSvg /> : ""}
+            <AddSquareSvg />
           </button>
         </div>
       ))}

@@ -4,6 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import CustomDurationModal from "./CustomDurationModal";
 import CustomMeetingModal from "./CustomMeetingModal"; // Import Custom Meeting Modal
 import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
+import DoesNotRepeat from "./DoesNotRepeat";
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
@@ -78,13 +79,14 @@ const CreateBookingSidebar = () => {
         Set when you're regularly available for meetings.
       </h4>
       <DropdownMenu
-        options={["Repeat Weekly", "Does not repeat", "Custom..."]}
+        options={["Repeat weekly", "Does not repeat", "Custom..."]}
         defaultOption={availability}
         onChange={(selected) => {
           setAvailability(selected);
         }}
       />
-      {availability === "Repeat Weekly" && <RepeatWeeklyAvailability />}
+      {availability === "Repeat weekly" && <RepeatWeeklyAvailability />}
+      {availability === "Does not repeat" && <DoesNotRepeat />}
       <hr className="sidebar-divider" />
       <h3 className="bold-title">Scheduling window</h3>
       <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>

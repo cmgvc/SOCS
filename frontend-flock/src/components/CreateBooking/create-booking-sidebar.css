@@ -17,13 +17,14 @@
   overflow-y: auto;
   scrollbar-width: thin;
   clip-path: inset(0 round 50px);
+  overflow-x: hidden;
 }
 
-.create-meeting-sidebar::-webkit-scrollbar {
+/* .create-meeting-sidebar::-webkit-scrollbar {
   width: 8px;
-  max-height: 300px;
+  max-height: 20px;
   overflow: hidden;
-}
+} */
 
 .booking-sidebar-title {
   font-size: 0.9rem;

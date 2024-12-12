@@ -1,5 +1,7 @@
 .repeat-weekly-container {
   margin-top: 1rem;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
 }
 
 .day-row-availability {
@@ -91,4 +93,10 @@ input[type="time"] {
 
 .unavailable {
   margin-left: 0.25rem;
+}
+
+.time-slots-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack time slots vertically */
+  gap: 0.5rem; /* Space between time slots */
 }
