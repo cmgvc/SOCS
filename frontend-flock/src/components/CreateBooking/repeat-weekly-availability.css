@@ -1,0 +1,13 @@
+.day-row {
+  margin-bottom: 0;
+}
+
+.repeat-weekly-day {
+  margin: 0;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+.day-block {
+  width: 3rem;
+}

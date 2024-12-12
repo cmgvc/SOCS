@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import CustomDurationModal from "./CustomDurationModal";
 import CustomMeetingModal from "./CustomMeetingModal"; // Import Custom Meeting Modal
+import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
@@ -79,8 +80,11 @@ const CreateBookingSidebar = () => {
       <DropdownMenu
         options={["Repeat Weekly", "Does not repeat", "Custom..."]}
         defaultOption={availability}
-        onChange={(selected) => setAvailability(selected)}
+        onChange={(selected) => {
+          setAvailability(selected);
+        }}
       />
+      {availability === "Repeat Weekly" && <RepeatWeeklyAvailability />}
       <hr className="sidebar-divider" />
       <h3 className="bold-title">Scheduling window</h3>
       <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
