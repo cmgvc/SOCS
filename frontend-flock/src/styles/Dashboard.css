@@ -70,10 +70,21 @@
 
 .meeting-card {
     background-color: #fff;
-    padding: 20px;
+    padding: 35px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 19vw;
-    height: 30vh;
+
+    a {
+        text-decoration: underline;
+        color: var(--dark-gray);
+    }
 }
+
+.meeting-date {
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+}
+

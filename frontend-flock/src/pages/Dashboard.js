@@ -31,8 +31,11 @@ function Dashboard() {
                     body: JSON.stringify({ email: email }),
                 });
                 const data = await res.json();
-                console.log(data)
-                setMeetings(data); 
+                const meetings = []
+                data.map(meeting => {
+                    meetings.push(meeting)
+                })
+                setMeetings(data);
             } catch (error) {
                 console.error('Error fetching meetings:', error);
             }
