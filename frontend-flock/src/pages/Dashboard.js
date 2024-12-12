@@ -84,8 +84,9 @@ function Dashboard() {
 
     return (
         <div className='dashboard'>
-            <div className='dash-header'>
+            <div className='dash-title'>
                 <h1>Dashboard</h1>
+                <button onClick={() => localStorage.clear()} >Logout</button>
             </div>
             <div className='dash-overview'>
                 <div className='dash-section'>
