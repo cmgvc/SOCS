@@ -19,7 +19,9 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.11.0",
-    "mongoose": "^8.8.4"
+    "mongoose": "^8.8.4",
+    "react-clock": "^5.1.0",
+    "react-time-picker": "^7.0.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
