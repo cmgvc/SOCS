@@ -1,16 +1,22 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const meetingRoutes = require("./routes/meetings");
+const availabilityRoutes = require("./routes/availability");
 
 const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3000", credentials: true,})); // allow frontend origin
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    credentials: true,
+  })
+); // allow frontend origin
 app.use(express.json());
 
 // MongoDB connection
@@ -29,6 +35,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
+app.use("/availability", availabilityRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
