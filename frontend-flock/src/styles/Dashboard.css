@@ -4,8 +4,24 @@
     padding: 5vh;
 }
 
-.dash-header {
+.dash-title {
     text-align: center;
+    justify-content: center;
+}
+
+.dash-title button {
+    background-color: var(--dark-gray);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+}
+
+.dash-title button:hover {
+    background-color: #8a8a8a;
 }
 
 .dashboard h1 {
@@ -18,7 +34,11 @@
     font-size: 1.3rem;
 }
 
-.dash-upcoming {
+.dash-section {
+    padding: 3vh;
+}
+
+.dash-header {
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -26,7 +46,7 @@
     margin-left: 12vw;
 }
 
-.dash-upcoming button {
+.dash-header button {
     background-color: var(--primary-red);
     font-family: var(--font-heading);
     color: var(--white);
@@ -39,7 +59,7 @@
     margin-top: 3vh;
 }
 
-.dash-upcoming button:hover {
+.dash-header button:hover {
     background-color: #d41f24;
 }
 
@@ -69,11 +89,62 @@
 }
 
 .meeting-card {
-    background-color: #fff;
-    padding: 20px;
+    background-color: var(--white);
+    padding: 40px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 19vw;
-    height: 30vh;
+    justify-content: center;
+
+    a {
+        text-decoration: underline;
+        color: var(--dark-gray);
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: var(--primary-red);
+    }
+
+    h4 {
+        font-family: var(--font-body);
+        color: var(--dark-gray);
+        font-size: 1.1rem;
+        font-weight: lighter;
+        margin: 1vh 1vw;
+        text-decoration: underline;
+    }
+
+    button {
+        background-color: None;
+        font-family: var(--font-heading);
+        color: var(--black);
+        border: 1px solid var(--dark-gray);
+        padding: var(--spacing-sm) var(--spacing-md);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-top: 3vh;
+    }
+
+    h5 {
+        font-family: var(--font-body);
+        color: var(--dark-gray);
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 1vh 1vw;
+    }
+
+    p {
+        font-family: var(--font-body);
+        color: var(--dark-gray);
+        margin-top: 3vh;
+    }
 }
+
+.meeting-date {
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+}
+
