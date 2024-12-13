@@ -79,13 +79,13 @@ const CreateBookingSidebar = () => {
         Set when you're regularly available for meetings.
       </h4>
       <DropdownMenu
-        options={["Repeat weekly", "Does not repeat", "Custom..."]}
+        options={["Repeat weekly", "Does not repeat"]}
         defaultOption={availability}
         onChange={(selected) => {
           setAvailability(selected);
         }}
       />
-      {availability === "Repeat weekly" && <RepeatWeeklyAvailability />}
+      {availability === "Repeat weekly" && <RepeatWeeklyAvailability meetingDuration={meetingDuration}/>}
       {availability === "Does not repeat" && <DoesNotRepeat />}
       <hr className="sidebar-divider" />
       <h3 className="bold-title">Scheduling window</h3>
