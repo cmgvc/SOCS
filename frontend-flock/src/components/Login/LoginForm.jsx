@@ -46,7 +46,7 @@ const LoginForm = () => {
     e.preventDefault();
     if (isEmailValid && isPasswordValid) {
       try {
-        const response = await fetch("http://localhost:5001/auth/login", {
+        const response = await fetch(`${backendUrl}:5001/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
