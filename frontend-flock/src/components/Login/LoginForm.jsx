@@ -4,7 +4,6 @@ import { ReactComponent as MailIcon } from "../../svg/mail.svg";
 import { ReactComponent as CheckIcon } from "../../svg/check.svg";
 import { ReactComponent as XIcon } from "../../svg/cross.svg";
 import { ReactComponent as KeyIcon } from "../../svg/key.svg";
-import { useNavigate } from "react-router-dom";
 import "./login-form.css";
 
 const LoginForm = () => {
@@ -14,7 +13,9 @@ const LoginForm = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+  console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
+
 
   const validateEmail = (email) => {
     const mcgillEmailRegex = /^[^\s@]+@mail\.mcgill\.ca$/;
@@ -45,7 +46,7 @@ const LoginForm = () => {
     e.preventDefault();
     if (isEmailValid && isPasswordValid) {
       try {
-        const response = await fetch("http://localhost:5001/auth/login", {
+        const response = await fetch(`${backendUrl}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
