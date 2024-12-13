@@ -9,13 +9,14 @@ const meetingRoutes = require("./routes/meetings");
 const app = express();
 
 const PORT = process.env.PORT || 5001;
+const uri = process.env.MONGO_URI;
 
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3000", credentials: true,})); // allow frontend origin
+app.use(cors({ origin: "http://localhost:3000" })); // allow frontend origin
 app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -29,6 +30,8 @@ app.get("/", (req, res) => {
 // routes
 app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
+app.use("/faculty", require("./routes/faculty"));
+app.use("/availabilities", require("./routes/availabilities"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
