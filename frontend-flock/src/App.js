@@ -5,11 +5,14 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Settings from "./pages/Settings";
+import CreateBooking from "./pages/CreateBooking";
 import Footer from "./components/Footer";
-import ProfLookup from "./private/ProfLookup"
-import MeetingRequest from "./private/MeetingRequest"
-
-
+import ProfLookup from "./private/ProfLookup";
+import MeetingRequest from "./private/MeetingRequest";
+import BookMeeting from "./pages/BookMeeting";
+import BlockCalendar from "./pages/BlockCalendar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -18,10 +21,15 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/profLookup" element={<ProfLookup />} />
           <Route path="/meetingRequest" element={<MeetingRequest />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/create" element={<CreateBooking />} />
+          <Route path="/block" element={<BlockCalendar />} />
+          <Route path="/book" element={<BookMeeting />} />
         </Routes>
         <Footer />
       </Router>

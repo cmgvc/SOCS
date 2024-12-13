@@ -1,0 +1,102 @@
+.repeat-weekly-container {
+  margin-top: 1rem;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+}
+
+.day-row-availability {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30px;
+  justify-content: flex-start;
+}
+
+.repeat-weekly-day {
+  margin: 0;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+.day-block {
+  width: 2rem;
+  text-align: left;
+  margin-right: 1rem;
+}
+
+.availability-block {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.time-slot {
+  display: flex;
+  align-items: center;
+}
+
+.time-slot input[type="time"] {
+  height: 25px;
+  width: 20%;
+  background-color: #8b8686;
+  border-radius: 10px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  margin: 0 0.2rem;
+  color: white;
+}
+
+.time-picker {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  width: 4.5rem; /* Consistent width for alignment */
+}
+
+.add-availability-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.remove-availability-button {
+  background: none;
+  border: none;
+  margin-left: 0.3rem;
+  margin-right: 0.4rem;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.availability {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Remove the clock icon on Chrome and Edge */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Remove the clock icon on Firefox */
+input[type="time"] {
+  -moz-appearance: textfield;
+}
+
+.unavailable {
+  margin-left: 0.25rem;
+}
+
+.time-slots-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack time slots vertically */
+  gap: 0.5rem; /* Space between time slots */
+}

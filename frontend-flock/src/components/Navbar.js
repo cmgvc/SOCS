@@ -1,13 +1,24 @@
+// Chloe Gavrilovic 260955835
 import React, { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import PersonIcon from "@mui/icons-material/Person";
 import Hamburger from "hamburger-react";
 import FlockFavicon from "../svg/flock-favicon.svg";
+import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Navbar() {
-  // const [username, setUsername] = useState(localStorage.getItem("username"));
-  const username = "Jacob";
+  const token = localStorage.getItem("token");
+  const [firstName, setName] = useState(
+    localStorage.getItem("firstName") || "Login"
+  );
   const [isOpen, setOpen] = useState(false);
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("firstName");
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -29,6 +40,7 @@ function Navbar() {
             className="navbar-icon"
             style={{ width: "8rem", height: "8rem" }}
           />
+          <div className="banner-bar"></div>
           <div className="navbar-text">
             <h1>Flock</h1>
             <p>by McGill SOCS</p>
@@ -36,21 +48,19 @@ function Navbar() {
         </div>
         <div className="navbar-links">
           <Hamburger toggled={isOpen} toggle={setOpen} />
-          {username ? (
-            <a href="/dashboard">
-              <button className="navbar-profile">
-                <PersonIcon />
-                <p>{username}</p>
-              </button>
-            </a>
-          ) : (
-            <a href="/auth">
-              <button className="navbar-profile">
-                <PersonIcon />
-                <p>Login</p>
-              </button>
-            </a>
+          {token && (
+            <>
+              <a href="/settings">
+                {<SettingsSvg className="settings-icon" />}
+              </a>
+            </>
           )}
+          <a href={!token ? "/auth" : "/"}>
+            <button className="navbar-profile">
+              <PersonIcon />
+              {token ? <p>{firstName}</p> : <p>Login</p>}
+            </button>
+          </a>
         </div>
       </nav>
       {isOpen && <div className="overlay"></div>}
@@ -66,10 +76,13 @@ function Navbar() {
             <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {username ? (
+            {token && (
               <>
                 <li>
-                  <a href="/create">Create Meeting</a>
+                  <a href="/create">Create Booking</a>
+                </li>
+                <li>
+                  <a href="/block">Block Off Times</a>
                 </li>
                 <li>
                   <a href="/request">Request Meeting</a>
@@ -78,7 +91,7 @@ function Navbar() {
                   <a href="/profLookup">Look Up Professor</a>
                 </li>
               </>
-            ) : null}
+            )}
           </ul>
         </div>
       )}

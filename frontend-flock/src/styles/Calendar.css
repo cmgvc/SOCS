@@ -22,11 +22,11 @@
   }
  
   /*  the arrows */
-  .nav-arrow {
-    background: none;
+  .nav-arrow{
+
     border: none;
-    color: #000;
-    background: #EFEFEF;
+    color: #000 !important;
+    background-color: #EFEFEF !important;
     border-radius: 50%;
     width: 32px;
     height: 32px;
@@ -132,4 +132,13 @@
     background-color: lightcoral;
     border-radius: 10px;
   }
+
+  .hour-slot.current-selection-red {
+    background-color: #FFC0C0; /* Light red while dragging */
+    border-radius: 10px;
+  }
   
+  .hour-slot.current-selection-grey {
+    background-color: #D3D3D3; /* Light grey while dragging */
+    border-radius: 10px;
+  }

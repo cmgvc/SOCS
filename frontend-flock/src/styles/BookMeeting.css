@@ -1,0 +1,74 @@
+.booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+}
+
+.booking .booking-button {
+    background-color: var(--primary-red);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    font-size: large;
+}
+
+.booking-inputs {
+    display: flex;
+    gap: 7vw;
+    align-items: center;
+    margin: 5vh;
+}
+
+.booking-input input {
+    margin: 10px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    border: 1px solid var(--light-gray);
+    background-color: var(--white);
+    width: 300px;
+}
+
+.booking-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    justify-content: center;
+}
+
+.booking-input button {
+    background-color: var(--primary-red);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    margin: 3vh;
+}
+
+.booking-input button:hover {
+    background-color: #d41f24;
+}
+
+.toggle-btn button {
+    background-color: var(--dark-gray);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    margin: 3vh;
+}
+
+.toggle-btn button:hover {
+    background-color: #8a8a8a;
+}

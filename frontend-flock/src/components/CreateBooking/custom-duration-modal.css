@@ -1,0 +1,102 @@
+/* Modal Overlay */
+.custom-duration-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.custom-duration-modal {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  position: relative;
+}
+
+/* Modal Title */
+.custom-duration-modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Input Section */
+.custom-duration-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Space between inputs */
+  margin-bottom: 20px;
+}
+
+/* Number Input */
+.custom-duration-number-input {
+  width: 80px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown for Units */
+.custom-duration-unit-dropdown {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  cursor: pointer;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Actions (Buttons) */
+.custom-duration-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* Space between buttons */
+}
+
+/* Cancel Button */
+.custom-duration-cancel-button {
+  background: none;
+  color: #ff0000;
+  border: none;
+  font-size: 1rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.custom-duration-cancel-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Submit Button */
+.custom-duration-submit-button {
+  background: #ff0000;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.custom-duration-submit-button:hover {
+  background: #ff3737;
+}
