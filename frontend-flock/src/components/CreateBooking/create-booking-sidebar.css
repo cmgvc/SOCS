@@ -5,14 +5,19 @@
   background: #444040;
   color: #fff;
   padding: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
   border-radius: 50px;
-  width: 250px;
+  width: 280px;
+  max-height: calc(800px - 30px);
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  clip-path: inset(0 round 50px);
+  overflow-x: hidden;
 }
 
 .booking-sidebar-title {
