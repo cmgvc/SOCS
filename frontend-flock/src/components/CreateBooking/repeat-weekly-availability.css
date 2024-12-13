@@ -118,3 +118,9 @@ input[type="time"] {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.error-message {
+  color: #f57c7c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
