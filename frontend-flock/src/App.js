@@ -15,9 +15,6 @@ import BlockCalendar from "./pages/BlockCalendar";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-  localStorage.setItem("firstName", "Paul");
-  localStorage.setItem("lastName", "Paul");
-  localStorage.setItem("token", "1234");
   return (
     <div className="App">
       <Router>
