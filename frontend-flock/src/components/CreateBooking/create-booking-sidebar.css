@@ -159,6 +159,10 @@
   align-self: flex-end;
 }
 
+.save-btn:hover {
+  background: #f43d3d;
+}
+
 .bold-title {
   margin-bottom: 0;
   font-weight: 600;
