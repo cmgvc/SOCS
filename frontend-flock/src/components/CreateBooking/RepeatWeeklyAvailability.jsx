@@ -16,14 +16,29 @@ const RepeatWeeklyAvailability = ({ meetingDuration = "1 hour" }) => {
     return `${hour12}:${minute.toString().padStart(2, "0")} ${period}`;
   };
 
-  // Initialize availability: Monday has a default slot, others are unavailable
-  const initializeAvailability = () =>
-    days.reduce((acc, day) => {
+  // // Initialize availability: Monday has a default slot, others are unavailable
+  // const initializeAvailability = () =>
+  //   days.reduce((acc, day) => {
+  //     if (day === "Mon") {
+  //       acc[day] = [
+  //         {
+  //           start: "9:00 AM",
+  //           end: convertTo12Hour(9 * 60 + durationInMinutes), // 9:00 AM + duration
+  //         },
+  //       ];
+  //     } else {
+  //       acc[day] = []; // Other days have no slots
+  //     }
+  //     return acc;
+  //   }, {});
+
+  const initializeAvailability = () => {
+    return days.reduce((acc, day) => {
       if (day === "Mon") {
         acc[day] = [
           {
             start: "9:00 AM",
-            end: convertTo12Hour(9 * 60 + durationInMinutes), // 9:00 AM + duration
+            end: convertTo12Hour(9 * 60 + durationInMinutes), // Calculate based on meeting duration
           },
         ];
       } else {
@@ -31,14 +46,16 @@ const RepeatWeeklyAvailability = ({ meetingDuration = "1 hour" }) => {
       }
       return acc;
     }, {});
+  };
 
   // Component state
   const [availability, setAvailability] = useState(initializeAvailability);
   const [error, setError] = useState("");
 
-  // Effect: Reset availability when meeting duration changes
   useEffect(() => {
-    setAvailability(initializeAvailability);
+    // Reset availability and recalculate default slots when meeting duration changes
+    const newAvailability = initializeAvailability();
+    setAvailability(newAvailability);
   }, [meetingDuration]);
 
   // Generate time options for the dropdown, based on meeting duration

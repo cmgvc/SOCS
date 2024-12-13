@@ -5,6 +5,8 @@ import CustomDurationModal from "./CustomDurationModal";
 import CustomMeetingModal from "./CustomMeetingModal"; // Import Custom Meeting Modal
 import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
 import DoesNotRepeat from "./DoesNotRepeat";
+import SchedulingLimits from "./SchedulingWindow";
+import { ReactComponent as Chevron } from "../../svg/chevron-down.svg"
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
@@ -88,8 +90,12 @@ const CreateBookingSidebar = () => {
       {availability === "Repeat weekly" && <RepeatWeeklyAvailability meetingDuration={meetingDuration}/>}
       {availability === "Does not repeat" && <DoesNotRepeat />}
       <hr className="sidebar-divider" />
-      <h3 className="bold-title">Scheduling window</h3>
+      <div className="scheduling-window-title">
+        <h3 className="bold-title">Scheduling window</h3>
+        <Chevron className="chevron"/>
+      </div>
       <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
+      <SchedulingLimits />
       <hr className="sidebar-divider" />
       <h3 className="bold-title">Adjusted availability</h3>
       <h4 className="booking-subtitle">

@@ -168,3 +168,21 @@
 .gap {
   margin-top: 1rem;
 }
+
+.scheduling-window-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.scheduling-window-title .bold-title {
+  width: 90%;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  width: 10%;
+}
