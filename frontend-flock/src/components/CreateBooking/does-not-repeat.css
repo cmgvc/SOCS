@@ -44,19 +44,7 @@
 .time-inputs {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.time-picker {
-  width: 50px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  background-color: #8b8686;
-  color: white;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
+  gap: 0.2rem;
 }
 
 .time-separator {
@@ -91,4 +79,47 @@
 
 .add-date-footer:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.error-message {
+  color: #f57c7c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.time-picker option {
+  background-color: #444040;
+  color: white;
+}
+
+.time-picker {
+  -webkit-appearance: none; /* Remove the arrow in Chrome, Safari, and Edge */
+  -moz-appearance: none; /* Remove the arrow in Firefox */
+  appearance: none;
+  background-color: #8b8686;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  width: 78px;
+  height: 35px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.time-picker::-ms-expand {
+  display: none; /* Remove the arrow in Internet Explorer */
+}
+
+.remove-date-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 0;
 }
