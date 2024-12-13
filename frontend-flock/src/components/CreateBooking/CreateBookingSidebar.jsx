@@ -10,7 +10,7 @@ import "./create-booking-sidebar.css";
 const CreateBookingSidebar = () => {
   const [meetingType, setMeetingType] = useState("1-1");
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
-  const [availability, setAvailability] = useState("Repeat Weekly");
+  const [availability, setAvailability] = useState("Repeat weekly");
   const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
   const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false); // Manage Custom Meeting Modal
 

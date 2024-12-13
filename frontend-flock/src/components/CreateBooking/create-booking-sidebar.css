@@ -7,7 +7,7 @@
   padding: 30px;
   padding-bottom: 15px;
   border-radius: 50px;
-  width: 250px;
+  width: 280px;
   max-height: calc(800px - 30px);
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -19,12 +19,6 @@
   clip-path: inset(0 round 50px);
   overflow-x: hidden;
 }
-
-/* .create-meeting-sidebar::-webkit-scrollbar {
-  width: 8px;
-  max-height: 20px;
-  overflow: hidden;
-} */
 
 .booking-sidebar-title {
   font-size: 0.9rem;
