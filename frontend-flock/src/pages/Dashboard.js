@@ -1,3 +1,4 @@
+// Chloe Gavrilovic 260955835
 import React, {useEffect, useState} from 'react'
 import '../styles/Dashboard.css'
 import MeetingCard from '../components/MeetingCard'
@@ -6,6 +7,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function Dashboard() {
     const [startIndex, setStartIndex] = useState(0);
+    const email = localStorage.getItem('email');
+    const backendUrl = "http://localhost:5001";
     const [upcomingMeetings, setUpcomingMeetings] = useState([])
     const [pastMeetings, setPastMeetings] = useState([])
     const getUpcomingDisplayedCards = upcomingMeetings.slice(startIndex, startIndex + 3)
@@ -37,17 +40,15 @@ function Dashboard() {
     useEffect(() => {
         const getUpcomingMeetingsData = async () => {
             try {
-                const email = localStorage.getItem('email');
-                const res = await fetch('http://localhost:5001/meetings', {
+                const res = await fetch(`${backendUrl}/meetings`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email }),
                 });
                 const data = await res.json();
                 const currentTime = new Date();
-    
                 const upcomingMeetings = data.filter(meeting => 
-                    new Date(meeting.Date) > currentTime
+                    new Date(meeting.date) > currentTime
                 );
     
                 setUpcomingMeetings(upcomingMeetings);
@@ -58,17 +59,15 @@ function Dashboard() {
     
         const getPastMeetingsData = async () => {
             try {
-                const email = localStorage.getItem('email');
-                const res = await fetch('http://localhost:5001/meetings', {
+                const res = await fetch(`${backendUrl}/meetings`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email }),
                 });
                 const data = await res.json();
                 const currentTime = new Date();
-    
                 const pastMeetings = data.filter(meeting => 
-                    new Date(meeting.Date) <= currentTime
+                    new Date(meeting.date) <= currentTime
                 );
     
                 setPastMeetings(pastMeetings);
@@ -76,14 +75,16 @@ function Dashboard() {
                 console.error('Error fetching past meetings:', error);
             }
         };
-    
         getPastMeetingsData();
         getUpcomingMeetingsData();
     }, []);
     
 
     return (
+        <>
+        {email ? 
         <div className='dashboard'>
+            
             <div className='dash-title'>
                 <h1>Dashboard</h1>
                 <button onClick={() => localStorage.clear()} >Logout</button>
@@ -112,14 +113,18 @@ function Dashboard() {
                         <button onClick={handleHistoryPrevClick} disabled={startIndex === 0} className='panel-arrow'><ArrowBackIosIcon /></button>
                         <div className='meeting-cards'>
                             {getHistoryDisplayedCards.map(meeting => (
-                                <MeetingCard key={meeting._id || meeting.title} meeting={meeting} />
+                                <MeetingCard key={meeting._id} meeting={meeting} />
                             ))}
                         </div>
                         <button onClick={handleHistoryNextClick} disabled={startIndex + 3 >= upcomingMeetings.length} className='panel-arrow'><ArrowForwardIosIcon /></button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : <div className='dash-login'>
+            <h1>Sign in to view meeting history</h1>
+            <a href='/auth'><button>Login</button></a>
+        </div>}
+        </>
     )
 }
 

@@ -1,3 +1,4 @@
+// Chloe Gavrilovic 260955835
 import React from 'react'
 import '../styles/Footer.css'
 
