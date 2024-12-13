@@ -30,6 +30,8 @@ app.get("/", (req, res) => {
 // routes
 app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
+app.use("/faculty", require("./routes/faculty"));
+app.use("/availabilities", require("./routes/availabilities"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
