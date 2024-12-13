@@ -56,8 +56,6 @@ const MeetingCard = ({ meeting }) => {
                 </div>
                 <p>{title}</p>
                 <h5>{organizer}</h5>
-                <a >More Information</a>
-                <br></br>
                 {!isPastOrStarted && (
                     <button className='cancel-btn' onClick={handleCancelMeeting}>Cancel</button>
                 )}            

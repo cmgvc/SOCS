@@ -174,7 +174,6 @@
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadow);
         cursor: pointer;
-        margin-top: 3vh;
     }
 
     .cancel-btn:hover {
@@ -186,5 +185,37 @@
     display: flex;
     justify-content: center;
     gap: 3vw;
+}
+
+.logout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+
+    button {
+        background-color: var(--primary-red);
+        font-family: var(--font-heading);
+        color: var(--white);
+        border: none;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        cursor: pointer;
+        margin: 1vh 1vw;
+    }
 }
 
