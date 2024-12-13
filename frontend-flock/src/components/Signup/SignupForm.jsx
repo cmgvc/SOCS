@@ -9,8 +9,6 @@ const SignupForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
-
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -19,7 +17,7 @@ const SignupForm = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch(`${backendUrl}/auth/signup`, {
+      const response = await fetch("http://localhost:5001/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
