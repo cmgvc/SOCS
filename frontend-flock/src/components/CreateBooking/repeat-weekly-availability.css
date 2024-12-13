@@ -1,15 +1,13 @@
 .repeat-weekly-container {
-  margin-top: 1rem;
   display: flex; /* Use flexbox */
   flex-direction: column; /* Stack items vertically */
 }
 
 .day-row-availability {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 30px;
+  height: auto;
   justify-content: flex-start;
 }
 
@@ -117,4 +115,6 @@ input[type="time"] {
   display: flex;
   flex-direction: column; /* Stack time slots vertically */
   gap: 0.5rem; /* Space between time slots */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
