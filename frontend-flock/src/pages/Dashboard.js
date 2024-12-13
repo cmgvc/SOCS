@@ -11,6 +11,7 @@ function Dashboard() {
     const backendUrl = "http://localhost:5001";
     const [upcomingMeetings, setUpcomingMeetings] = useState([])
     const [pastMeetings, setPastMeetings] = useState([])
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const getUpcomingDisplayedCards = upcomingMeetings.slice(startIndex, startIndex + 3)
     const getHistoryDisplayedCards = pastMeetings.slice(startIndex, startIndex + 3)
 
@@ -36,6 +37,20 @@ function Dashboard() {
             setStartIndex(prevIndex => prevIndex - 1)
         }
     }
+    
+    const handleLogoutClick = () => {
+        setShowLogoutModal(true);  
+    };
+
+    const handleConfirmLogout = () => {
+        localStorage.clear();  
+        setShowLogoutModal(false);  
+    };
+
+    const handleCancelLogout = () => {
+        setShowLogoutModal(false);  
+
+    };
 
     useEffect(() => {
         const getUpcomingMeetingsData = async () => {
@@ -87,7 +102,7 @@ function Dashboard() {
             
             <div className='dash-title'>
                 <h1>Dashboard</h1>
-                <button onClick={() => localStorage.clear()} >Logout</button>
+                <button onClick={handleLogoutClick}>Logout</button>
             </div>
             <div className='dash-overview'>
                 <div className='dash-section'>
@@ -124,6 +139,15 @@ function Dashboard() {
             <h1>Sign in to view meeting history</h1>
             <a href='/auth'><button>Login</button></a>
         </div>}
+        {showLogoutModal && (
+                <div className="logout-modal">
+                    <div className="modal-content">
+                        <h3>Are you sure you want to log out?</h3>
+                        <button onClick={handleConfirmLogout}>Yes</button>
+                        <button onClick={handleCancelLogout}>No</button>
+                    </div>
+                </div>
+        )}
         </>
     )
 }
