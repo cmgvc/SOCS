@@ -10,7 +10,6 @@ const availabilityRoutes = require("./routes/availability");
 const app = express();
 
 const PORT = process.env.PORT || 5001;
-const uri = process.env.MONGO_URI;
 
 app.use(
   cors({
@@ -22,7 +21,7 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
