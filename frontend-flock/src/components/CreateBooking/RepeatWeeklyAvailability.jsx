@@ -3,7 +3,10 @@ import { ReactComponent as AddSquareSvg } from "../../svg/add-square.svg";
 import { ReactComponent as CancelRightSvg } from "../../svg/cancel-right.svg";
 import "./repeat-weekly-availability.css";
 
-const RepeatWeeklyAvailability = ({ meetingDuration = "1 hour" }) => {
+const RepeatWeeklyAvailability = ({
+  meetingDuration = "1 hour",
+  onAvailabilityChange,
+}) => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const durationInMinutes = parseInt(meetingDuration.split(" ")[0]) * 60 || 60; // Convert meeting duration to minutes
 
@@ -15,22 +18,6 @@ const RepeatWeeklyAvailability = ({ meetingDuration = "1 hour" }) => {
     const hour12 = hour % 12 || 12;
     return `${hour12}:${minute.toString().padStart(2, "0")} ${period}`;
   };
-
-  // // Initialize availability: Monday has a default slot, others are unavailable
-  // const initializeAvailability = () =>
-  //   days.reduce((acc, day) => {
-  //     if (day === "Mon") {
-  //       acc[day] = [
-  //         {
-  //           start: "9:00 AM",
-  //           end: convertTo12Hour(9 * 60 + durationInMinutes), // 9:00 AM + duration
-  //         },
-  //       ];
-  //     } else {
-  //       acc[day] = []; // Other days have no slots
-  //     }
-  //     return acc;
-  //   }, {});
 
   const initializeAvailability = () => {
     return days.reduce((acc, day) => {
@@ -52,8 +39,13 @@ const RepeatWeeklyAvailability = ({ meetingDuration = "1 hour" }) => {
   const [availability, setAvailability] = useState(initializeAvailability);
   const [error, setError] = useState("");
 
+  // Notify parent whenever availability changes
   useEffect(() => {
-    // Reset availability and recalculate default slots when meeting duration changes
+    onAvailabilityChange(availability);
+  }, [availability]);
+
+  // Reset availability when meeting duration changes
+  useEffect(() => {
     const newAvailability = initializeAvailability();
     setAvailability(newAvailability);
   }, [meetingDuration]);
