@@ -1,8 +1,11 @@
+// Chloe Gavrilovic 260955835
 import React from 'react';
 
 const MeetingCard = ({ meeting }) => {
-    const title = meeting.Title;
-    const date = meeting.Date;
+    const email = localStorage.getItem('email');
+    const backendUrl = 'http://localhost:5001';
+    const title = meeting.title;
+    const date = meeting.date;
     const formatDate = (dateString) => {
         const newDate = new Date(dateString);
         const dateOptions = {
@@ -20,11 +23,28 @@ const MeetingCard = ({ meeting }) => {
           timeZone: 'America/New_York'
         };
         const formattedTime = newDate.toLocaleTimeString('en-US', timeOptions);
-        return { formattedDate, formattedTime };
+        return { formattedDate, formattedTime, newDate };
     };
-    const { formattedDate, formattedTime } = formatDate(date);
-    const organizer = meeting.Faculty;
-    const duration = meeting.Duration;
+    const { formattedDate, formattedTime, newDate } = formatDate(date);
+    const organizer = meeting.faculty;
+    const duration = meeting.duration;
+    const meetingId = meeting._id;
+    const currentDate = new Date();
+    const isPastOrStarted = currentDate >= newDate;
+
+    const handleCancelMeeting = async () => {
+        try {
+            const res = await fetch(`${backendUrl}/meetings/cancel`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, meetingId: meetingId }),
+            });
+            const data = await res.json();
+        } catch (error) {
+            console.error('Error cancelling meeting:', error);
+            alert('Error cancelling meeting');
+        }
+    }
 
     return (
         <div>
@@ -36,8 +56,10 @@ const MeetingCard = ({ meeting }) => {
                 </div>
                 <p>{title}</p>
                 <h5>{organizer}</h5>
-                <a >More Information</a>
-            </div>
+                {!isPastOrStarted && (
+                    <button className='cancel-btn' onClick={handleCancelMeeting}>Cancel</button>
+                )}            
+                </div>
         </div>
     );
 };
