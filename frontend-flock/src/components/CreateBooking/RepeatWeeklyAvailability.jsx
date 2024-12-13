@@ -12,8 +12,38 @@ const RepeatWeeklyAvailability = () => {
     }, {})
   );
 
+  // Generate 12-hour formatted time options
+  const generateTimeOptions = () => {
+    const options = [];
+    for (let h = 0; h < 24; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        const hour = h % 12 || 12; // Convert to 12-hour format
+        const minute = m.toString().padStart(2, "0");
+        const period = h < 12 ? "AM" : "PM";
+        options.push(`${hour}:${minute} ${period}`);
+      }
+    }
+    return options;
+  };
+
+  const convertTo24Hour = (time) => {
+    const [hourMinute, period] = time.split(" ");
+    let [hour, minute] = hourMinute.split(":").map(Number);
+    if (period === "PM" && hour !== 12) hour += 12;
+    if (period === "AM" && hour === 12) hour = 0;
+    return `${hour.toString().padStart(2, "0")}:${minute
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const convertTo12Hour = (time) => {
+    const [hour, minute] = time.split(":").map(Number);
+    const period = hour < 12 ? "AM" : "PM";
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minute.toString().padStart(2, "0")} ${period}`;
+  };
+
   const addTimeSlot = (day) => {
-    // Default time slot: 9:00 AM - 5:00 PM
     setAvailability({
       ...availability,
       [day]: [...availability[day], { start: "09:00", end: "17:00" }],
@@ -27,10 +57,12 @@ const RepeatWeeklyAvailability = () => {
 
   const handleTimeChange = (day, index, field, value) => {
     const updatedSlots = availability[day].map((slot, i) =>
-      i === index ? { ...slot, [field]: value } : slot
+      i === index ? { ...slot, [field]: convertTo24Hour(value) } : slot
     );
     setAvailability({ ...availability, [day]: updatedSlots });
   };
+
+  const timeOptions = generateTimeOptions();
 
   return (
     <div className="repeat-weekly-container">
@@ -49,21 +81,33 @@ const RepeatWeeklyAvailability = () => {
               <div className="time-slots-wrapper">
                 {availability[day].map((slot, index) => (
                   <div key={index} className="time-slot">
-                    <input
-                      type="time"
-                      value={slot.start || "09:00"}
+                    <select
+                      className="time-picker"
+                      value={convertTo12Hour(slot.start)}
                       onChange={(e) =>
                         handleTimeChange(day, index, "start", e.target.value)
                       }
-                    />
+                    >
+                      {timeOptions.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))}
+                    </select>
                     <span className="time-separator">-</span>
-                    <input
-                      type="time"
-                      value={slot.end || "17:00"}
+                    <select
+                      className="time-picker"
+                      value={convertTo12Hour(slot.end)}
                       onChange={(e) =>
                         handleTimeChange(day, index, "end", e.target.value)
                       }
-                    />
+                    >
+                      {timeOptions.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))}
+                    </select>
                     <button
                       className="remove-availability-button"
                       onClick={() => removeTimeSlot(day, index)}
