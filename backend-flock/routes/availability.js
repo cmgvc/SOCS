@@ -1,3 +1,4 @@
+// module.exports = router;
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
@@ -34,6 +35,29 @@ router.post("/save", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // Transform availabilityData for "Does not repeat"
+    let transformedAvailabilityData;
+
+    if (!doesRepeatWeekly) {
+      // Convert flat array into grouped object format
+      transformedAvailabilityData = {};
+
+      availabilityData.forEach((slot) => {
+        const { date, startTime, endTime } = slot;
+
+        // Ensure the date exists as a key in the transformed object
+        if (!transformedAvailabilityData[date]) {
+          transformedAvailabilityData[date] = [];
+        }
+
+        // Push the time slot to the appropriate date
+        transformedAvailabilityData[date].push({ startTime, endTime });
+      });
+    } else {
+      // For "Repeat weekly", assume the data is already structured correctly
+      transformedAvailabilityData = availabilityData;
+    }
+
     // Check for duplicates
     const existingAvailability = await Availability.findOne({
       email,
@@ -48,29 +72,17 @@ router.post("/save", async (req, res) => {
       });
     }
 
-    // Validate availabilityData format
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const isValidAvailabilityData = daysOfWeek.every((day) =>
-      Array.isArray(availabilityData[day])
-    );
-
-    if (!isValidAvailabilityData) {
-      return res
-        .status(400)
-        .json({ message: "Invalid format for availabilityData" });
-    }
-
-    // Generate the booking URL
+    // Generate booking URL
     const bookingUrl = generateBookingUrl(email);
 
-    // Create the new availability document
+    // Create new availability document
     const newAvailability = new Availability({
       title,
       email,
       meetingType,
       meetingDuration,
       doesRepeatWeekly,
-      availabilityData,
+      availabilityData: transformedAvailabilityData, // Save transformed data here
       windowDaysAdvance,
       windowTimeBefore,
       bookingUrl,
@@ -79,7 +91,6 @@ router.post("/save", async (req, res) => {
     // Save to the database
     const savedAvailability = await newAvailability.save();
 
-    // Respond with success
     res.status(201).json({
       message: "Availability saved successfully!",
       bookingUrl,

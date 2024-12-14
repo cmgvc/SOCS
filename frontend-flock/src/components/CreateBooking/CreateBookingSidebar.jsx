@@ -1,7 +1,6 @@
 // Coded by Danielle Wahrhaftig
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
-import CustomDurationModal from "./CustomDurationModal";
 import CustomMeetingModal from "./CustomMeetingModal";
 import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
 import DoesNotRepeat from "./DoesNotRepeat";
@@ -9,7 +8,7 @@ import SchedulingLimits from "./SchedulingWindow";
 import { ReactComponent as Chevron } from "../../svg/chevron-down.svg";
 import "./create-booking-sidebar.css";
 
-const CreateBookingSidebar = () => {
+const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
   const [meetingType, setMeetingType] = useState("1-1");
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
   const [availability, setAvailability] = useState("Repeat weekly");
@@ -146,6 +145,12 @@ const CreateBookingSidebar = () => {
 
   const handleSave = async () => {
     const title = document.querySelector(".cb-add-title-input").value.trim();
+    const availabilityData =
+      availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData;
+
+    // Update the parent state with the selected time slots
+    setSelectedTimeSlots(availabilityData);
+
     // Check if the title is empty
     if (!title) {
       setError("The title cannot be empty.");
@@ -194,7 +199,6 @@ const CreateBookingSidebar = () => {
       // Validate intervals for each slot
       const timeSlots = Object.values(repeatWeeklyData).flat();
       for (const slot of timeSlots) {
-        console.log(slot);
         if (!isValidTimeSlotWeekly(slot, meetingDurationInMinutes)) {
           setError(
             `Each time slot must align with the ${meetingDuration} duration.`
@@ -260,7 +264,7 @@ const CreateBookingSidebar = () => {
       <h3 className="cb-bold-title">Meeting type</h3>
       <h4 className="cb-booking-subtitle">What kind of meeting is this?</h4>
       <DropdownMenu
-        options={["Office Hours", "1-1", "Group", "Custom..."]}
+        options={["Office Hours", "1-1", "Group"]}
         defaultOption={meetingType}
         onChange={(selected) =>
           selected === "Custom..."
@@ -325,7 +329,7 @@ const CreateBookingSidebar = () => {
           onSchedulingLimitsChange={handleSchedulingLimitsChange}
         />
       )}
-      {error && <div className="cb-error-message">{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       <button className="cb-save-btn" onClick={handleSave}>
         Save
       </button>

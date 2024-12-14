@@ -17,18 +17,10 @@ const hours = [
   "7 PM",
 ];
 const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+const selectedSlotsDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-// sample unavailable times - for testing ONLY - remove later
-const unavailableTimes = [
-  { dayIndex: 0, startHour: 9, endHour: 10 },
-  { dayIndex: 2, startHour: 15, endHour: 18 },
-];
-
-const CreateBookingCalendar = ({ events = [] }) => {
+const CreateBookingCalendar = ({ selectedTimeSlots = {} }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [dragging, setDragging] = useState(false);
-  const [selectedBlocks, setSelectedBlocks] = useState([]);
-  const [currentSelection, setCurrentSelection] = useState(null);
 
   const handlePrev = () => {
     setCurrentDate((prev) => {
@@ -66,37 +58,39 @@ const CreateBookingCalendar = ({ events = [] }) => {
 
   const weekDates = getWeekDates(startOfWeek);
 
-  const isSelected = (dayIndex, hourIndex) => {
-    return selectedBlocks.some(
-      (block) =>
-        block.dayIndex === dayIndex &&
-        hourIndex >= block.startHour &&
-        hourIndex <= block.endHour
-    );
-  };
-
-  const isCurrentSelection = (dayIndex, hourIndex) => {
-    return (
-      currentSelection &&
-      currentSelection.dayIndex === dayIndex &&
-      hourIndex >= currentSelection.startHour &&
-      hourIndex <= currentSelection.endHour
-    );
-  };
-
-  const isUnavailable = (dayIndex, hourIndex) => {
-    return unavailableTimes.some(
-      (block) =>
-        block.dayIndex === dayIndex &&
-        hourIndex >= block.startHour &&
-        hourIndex <= block.endHour
-    );
-  };
-
   const formattedHeader = currentDate.toLocaleDateString("default", {
     month: "long",
     year: "numeric",
   });
+
+  // Helper function to check if a slot is selected
+  const isSelected = (dayIndex, hourIndex) => {
+    const dayName = selectedSlotsDays[dayIndex]; // Map day index to day name (e.g., 0 -> Mon)
+    const slotsForDay = selectedTimeSlots[dayName] || []; // Get selected slots for the day
+
+    const convertTimeToHourIndex = (time) => {
+      const [hourMinute, period] = time.split(" "); // Split "9:00 AM" into "9:00" and "AM"
+      const [hour, minute] = hourMinute.split(":").map(Number); // Split "9:00" into [9, 0]
+      let totalHour = hour;
+
+      // Convert to 24-hour format
+      if (period === "PM" && hour !== 12) {
+        totalHour += 12; // Add 12 hours for PM (except 12 PM)
+      }
+      if (period === "AM" && hour === 12) {
+        totalHour = 0; // Midnight is 0 hours
+      }
+
+      return totalHour - 8; // Subtract 8 because "8 AM" corresponds to index 0
+    };
+
+    // Check if hourIndex falls within any of the selected slots
+    return slotsForDay.some((slot) => {
+      const startIndex = convertTimeToHourIndex(slot.start);
+      const endIndex = convertTimeToHourIndex(slot.end);
+      return hourIndex >= startIndex && hourIndex < endIndex; // Check if hourIndex is within the range
+    });
+  };
 
   return (
     <div className="cb-calendar-container">
@@ -138,13 +132,7 @@ const CreateBookingCalendar = ({ events = [] }) => {
                 <div
                   key={hourIndex}
                   className={`cb-hour-slot ${
-                    isUnavailable(dayIndex, hourIndex)
-                      ? "cb-unavailable"
-                      : isSelected(dayIndex, hourIndex)
-                      ? "cb-selected"
-                      : isCurrentSelection(dayIndex, hourIndex)
-                      ? "cb-current-selection"
-                      : ""
+                    isSelected(dayIndex, hourIndex) ? "cb-selected" : ""
                   }`}
                 />
               ))}
