@@ -40,42 +40,44 @@ router.post("/cancel", async (req, res) => {
 });
 
 router.post("/book", async (req, res) => {
+    console.log("Request received:", req.body);
     try {
-        const { title, date, duration, faculty, student, status, type } = req.body;
+        const { title, date, duration, faculty, student, status, meetingType, time } = req.body;
         
-        // Check if a meeting with the same title, date, duration, and faculty already exists
         let existingMeeting = await Meeting.findOne({ 
             title, 
             date, 
             duration, 
-            faculty 
+            faculty,
+            time 
         });
 
         if (existingMeeting) {
-            // If meeting exists, add student to the participants array (if not already in the array)
             if (!existingMeeting.participants.includes(student)) {
-                existingMeeting.participants.push(student);
+                existingMeeting.participants.push(student);  
                 const updatedMeeting = await existingMeeting.save();
-                return res.json(updatedMeeting);  // Respond with the updated meeting
+                return res.status(200).json(updatedMeeting);  
             } else {
                 return res.status(400).json({ message: 'Student is already a participant in this meeting' });
             }
         } else {
-            // If meeting doesn't exist, create a new one
             const newMeeting = new Meeting({
                 title,
                 duration,
                 date,
                 faculty,
-                participants: [student],  // Add student to participants array
+                participants: [student],  
                 status,
-                type
+                meetingType,
+                time
             });
+            console.log(newMeeting);
             const savedMeeting = await newMeeting.save();
-            return res.json(savedMeeting);  // Respond with the newly created meeting
+            return res.status(201).json(savedMeeting); 
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error(error); 
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
 

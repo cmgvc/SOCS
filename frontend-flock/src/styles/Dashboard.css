@@ -121,6 +121,7 @@
     text-align: center;
     width: 19vw;
     justify-content: center;
+    height: 43vh;
 
     a {
         text-decoration: underline;
@@ -162,7 +163,7 @@
     p {
         font-family: var(--font-body);
         color: var(--dark-gray);
-        margin-top: 3vh;
+        margin-top: 5vh;
     }
 
     .cancel-btn {
