@@ -1,3 +1,4 @@
+/* Jacob Weldon 260986471 */
 .lookup-title-prof {
     font-family: "Poppins", sans-serif;
     text-align: center;
@@ -32,6 +33,7 @@
     border-radius: 40px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 300px;
 }
 
 .lookup-button:hover {

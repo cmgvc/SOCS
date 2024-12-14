@@ -1,7 +1,9 @@
+// ../components/date-select-calendar.js
 import React, { useState } from 'react';
 import '../styles/date-select-calendar.css';
+import PropTypes from 'prop-types'; // For prop type validation
 
-const CalendarComponent = () => {
+const CalendarComponent = ({ onDateChange }) => { // Accept onDateChange as a prop
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
 
@@ -15,7 +17,16 @@ const CalendarComponent = () => {
     // Helper function to select a date
     const selectDate = (day) => {
         const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const today = new Date();
+        today.setHours(0,0,0,0); // Normalize today's date to midnight for an accurate comparison
+    
+        if (newDate < today) {
+            alert('You cannot select a date in the past.');
+            return; // Don't select this date
+        }
+    
         setSelectedDate(newDate);
+        onDateChange(newDate); 
     };
 
     // Helper function to get the days of the week
@@ -54,10 +65,6 @@ const CalendarComponent = () => {
                 isCurrentMonth: true,
             });
         }
-
-        // Next month details
-        const nextMonth = month === 11 ? 0 : month + 1;
-        const nextYear = month === 11 ? year + 1 : year;
 
         // Calculate how many cells are needed to complete the last week
         const remainingCells = 7 - (daysInMonth.length % 7);
@@ -123,11 +130,14 @@ const CalendarComponent = () => {
             {selectedDate && (
                 <div className="selected-date-info">
                     <p>Selected Date: {selectedDate.toLocaleDateString()}</p>
-                    <p></p>
                 </div>
             )}
         </div>
     );
+};
+
+CalendarComponent.propTypes = {
+    onDateChange: PropTypes.func.isRequired, // Ensure onDateChange is provided
 };
 
 export default CalendarComponent;

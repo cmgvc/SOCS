@@ -10,6 +10,12 @@ function MeetingRequest() {
     const [newProfessorName, setNewProfessorName] = useState('');
     const [error, setError] = useState('');
 
+    const [meetingDate, setMeetingDate] = useState(null); // CalendarComponent provides this
+    const [meetingTime, setMeetingTime] = useState('');
+    const [meetingDuration, setMeetingDuration] = useState('');
+    const [meetingType, setMeetingType] = useState('');
+    const [status] = useState('pending'); // Default status while requesting meeting
+
     const handleInputChange = (e) => {
         setNewProfessorName(e.target.value);
     };
@@ -24,6 +30,54 @@ function MeetingRequest() {
             
             // Navigate to the same page with the new professor's name
             navigate('/meetingRequest', { state: { professorName: newProfessorName } });
+        }
+    };
+
+    // Handler for the "Request new meeting time" button
+    const handleRequestMeeting = async () => {
+        // Validate inputs
+        if (!meetingDate || !meetingTime || !meetingDuration || !meetingType) {
+            setError('Please fill in all the meeting details.');
+            return;
+        }
+
+        // Combine date and time into a single Date object
+        const [hours, minutes] = meetingTime.split(':');
+        const meetingDateTime = new Date(meetingDate);
+        meetingDateTime.setHours(parseInt(hours, 10));
+        meetingDateTime.setMinutes(parseInt(minutes, 10));
+
+        // Create the meeting object
+        const meeting = {
+            title: meetingType,
+            duration: meetingDuration,
+            date: meetingDateTime,
+            faculty: professorName || newProfessorName,
+            participants: [], // Add logic to include participants if needed
+            status: status
+        };
+
+        try {
+            const response = await fetch('http://localhost:5001/alternateMeetings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(meeting),
+            });
+
+            if (response.ok) {
+                // Successfully created meeting
+                alert('Meeting requested successfully!');
+                // Optionally, reset form fields or navigate to another page
+                navigate("/profLookup")
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message || 'Failed to request meeting.');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            setError('An error occurred while requesting the meeting.');
         }
     };
 
@@ -49,7 +103,7 @@ function MeetingRequest() {
                             onChange={handleInputChange}
                             required
                         />
-                        <button className="lookup-button" onClick={handleSearchClick}>Search</button>
+                        <button className="lookup-button2" onClick={handleSearchClick}>Search</button>
                     </div>
                     <div className="professor-name">
                         {professorName ? (
@@ -62,7 +116,7 @@ function MeetingRequest() {
 
                 <div className="meeting-section">
                     <div className="meeting-details">
-                        <CalendarComponent />
+                        <CalendarComponent onDateChange={setMeetingDate} />
                     </div>
                     
                     <div className="meeting-inputs">
@@ -71,16 +125,22 @@ function MeetingRequest() {
                             id="meetingTime"
                             className="input"
                             type="time"
-                            placeholder="12:00 PM"
+                            value={meetingTime}
+                            onChange={(e) => setMeetingTime(e.target.value)}
                             required
                         />
 
-                        <label className="lookup-task" htmlFor="meetingDuration">Enter desired duration:</label>
+                        <label className="lookup-task" htmlFor="meetingDuration">Enter desired duration (in minutes):</label>
                         <input
                             id="meetingDuration"
                             className="input"
-                            type="text"
-                            placeholder="1 hour"
+                            type="number"
+                            placeholder="30"
+                            value={meetingDuration}
+                            onChange={(e) => setMeetingDuration(e.target.value)}
+                            min="1"
+                            step="1"
+                            max="120"
                             required
                         />
 
@@ -90,11 +150,14 @@ function MeetingRequest() {
                             className="input"
                             type="text"
                             placeholder="One on one"
+                            value={meetingType}
+                            onChange={(e) => setMeetingType(e.target.value)}
                             required
                         />
-                        <button className="lookup-button" onClick={""}>Request new meeting time</button>
+                        <button className="lookup-button2" onClick={handleRequestMeeting}>Request new meeting time</button>
                     </div>
                 </div>
+                {error && <div className="error-message">{error}</div>}
             </div>
         </div>
     );
