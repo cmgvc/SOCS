@@ -9,7 +9,7 @@ const availabilitySchema = new mongoose.Schema({
   title: { type: String, required: true },
   email: { type: String, required: true },
   meetingType: { type: String, required: true },
-  meetingDuration: { type: String, required: true },
+  meetingDuration: { type: Number, required: true }, // in minutes
   doesRepeatWeekly: { type: Boolean, required: true },
   availabilityData: {
     Sun: [TimeSlotSchema],

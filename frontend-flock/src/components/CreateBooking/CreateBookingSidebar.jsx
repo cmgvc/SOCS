@@ -24,12 +24,22 @@ const CreateBookingSidebar = () => {
     minHours: null,
   });
 
+  const handleMeetingDuration = (meetingDuration) => {
+    const meetingDurationSplit = meetingDuration.split(" ");
+    const timeType = meetingDurationSplit[1];
+    const time = parseInt(meetingDurationSplit[0]);
+    if (timeType === "hour" || timeType === "hours") {
+      return time * 60;
+    }
+    return time;
+  };
+
   const handleSave = async () => {
     const bookingData = {
       title: document.querySelector(".add-title-input").value,
       email: localStorage.getItem("email"),
       meetingType,
-      meetingDuration,
+      meetingDuration: handleMeetingDuration(meetingDuration),
       doesRepeatWeekly: availability === "Repeat weekly" ? true : false,
       availabilityData:
         availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData,
