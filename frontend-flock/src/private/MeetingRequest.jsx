@@ -15,7 +15,7 @@ function MeetingRequest() {
   const [meetingTime, setMeetingTime] = useState("");
   const [meetingDuration, setMeetingDuration] = useState("");
   const [meetingType, setMeetingType] = useState("");
-  const [status] = useState("pending"); // Default status while requesting meeting
+  const [status] = useState("Pending"); // Default status while requesting meeting
   const backendUrl = "http://localhost:5001";
 
   const handleInputChange = (e) => {
