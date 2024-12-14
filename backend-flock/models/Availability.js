@@ -20,8 +20,8 @@ const availabilitySchema = new mongoose.Schema({
     Fri: [TimeSlotSchema],
     Sat: [TimeSlotSchema],
   },
-  windowDaysAdvance: { type: Number, required: true },
-  windowTimeBefore: { type: Number, required: true },
+  windowDaysAdvance: { type: Number, required: false },
+  windowTimeBefore: { type: Number, required: false },
   bookingUrl: { type: String, required: true }, // Unique URL for booking
 });
 

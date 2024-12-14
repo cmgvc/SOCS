@@ -29,9 +29,7 @@ router.post("/save", async (req, res) => {
       !meetingType ||
       !meetingDuration ||
       doesRepeatWeekly === undefined ||
-      !availabilityData ||
-      !windowDaysAdvance ||
-      !windowTimeBefore
+      !availabilityData
     ) {
       return res.status(400).json({ message: "Missing required fields" });
     }
