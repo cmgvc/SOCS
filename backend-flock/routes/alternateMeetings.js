@@ -8,7 +8,7 @@ router.use(express.json());
 
 router.post('/', async (req, res) => {
     try {
-        const { title, duration, date, faculty, participants, status, meetingType } = req.body;
+        const { title, duration, date, faculty, participants, status, meetingType, time } = req.body;
 
         // Basic validation
         if (!title || !duration || !date || !faculty || !status || !meetingType) {
@@ -33,9 +33,10 @@ router.post('/', async (req, res) => {
             duration,
             date,
             faculty,
-            participants, // Default to empty array if not provided
+            participants,
             status,
-            meetingType
+            meetingType,
+            time
         });
 
         // Save to database
