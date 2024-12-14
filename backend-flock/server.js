@@ -41,6 +41,9 @@ app.use("/availability", availabilityRoutes);
 app.use("/faculty", facultyRoutes);
 app.use("/availabilities", availabilitiesRoutes);
 
+const unavailabilitiesRoutes = require("./routes/unavailabilities");
+app.use("/block", unavailabilitiesRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
