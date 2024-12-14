@@ -15,11 +15,10 @@ const CreateBookingSidebar = () => {
   const [availability, setAvailability] = useState("Repeat weekly");
   const [repeatWeeklyData, setRepeatWeeklyData] = useState({});
   const [doesNotRepeatData, setDoesNotRepeatData] = useState([]);
-  const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
-  const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
   const backendUrl = process.env.backendUrl || "http://localhost:5001";
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null); // Add this state
+  const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
 
   const [schedulingLimits, setSchedulingLimits] = useState({
     maxDays: null,
@@ -238,16 +237,6 @@ const CreateBookingSidebar = () => {
     }
   };
 
-  const handleCustomDurationSubmit = (duration) => {
-    setMeetingDuration(duration);
-    setShowCustomDurationModal(false);
-  };
-
-  const handleCustomMeetingSubmit = (customMeetingType) => {
-    setMeetingType(customMeetingType);
-    setShowCustomMeetingModal(false);
-  };
-
   const toggleSchedulingLimits = () => {
     setIsOpen(!isOpen); // Toggle the state
   };
@@ -279,11 +268,7 @@ const CreateBookingSidebar = () => {
       <DropdownMenu
         options={["30 minutes", "1 hour", "1.5 hours", "2 hours"]}
         defaultOption={meetingDuration}
-        onChange={(selected) =>
-          selected === "Custom..."
-            ? setShowCustomDurationModal(true)
-            : setMeetingDuration(selected)
-        }
+        onChange={(selected) => setMeetingDuration(selected)}
       />
       <hr className="sidebar-divider" />
       <h3 className="bold-title">General availability</h3>
@@ -327,9 +312,6 @@ const CreateBookingSidebar = () => {
           ? `${schedulingLimits.minHours} hours before`
           : "no limit before the appointment"}
       </h4>
-      {/* <h4 className="booking-subtitle">
-        {startDays} days in advance to {endHours} hours before
-      </h4> */}
       {isOpen && (
         <SchedulingLimits
           onSchedulingLimitsChange={handleSchedulingLimitsChange}
@@ -339,25 +321,6 @@ const CreateBookingSidebar = () => {
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>
-      {/* Custom Duration Modal */}
-      {showCustomDurationModal && (
-        <CustomDurationModal
-          isVisible={showCustomDurationModal}
-          onClose={() => setShowCustomDurationModal(false)}
-          onSubmit={handleCustomDurationSubmit}
-          defaultValue={1}
-          defaultUnit="hours"
-        />
-      )}
-      {/* Custom Meeting Modal */}
-      {showCustomMeetingModal && (
-        <CustomMeetingModal
-          isVisible={showCustomMeetingModal}
-          onClose={() => setShowCustomMeetingModal(false)}
-          onSubmit={handleCustomMeetingSubmit}
-          defaultValue=""
-        />
-      )}
     </div>
   );
 };
