@@ -181,6 +181,14 @@
   }
 }
 
+.overlay-text h1 {
+  transition: all 0.3s ease;
+}
+
+.overlay-text h1:hover {
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ff4040;
+}
+
 @media (max-width: 500px) {
   .navbar-text {
     display: none;

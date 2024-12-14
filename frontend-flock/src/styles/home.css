@@ -168,3 +168,10 @@
   line-height: 1.5;
   text-align: left;
 }
+
+.top-section {
+  justify-content: center;
+  align-items: center;
+  max-height: 800px;
+  width: 100%;
+}
