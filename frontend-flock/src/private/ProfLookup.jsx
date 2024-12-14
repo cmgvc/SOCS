@@ -1,3 +1,4 @@
+// Jacob Weldon 260986471
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfLookup.css";
