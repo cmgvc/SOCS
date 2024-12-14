@@ -5,7 +5,7 @@ import "../styles/BookMeeting.css";
 function BookMeeting() {
   const [meetingUrl, setMeetingUrl] = useState("");
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+    process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
 
   const handleMeetingUrlSearch = async () => {
     if (!meetingUrl.trim()) {
@@ -14,9 +14,15 @@ function BookMeeting() {
     }
 
     try {
-      console.log(`Checking URL: ${meetingUrl}`);
       const response = await fetch(
-        `${backendUrl}/availabilities/url?url=${meetingUrl}`
+        `${backendUrl}/availabilities/url`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url: meetingUrl }),
+        }
+
       );
 
       if (!response.ok) {

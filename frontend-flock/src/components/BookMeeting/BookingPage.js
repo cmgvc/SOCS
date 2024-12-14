@@ -18,13 +18,13 @@ export const BookingPage = () => {
   const backendUrl =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   const daysOfWeek = {
-    0: "Sunday",
-    1: "Monday",
-    2: "Tuesday",
-    3: "Wednesday",
-    4: "Thursday",
-    5: "Friday",
-    6: "Saturday",
+    0: "Sun",
+    1: "Mon",
+    2: "Tues",
+    3: "Wed",
+    4: "Thurs",
+    5: "Fri",
+    6: "Sat",
   };
 
   const handleDateChange = (date) => {
@@ -48,7 +48,13 @@ export const BookingPage = () => {
       try {
         const currentUrl = window.location.href;
         const response = await fetch(
-          `${backendUrl}/availabilities/url?url=${currentUrl}`
+          `${backendUrl}/availabilities/url`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ url: currentUrl }),
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch meetings");
@@ -57,6 +63,7 @@ export const BookingPage = () => {
         const data = await response.json();
         setMeeting(data[0]);
         setRecurring(data[0].doesRepeatWeekly);
+        
       } catch (error) {
         console.error("Error fetching meetings:", error);
       }

@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
 });
 
 // get meeting by url
-router.get('/url', async (req, res) => {
-    const { url } = req.query;
+router.post('/url', async (req, res) => {
+    const { url } = req.body;
     try {
         const meeting = await Availability.find({ bookingUrl: url });
         if (meeting) {
