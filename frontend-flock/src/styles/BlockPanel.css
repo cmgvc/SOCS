@@ -5,7 +5,7 @@
   color: #fff;
   padding: 20px;
   border-radius: 50px;
-  width: 250px;
+  width: 270px;
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
@@ -96,54 +96,92 @@
 .day-row {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  padding: 8px 0;
+  border-bottom: 1px solid #555;
+  position: relative;
 }
 
 .day-label {
   flex: 0 0 40px;
   font-size: 0.85rem;
-  color: #eee;
-  font-weight: 500;
+  color: #fff;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
-.day-blocks {
+.day-content {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 10px;
+}
+
+.unavailable-text {
+  color: #999;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.time-row-item {
+  display: flex;
   align-items: center;
-  gap: 5px; 
-  flex-wrap: wrap;
+  gap: 5px;
 }
 
-.available-label {
-  color: #bbb;
-  font-size: 0.8rem;
-}
-
-.time-block {
+.inline-add-form select {
   background: #555;
-  border-radius: 8px;
-  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 8px;
   font-size: 0.8rem;
-  position: relative;
+}
+
+.inline-add-form select:focus {
+  outline: 1px solid #FF2424;
+}
+
+.time-chip {
+  background: #888;
+  color: #fff;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 0.8rem;
+}
+
+.time-dash {
+  color: #fff;
+  font-size: 0.8rem;
 }
 
 .icon-button {
   background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.remove-button {
+  padding: 0 5px;
+}
+
+.add-day-button {
   border: 1px solid #fff;
   border-radius: 50%;
   width: 22px;
   height: 22px;
-  color: #fff;
   font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-  margin-left: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: -8px;
-  right: -8px;
+  margin-left: auto; /* push to far right */
+}
+
+.confirm-button, .cancel-button {
+  font-size: 1rem;
+  padding: 0 5px;
 }
 
 .save-btn {

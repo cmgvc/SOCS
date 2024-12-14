@@ -12,13 +12,8 @@ const availabilitySchema = new mongoose.Schema({
   meetingDuration: { type: Number, required: true }, // in minutes
   doesRepeatWeekly: { type: Boolean, required: true },
   availabilityData: {
-    Sun: [TimeSlotSchema],
-    Mon: [TimeSlotSchema],
-    Tue: [TimeSlotSchema],
-    Wed: [TimeSlotSchema],
-    Thu: [TimeSlotSchema],
-    Fri: [TimeSlotSchema],
-    Sat: [TimeSlotSchema],
+    type: mongoose.Schema.Types.Mixed, // Flexible structure: either weekly or specific dates
+    required: true,
   },
   windowDaysAdvance: { type: Number, required: false },
   windowTimeBefore: { type: Number, required: false },
