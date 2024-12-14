@@ -26,7 +26,7 @@ const LookUp = () => {
     <div>
         <div>
             <h1 className="lookup-title-prof">Request a Meeting</h1>
-            <p className="lookup-task-prof">Enter person's name:</p>
+            <p className="lookup-task-prof">Enter professor or TA's name:</p>
             <div>
                 <input className="input-prof" type="professor" placeholder="Professor" value={professorName} onChange={handleInputChange} required />
                 <button className="lookup-button" onClick={handleButtonClick}>Search</button>

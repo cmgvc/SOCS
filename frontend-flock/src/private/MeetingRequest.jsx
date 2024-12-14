@@ -30,19 +30,15 @@ function MeetingRequest() {
     return (
         <div className="request-wrapper">
             <div className="request-container">
-                {/* Header Section: Label, Title, and Professor Name */}
                 <div className="header-section">
-                    {/* Row 1: Label and Title */}
                     <div className="label-section">
-                        <label htmlFor="professorName">Enter person’s name:</label>
+                        <label>Enter professor or TA's name:</label>
                     </div>
                     <div className="title-section">
                         <h1 className="lookup-title">Request a Meeting</h1>
                     </div>
-                    {/* Empty div for grid alignment */}
                     <div className="empty-section"></div>
 
-                    {/* Row 2: Input, Button, and Professor Name */}
                     <div className="input-section">
                         <input
                             id="professorName"
@@ -63,8 +59,7 @@ function MeetingRequest() {
                         )}
                     </div>
                 </div>
-                
-                {/* Meeting Section */}
+
                 <div className="meeting-section">
                     <div className="meeting-details">
                         <CalendarComponent />
@@ -76,7 +71,7 @@ function MeetingRequest() {
                             id="meetingTime"
                             className="input"
                             type="time"
-                            placeholder="12:00 pm"
+                            placeholder="12:00 PM"
                             required
                         />
 
