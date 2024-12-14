@@ -54,7 +54,7 @@ const RepeatWeeklyAvailability = ({
   // Generate time options for the dropdown, based on meeting duration
   const generateTimeOptions = () => {
     const options = [];
-    for (let i = 0; i < 24 * 60; i += durationInMinutes) {
+    for (let i = 0; i < 24 * 60; i += 30) {
       options.push(convertTo12Hour(i));
     }
     return options;

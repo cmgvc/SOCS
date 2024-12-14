@@ -54,6 +54,23 @@ const CreateBookingSidebar = () => {
     return difference % meetingDurationInMinutes === 0;
   };
 
+  const isValidTimeSlotWeekly = (slot, meetingDurationInMinutes) => {
+    const { start, end } = slot;
+
+    const startMinutes =
+      parseInt(start.split(":")[0], 10) * 60 +
+      parseInt(start.split(":")[1], 10);
+    const endMinutes =
+      parseInt(end.split(":")[0], 10) * 60 + parseInt(end.split(":")[1], 10);
+
+    // Ensure end time is greater than start time
+    if (endMinutes <= startMinutes) return false;
+
+    // Ensure the difference is a multiple of the meeting duration
+    const difference = endMinutes - startMinutes;
+    return difference % meetingDurationInMinutes === 0;
+  };
+
   const isOverlapping = (slots) => {
     const slotsByDate = slots.reduce((acc, slot) => {
       if (!acc[slot.date]) acc[slot.date] = [];
@@ -81,6 +98,36 @@ const CreateBookingSidebar = () => {
       }
     }
     return false; // No overlaps
+  };
+
+  const isOverlappingWeekly = (repeatWeeklyData) => {
+    // Iterate through each day's slots
+    return Object.entries(repeatWeeklyData).some(([day, slotsForDay]) => {
+      // Ensure the slots for the day are an array
+      if (!Array.isArray(slotsForDay)) return false;
+
+      // Check for overlaps in the slots for this day
+      for (let i = 0; i < slotsForDay.length; i++) {
+        for (let j = i + 1; j < slotsForDay.length; j++) {
+          const slotA = slotsForDay[i];
+          const slotB = slotsForDay[j];
+
+          // Convert start and end times to Date objects for comparison
+          const startA = new Date(`1970-01-01T${slotA.startTime}`);
+          const endA = new Date(`1970-01-01T${slotA.endTime}`);
+          const startB = new Date(`1970-01-01T${slotB.startTime}`);
+          const endB = new Date(`1970-01-01T${slotB.endTime}`);
+
+          // Check if the two slots overlap
+          if (startA < endB && startB < endA) {
+            console.error(`Overlap detected on ${day}:`, slotA, slotB);
+            return true; // Overlap detected
+          }
+        }
+      }
+
+      return false; // No overlaps for this day
+    });
   };
 
   const handleSave = async () => {
@@ -118,6 +165,22 @@ const CreateBookingSidebar = () => {
       if (isOverlapping(doesNotRepeatData)) {
         setError("Time slots on the same date cannot overlap.");
         return;
+      }
+    }
+
+    if (availability === "Repeat weekly") {
+      const meetingDurationInMinutes = handleMeetingDuration(meetingDuration);
+
+      // Validate intervals for each slot
+      const timeSlots = Object.values(repeatWeeklyData).flat();
+      for (const slot of timeSlots) {
+        console.log(slot);
+        if (!isValidTimeSlotWeekly(slot, meetingDurationInMinutes)) {
+          setError(
+            `Each time slot must align with the ${meetingDuration} duration.`
+          );
+          return;
+        }
       }
     }
 
