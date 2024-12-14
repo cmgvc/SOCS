@@ -16,7 +16,7 @@ function MeetingRequest() {
   const [meetingType, setMeetingType] = useState("");
   const [status] = useState("pending"); // Default status while requesting meeting
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    process.env.REACT_APP_BACKEND_URL;
 
   const handleInputChange = (e) => {
     setNewProfessorName(e.target.value);

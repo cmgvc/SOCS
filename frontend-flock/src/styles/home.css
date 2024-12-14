@@ -6,7 +6,7 @@
   }
   
   .home-gradient {
-    width: 100%; 
+    width: 100vw; 
     height: auto; 
     display: block; 
   }
@@ -19,7 +19,6 @@
     transform: translate(-50%, -50%); /* Adjust for proper centering */
     color: #444040; 
     text-align: center;
-    pointer-events: none; /* Makes text non-interactable if the SVG is interactive */
   }
   
   .overlay-text h1 {
@@ -32,9 +31,10 @@
     font-size: 1.25rem; 
   }
 
+
   .overlay-buttons{
     margin: 30px 20px 0 0;
-    background: #EC2227;
+    background: var(--primary-red);
     color: #fff;
     border: none;
     font-size: 1rem;
@@ -50,6 +50,7 @@
     display: flex;
     flex-direction: row;
     min-height: 100vh;
+    
   }
   .left-panel {
     background-color: #EC2227; /* Adjust this to the shade of red you prefer */

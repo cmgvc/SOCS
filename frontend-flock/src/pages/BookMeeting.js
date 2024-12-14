@@ -5,7 +5,7 @@ import "../styles/BookMeeting.css";
 function BookMeeting() {
   const [meetingUrl, setMeetingUrl] = useState("");
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+    process.env.REACT_APP_BACKEND_URL;
 
   const handleMeetingUrlSearch = async () => {
     if (!meetingUrl.trim()) {

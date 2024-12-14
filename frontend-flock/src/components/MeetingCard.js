@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const MeetingCard = ({ meeting }) => {
   const email = localStorage.getItem("email");
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    process.env.REACT_APP_BACKEND_URL;
   const isFaculty = localStorage.getItem("isFaculty");
   const {
     title,

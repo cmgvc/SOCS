@@ -16,7 +16,7 @@ function Dashboard() {
   const email = localStorage.getItem("email");
   const isFaculty = localStorage.getItem("isFaculty");
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+    process.env.REACT_APP_BACKEND_URL;
 
   const getUpcomingDisplayedCards = upcomingMeetings.slice(
     startNextIndex,

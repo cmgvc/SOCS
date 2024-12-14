@@ -30,7 +30,7 @@ const CalendarWithSidebar = () => {
   const startOfWeek = getStartOfWeek(currentDate);
   const weekDates = getWeekDates(startOfWeek);
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+    process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     // populate with existing data
