@@ -99,15 +99,7 @@ const CreateBookingSidebar = () => {
       <h3 className="bold-title">Meeting duration</h3>
       <h4 className="booking-subtitle">How long should each meeting last?</h4>
       <DropdownMenu
-        options={[
-          "15 minutes",
-          "30 minutes",
-          "45 minutes",
-          "1 hour",
-          "1.5 hours",
-          "2 hours",
-          "Custom...",
-        ]}
+        options={["30 minutes", "45 minutes", "1 hour", "1.5 hours", "2 hours"]}
         defaultOption={meetingDuration}
         onChange={(selected) =>
           selected === "Custom..."
@@ -134,7 +126,10 @@ const CreateBookingSidebar = () => {
         />
       )}
       {availability === "Does not repeat" && (
-        <DoesNotRepeat onAvailabilityChange={setDoesNotRepeatData} />
+        <DoesNotRepeat
+          onAvailabilityChange={setDoesNotRepeatData}
+          meetingDuration={meetingDuration}
+        />
       )}
       <hr className="sidebar-divider" />
       <div className="scheduling-window-title">

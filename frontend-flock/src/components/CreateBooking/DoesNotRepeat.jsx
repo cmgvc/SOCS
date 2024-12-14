@@ -4,7 +4,7 @@ import "./does-not-repeat.css";
 import { ReactComponent as AddIcon } from "../../svg/add-square.svg";
 import { ReactComponent as CancelIcon } from "../../svg/cancel-right.svg";
 
-const DoesNotRepeat = () => {
+const DoesNotRepeat = ({ meetingDuration = "1 hour" }) => {
   const getTomorrowDate = () => {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -13,9 +13,20 @@ const DoesNotRepeat = () => {
   };
 
   const generateTimeOptions = () => {
+    const meetingDuration = "30 minutes";
+    // Parse the meetingDuration string to get the number of minutes
+    const meetingDurationSplit = meetingDuration.split(" ");
+    const durationAmount = parseInt(meetingDurationSplit[0], 10); // Parse the numeric part
+    const durationType = meetingDurationSplit[1];
+
+    const durationInMinutes =
+      durationType === "hour" || durationType === "hours"
+        ? durationAmount * 60 // Convert hours to minutes
+        : durationAmount; // Already in minutes
+
     const options = [];
     for (let h = 0; h < 24; h++) {
-      for (let m = 0; m < 60; m += 30) {
+      for (let m = 0; m < 60; m += durationInMinutes) {
         const hour = h % 12 || 12; // Convert to 12-hour format
         const minute = m.toString().padStart(2, "0");
         const period = h < 12 ? "AM" : "PM";
