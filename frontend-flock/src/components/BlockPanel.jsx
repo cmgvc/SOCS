@@ -1,7 +1,9 @@
+// Emily Roest, 260960015
 import React, { useMemo, useState } from "react";
 import "../styles/BlockPanel.css";
 import { v4 as uuidv4 } from "uuid";
 
+// define constants
 const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 // generate times
@@ -11,7 +13,7 @@ function generateTimeOptions() {
   const endH = 19;
   for (let h = startH; h <= endH; h++) {
     for (let m = 0; m < 60; m += 5) {
-      if (h === endH && m > 0) break; // don't go past 19:00
+      if (h === endH && m > 0) break;
       const hh = String(h).padStart(2, "0");
       const mm = String(m).padStart(2, "0");
       options.push(`${hh}:${mm}`);
@@ -67,6 +69,7 @@ function mergeTimeSlots(timeSlots) {
   }));
 }
 
+// time formatting
 function formatTime24to12(timeStr) {
   const [h, m] = timeStr.split(":").map(Number);
   const suffix = h >= 12 ? "PM" : "AM";
@@ -75,6 +78,7 @@ function formatTime24to12(timeStr) {
   return `${hour12}:${minuteStr} ${suffix}`;
 }
 
+// panel logic
 const BlockOffTimesPanel = ({
   mode,
   onModeChange,
@@ -120,7 +124,7 @@ const BlockOffTimesPanel = ({
       const duplicate = updated[dateIndex].timeSlots.find(
         (ts) => ts.startTime === sTime && ts.endTime === eTime
       );
-      if (duplicate) return; // check for prior existence
+      if (duplicate) return;
 
       updated[dateIndex].timeSlots.push(newTimeSlot);
       updated[dateIndex].timeSlots = mergeTimeSlots(
@@ -209,7 +213,6 @@ const BlockOffTimesPanel = ({
         );
       }
     } else {
-      // disable logic
       slot.repeatWeekly = false;
       slot.recurringId = null;
     }
@@ -318,6 +321,7 @@ const BlockOffTimesPanel = ({
     }
   };
 
+  // display panel
   return (
     <div className="block-off-panel">
       <h3 className="panel-title">Block Off Times</h3>
@@ -368,7 +372,7 @@ const BlockOffTimesPanel = ({
               <div className="day-content">
                 {timeSlots.length === 0 &&
                 (!inlineData || !inlineData.editing) ? (
-                  <span className="unavailable-text">Unavailable</span>
+                  <span className="unavailable-text">Available</span>
                 ) : (
                   <>
                     {timeSlots.map((ts, index) => (
@@ -383,7 +387,7 @@ const BlockOffTimesPanel = ({
                         <button
                           className="icon-button repeat-button"
                           title="Toggle repeat weekly"
-                          style={{ color: ts.repeatWeekly ? "green" : "#fff" }}
+                          style={{ color: ts.repeatWeekly ? "#FF2424" : "#fff" }}
                           onClick={() => handleToggleRepeatWeekly(dateStr, ts)}
                         >
                           ↺

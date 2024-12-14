@@ -5,7 +5,7 @@
   color: #fff;
   padding: 20px;
   border-radius: 50px;
-  width: 270px;
+  width: 300px;
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
 }
 
 .panel-title {
-  font-size: 1rem;
+  font-size: 1.25rem;
   margin: 10px 0 2px 0;
   font-weight: normal;
   align-self: flex-start;
@@ -35,8 +35,8 @@
 }
 
 .sub-title {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1 rem;
+  font-weight: normal;
   margin: 5px 0 2px 0;
   align-self: flex-start;
 }
@@ -52,26 +52,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-}
-
-.set-available {
-  background: #FF2424;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  padding: 5px 15px;
-  font-size: 0.8rem;
-}
-
-.set-unavailable {
-  background: #555;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  padding: 5px 15px;
-  font-size: 0.8rem;
 }
 
 .repeat-weekly-toggle {
@@ -96,16 +76,16 @@
 .day-row {
   display: flex;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #555;
+  padding: 15px 0;
+  border-top: 1px solid #555;
   position: relative;
 }
 
 .day-label {
   flex: 0 0 40px;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #fff;
-  font-weight: 600;
+  font-weight: normal;
   text-transform: capitalize;
 }
 
@@ -113,7 +93,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin: 0 10px;
 }
 
@@ -145,8 +125,8 @@
 .time-chip {
   background: #888;
   color: #fff;
-  border-radius: 5px;
-  padding: 3px 8px;
+  border-radius: 10px;
+  padding: 6px 8px;
   font-size: 0.8rem;
 }
 
@@ -168,15 +148,16 @@
 
 .remove-button {
   padding: 0 5px;
+  margin-left: auto;
 }
 
 .add-day-button {
   border: 1px solid #fff;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
+  width: 15px;
+  height: 15px;
   font-size: 1rem;
-  margin-left: auto; /* push to far right */
+  margin-left: auto; 
 }
 
 .confirm-button, .cancel-button {
