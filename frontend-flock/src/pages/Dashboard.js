@@ -181,9 +181,10 @@ function Dashboard() {
             <div className="dash-section">
               <div className="dash-header">
                 <h2>Upcoming Meetings</h2>
+                {!isFaculty && (
                 <a href="meetingRequest">
                   <button>Request alternate meeting time</button>
-                </a>
+                </a>)}
               </div>
               <div className="upcoming-panel">
                 {upcomingMeetings.length > 0 && (
