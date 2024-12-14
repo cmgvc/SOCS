@@ -90,10 +90,9 @@ function Navbar() {
                   </>
                 )}
                 <li>
-                  <a href="/request">Request Meeting</a>
+                  <a href="/profLookup">Request Meeting</a>
                 </li>
                 <li>
-                  <a href="/profLookup">Look Up Professor</a>
                 </li>
               </>
             )}
