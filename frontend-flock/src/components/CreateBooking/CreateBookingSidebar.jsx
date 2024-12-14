@@ -264,7 +264,7 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
       <h3 className="cb-bold-title">Meeting type</h3>
       <h4 className="cb-booking-subtitle">What kind of meeting is this?</h4>
       <DropdownMenu
-        options={["Office Hours", "1-1", "Group", "Custom..."]}
+        options={["Office Hours", "1-1", "Group"]}
         defaultOption={meetingType}
         onChange={(selected) =>
           selected === "Custom..."
