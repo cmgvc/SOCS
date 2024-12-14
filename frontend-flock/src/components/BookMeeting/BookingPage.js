@@ -14,7 +14,7 @@ export const BookingPage = () => {
   const [recurring, setRecurring] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = 'http://localhost:5001';
   const daysOfWeek = {
     0: "Sun",
     1: "Mon",
