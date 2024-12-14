@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Meeting = require('../models/Meeting');
+const User = require('../models/User');  
 
 router.use(express.json());
 
@@ -19,6 +20,16 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'Invalid date format.' });
         }
 
+        const [firstName, lastName] = faculty.split(' ');
+
+
+        const user = await User.findOne({ firstName, lastName });
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        const { email } = user;        
         const now = new Date();
 
         // Validate that the meeting date and time are not in the past
@@ -31,7 +42,7 @@ router.post('/', async (req, res) => {
             title,
             duration,
             date,
-            faculty,
+            faculty: email,
             participants,
             status,
             meetingType,

@@ -95,7 +95,7 @@ function Dashboard() {
         const data = await res.json();
 
         const currentTime = new Date();
-
+        console.log(data);
         const upcoming = data.filter(
           (meeting) =>
             new Date(meeting.date) > currentTime &&
