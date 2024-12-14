@@ -9,6 +9,7 @@ const meetingSchema = new mongoose.Schema({
   participants: { type: Array, required: true },
   status: { type: String, required: true },
   meetingType : { type: String, required: true },
+  time: { type: String, required: true }
 });
 
 module.exports = mongoose.model("Meeting", meetingSchema);
