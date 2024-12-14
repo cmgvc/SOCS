@@ -25,6 +25,21 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
     minHours: null,
   });
 
+  const convertDoesNotRepeatSlotsFormat = () => {
+    const convertTo12Hour = (time) => {
+      const [hour, minute] = time.split(":").map(Number);
+      const period = hour < 12 ? "AM" : "PM";
+      const hour12 = hour % 12 || 12;
+      return `${hour12}:${minute.toString().padStart(2, "0")} ${period}`;
+    };
+
+    return doesNotRepeatData.map((slot) => ({
+      date: slot.date,
+      start: convertTo12Hour(slot.startTime), // Convert and rename startTime
+      end: convertTo12Hour(slot.endTime), // Convert and rename endTime
+    }));
+  };
+
   const handleMeetingDuration = (meetingDuration) => {
     const meetingDurationSplit = meetingDuration.split(" ");
     const timeType = meetingDurationSplit[1];
@@ -147,7 +162,9 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
   const handleSave = async () => {
     const title = document.querySelector(".cb-add-title-input").value.trim();
     const availabilityData =
-      availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData;
+      availability === "Repeat weekly"
+        ? repeatWeeklyData
+        : convertDoesNotRepeatSlotsFormat();
 
     // Check if the title is empty
     if (!title) {
@@ -221,7 +238,9 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
       meetingDuration: handleMeetingDuration(meetingDuration),
       doesRepeatWeekly: availability === "Repeat weekly" ? true : false,
       availabilityData:
-        availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData,
+        availability === "Repeat weekly"
+          ? repeatWeeklyData
+          : convertDoesNotRepeatSlotsFormat(),
       windowDaysAdvance: schedulingLimits.maxDays,
       windowTimeBefore: schedulingLimits.minHours,
     };
