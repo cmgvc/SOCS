@@ -1,4 +1,3 @@
-/* The month/year display */
 .styled-calendar-container {
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@
   font-weight: 500;
 }
 
-/* The arrows */
 .nav-arrow{
   border: none;
   color: #000 !important;
@@ -35,10 +33,9 @@
   text-align: center;
 }
 
-/* The grey container */
 .days-container {
   background: #212121;
-  border-radius: 50px; /* Adjusted to avoid duplicate border-radius */
+  border-radius: 50px;
   padding: 20px;
   overflow: hidden;
   flex: 1;
@@ -58,7 +55,7 @@
 }
 
 .day-header.placeholder {
-  flex: 0 0 50px; /* Reserve space for the times column */
+  flex: 0 0 50px; 
 }
 
 .day-name {
@@ -76,7 +73,6 @@
   position: relative;
 }
 
-/* Times Column */
 .times-column {
   flex: 0 0 50px;
   display: flex;
@@ -93,7 +89,7 @@
 }
 
 .hour-label {
-  font-size: 12px;
+  font-size: 15px;
   color: #CCC;
   line-height: 0;
 }
@@ -111,36 +107,27 @@
   position: relative;
 }
 
-/* Style for unavailable slots */
 .hour-slot.unavailable {
   background-color: #A09999;
   cursor: not-allowed;
   border-radius: 4px;
 }
 
-/* Style for selected slots */
 .hour-slot.selected {
   background-color: #FF2424;
   border-radius: 10px;
 }
 
-/* Current selection styles */
 .hour-slot.current-selection {
   background-color: lightcoral;
   border-radius: 10px;
 }
 
-.hour-slot.current-selection-red {
-  background-color: #FFC0C0; /* Light red while dragging */
-  border-radius: 10px;
-}
-
 .hour-slot.current-selection-grey {
-  background-color: #D3D3D3; /* Light grey while dragging */
+  background-color: #D3D3D3;
   border-radius: 10px;
 }
 
-/* New CSS to add horizontal lines every 30 minutes */
 .day-column .hour-slot:nth-child(6n -5) {
-  border-top: 2px solid #000; /* Thicker border for 30-minute intervals */
+  border-top: 2px solid #413d3d; 
 }

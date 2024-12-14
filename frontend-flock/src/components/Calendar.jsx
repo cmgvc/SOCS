@@ -1,8 +1,11 @@
+// Emily Roest, 260960015
 import React, { useState } from "react";
 import "../styles/Calendar.css";
 
+// section for constants
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
+// section for helper functions and variables
 function generateTimeSlots(start = "08:00", end = "19:00") {
   const increment = 5; 
   const times = [];
@@ -60,6 +63,8 @@ function mergeTimeSlots(timeSlots) {
   }));
 }
 
+
+// define helper funcitons within calendar
 const StyledCalendar = ({ 
   mode = "unavailable", 
   availableBlocks, 
@@ -103,13 +108,11 @@ const StyledCalendar = ({
         const newSlot = { startTime, endTime };
 
         if (dateIndex > -1) {
-          // duplicate check
           const duplicate = updatedUnavailable[dateIndex].timeSlots.find(
             ts => ts.startTime === startTime && ts.endTime === endTime
           );
           if (!duplicate) {
             updatedUnavailable[dateIndex].timeSlots.push(newSlot);
-            // add and merge
             updatedUnavailable[dateIndex].timeSlots = mergeTimeSlots(updatedUnavailable[dateIndex].timeSlots);
           }
         } else {
@@ -166,6 +169,7 @@ const StyledCalendar = ({
       return "";
     };
 
+    // show calendar on screen
     return (
       <div className="styled-calendar-container"
         onMouseLeave={() => {
