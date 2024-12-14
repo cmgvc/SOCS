@@ -102,32 +102,31 @@ const CreateBookingSidebar = () => {
 
   const isOverlappingWeekly = (repeatWeeklyData) => {
     // Iterate through each day's slots
-    return Object.entries(repeatWeeklyData).some(([day, slotsForDay]) => {
-      // Ensure the slots for the day are an array
-      if (!Array.isArray(slotsForDay)) return false;
+    for (const day in repeatWeeklyData) {
+      const slotsForDay = repeatWeeklyData[day];
 
-      // Check for overlaps in the slots for this day
+      if (!Array.isArray(slotsForDay)) continue; // Skip invalid data
+
+      // Check for overlaps within the same day
       for (let i = 0; i < slotsForDay.length; i++) {
         for (let j = i + 1; j < slotsForDay.length; j++) {
           const slotA = slotsForDay[i];
           const slotB = slotsForDay[j];
 
-          // Convert start and end times to Date objects for comparison
-          const startA = new Date(`1970-01-01T${slotA.startTime}`);
-          const endA = new Date(`1970-01-01T${slotA.endTime}`);
-          const startB = new Date(`1970-01-01T${slotB.startTime}`);
-          const endB = new Date(`1970-01-01T${slotB.endTime}`);
+          const startA = new Date(`1970-01-01T${slotA.start}`);
+          const endA = new Date(`1970-01-01T${slotA.end}`);
+          const startB = new Date(`1970-01-01T${slotB.start}`);
+          const endB = new Date(`1970-01-01T${slotB.end}`);
 
-          // Check if the two slots overlap
+          // Check if times overlap
           if (startA < endB && startB < endA) {
             console.error(`Overlap detected on ${day}:`, slotA, slotB);
             return true; // Overlap detected
           }
         }
       }
-
-      return false; // No overlaps for this day
-    });
+    }
+    return false; // No overlaps
   };
 
   const handleSave = async () => {
@@ -181,6 +180,11 @@ const CreateBookingSidebar = () => {
           );
           return;
         }
+      }
+      // Check for overlapping time slots on the same day
+      if (isOverlappingWeekly(repeatWeeklyData)) {
+        setError("Time slots for the same day cannot overlap.");
+        return; // Prevent saving
       }
     }
 
