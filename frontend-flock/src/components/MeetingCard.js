@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 const MeetingCard = ({ meeting }) => {
   const email = localStorage.getItem("email");
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "http://localhost:5001";
   const isFaculty = localStorage.getItem("isFaculty");
   const {
     title,
