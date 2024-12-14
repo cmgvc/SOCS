@@ -15,7 +15,7 @@ function Dashboard() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const email = localStorage.getItem("email");
   const isFaculty = localStorage.getItem("isFaculty");
-  const backendUrl = "http://localhost:5001";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const getUpcomingDisplayedCards = upcomingMeetings.slice(
     startNextIndex,
