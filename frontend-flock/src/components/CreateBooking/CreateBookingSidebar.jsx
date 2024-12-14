@@ -131,6 +131,12 @@ const CreateBookingSidebar = () => {
   };
 
   const handleSave = async () => {
+    const title = document.querySelector(".add-title-input").value.trim();
+    // Check if the title is empty
+    if (!title) {
+      setError("The title cannot be empty.");
+      return; // Prevent saving
+    }
     // Check if "Does not repeat" is selected
     if (availability === "Does not repeat") {
       // Check for missing dates
