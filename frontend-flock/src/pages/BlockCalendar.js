@@ -1,14 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BlockOffTimesPanel from "../components/BlockPanel.jsx";
 import StyledCalendar from "../components/Calendar";
-import "../styles/BlockCalendar.css"; // overall layout styling
+import "../styles/BlockCalendar.css";
 
+const getStartOfWeek = (date) => {
+  const dayIndex = date.getDay();
+  const diff = date.getDate() - dayIndex;
+  const newDate = new Date(date);
+  newDate.setHours(0,0,0,0);
+  newDate.setDate(diff);
+  return newDate;
+};
+
+const getWeekDates = (startOfWeek) => {
+  return Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(startOfWeek);
+    date.setDate(startOfWeek.getDate() + i);
+    date.setHours(0,0,0,0);
+    return date;
+  });
+};
 
 const CalendarWithSidebar = () => {
   const [mode, setMode] = useState("unavailable");
-
   const [availableBlocks, setAvailableBlocks] = useState([]);
   const [unavailableBlocks, setUnavailableBlocks] = useState([]);
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const startOfWeek = getStartOfWeek(currentDate);
+  const weekDates = getWeekDates(startOfWeek);
+
+  useEffect(() => {
+    // On load, fetch existing unavailability from DB
+    const facultyEmail = localStorage.getItem("email");
+    if (!facultyEmail) {
+      console.error("No faculty email found in local storage.");
+      return;
+    }
+
+    fetch(`http://localhost:5001/block?facultyEmail=${encodeURIComponent(facultyEmail)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.unavailabilities) {
+          // Transform data into { date: "YYYY-MM-DD", timeSlots: [{startTime, endTime}] }[] format
+          const loadedBlocks = data.unavailabilities.map(ua => ({
+            date: ua.date,
+            timeSlots: ua.timeSlots.map(ts => ({ startTime: ts.startTime, endTime: ts.endTime }))
+          }));
+          setUnavailableBlocks(loadedBlocks);
+        }
+      })
+      .catch(err => console.error("Failed to load unavailabilities:", err));
+  }, []);
 
   const handleModeChange = (newMode) => {
     setMode(newMode);
@@ -19,24 +62,45 @@ const CalendarWithSidebar = () => {
     if (newUnavailableBlocks !== undefined) setUnavailableBlocks(newUnavailableBlocks);
   };
 
-  
+  const handlePrev = () => {
+    setCurrentDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() - 7);
+      return newDate;
+    });
+  };
+
+  const handleNext = () => {
+    setCurrentDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() + 7);
+      return newDate;
+    });
+  };
+
   return (
     <div style={{ margin: "20px" }}>
-      <br></br>
-      <br></br>
-    <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
-      <BlockOffTimesPanel 
-        mode={mode} 
-        onModeChange={handleModeChange} 
-        unavailableBlocks={unavailableBlocks}
-      />
-      <StyledCalendar 
-        mode={mode} 
-        availableBlocks={availableBlocks} 
-        unavailableBlocks={unavailableBlocks} 
-        onBlocksChange={handleBlocksChange}
-      />
-    </div>
+      <br/>
+      <br/>
+      <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
+        <BlockOffTimesPanel 
+          mode={mode} 
+          onModeChange={handleModeChange} 
+          unavailableBlocks={unavailableBlocks}
+          onBlocksChange={handleBlocksChange}
+          weekDates={weekDates}
+        />
+        <StyledCalendar 
+          mode={mode} 
+          availableBlocks={availableBlocks} 
+          unavailableBlocks={unavailableBlocks} 
+          onBlocksChange={handleBlocksChange}
+          weekDates={weekDates}
+          currentDate={currentDate}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
+      </div>
     </div>
   );
 };

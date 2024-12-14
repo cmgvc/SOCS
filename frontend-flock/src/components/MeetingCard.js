@@ -3,9 +3,10 @@ import React from 'react';
 
 const MeetingCard = ({ meeting }) => {
     const email = localStorage.getItem('email');
-    const backendUrl = 'http://localhost:5001';
+    const backendUrl =  'http://localhost:5001';
     const title = meeting.title;
     const date = meeting.date;
+    const time = meeting.time;
     const formatDate = (dateString) => {
         const newDate = new Date(dateString);
         const dateOptions = {
@@ -28,6 +29,7 @@ const MeetingCard = ({ meeting }) => {
     const { formattedDate, formattedTime, newDate } = formatDate(date);
     const organizer = meeting.faculty;
     const duration = meeting.duration;
+    const meetingType = meeting.meetingType;
     const meetingId = meeting._id;
     const currentDate = new Date();
     const isPastOrStarted = currentDate >= newDate;
@@ -46,16 +48,30 @@ const MeetingCard = ({ meeting }) => {
         }
     }
 
+    const extractNameFromEmail = (email) => {
+        if (!email) return '';
+        const parts = email.split('@')[0].split('.');
+        if (parts.length >= 2) {
+            const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            return `${capitalize(parts[0])} ${capitalize(parts[1])}`;
+        }
+        return email;
+    };
+
     return (
         <div>
             <div className='meeting-card'>
                 <h4>{formattedDate}</h4>
                 <div className='meeting-date'>
-                    <button>{formattedTime}</button>
-                    <button>{duration}</button>
+                    <button>{time}</button>
+                    <button>{duration} min</button>
                 </div>
-                <p>{title}</p>
-                <h5>{organizer}</h5>
+                <p>{title}
+                    <br/><br/>
+                    {meetingType}
+                    <br/><br/>
+                    <b>{extractNameFromEmail(organizer)}</b>
+                </p>
                 {!isPastOrStarted && (
                     <button className='cancel-btn' onClick={handleCancelMeeting}>Cancel</button>
                 )}            

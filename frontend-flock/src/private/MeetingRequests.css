@@ -1,3 +1,4 @@
+/* Jacob Weldon 260986471 */
 .request-wrapper {
     display: flex;
     justify-content: center;
@@ -79,16 +80,15 @@
     border-radius: 40px;
 }
 
-.lookup-button {
-    padding: 8px 16px;
-    font-size: 1rem;
+.lookup-button2 {
+    padding: 10px 20px;
+    font-family: "Poppins", sans-serif;
     background-color: red;
     color: white;
     border: none;
     border-radius: 40px;
     cursor: pointer;
     transition: background-color 0.3s;
-    white-space: nowrap;
 }
 
 .lookup-button:hover {
@@ -140,7 +140,7 @@
     border-radius: 40px;
 }
 
-.meeting-inputs button.lookup-button {
+.meeting-inputs button.lookup-button2 {
     align-self: flex-start;
     padding: 8px 16px;
     font-size: 1rem;
@@ -152,7 +152,7 @@
     transition: background-color 0.3s;
 }
 
-.meeting-inputs button.lookup-button:hover {
+.meeting-inputs button.lookup-button2:hover {
     background-color: #eb5757;
 }
 
