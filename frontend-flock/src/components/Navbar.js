@@ -92,8 +92,6 @@ function Navbar() {
                 <li>
                   <a href="/profLookup">Request Meeting</a>
                 </li>
-                <li>
-                </li>
               </>
             )}
           </ul>
