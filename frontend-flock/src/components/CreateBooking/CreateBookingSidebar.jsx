@@ -149,9 +149,6 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
     const availabilityData =
       availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData;
 
-    // Update the parent state with the selected time slots
-    setSelectedTimeSlots(availabilityData);
-
     // Check if the title is empty
     if (!title) {
       setError("The title cannot be empty.");
@@ -242,6 +239,8 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
         const data = await response.json();
         setBookingUrl(data.bookingUrl); // Update the state with the generated URL
         console.log("Booking URL:", data.bookingUrl);
+        // Update the parent state with the selected time slots
+        setSelectedTimeSlots(availabilityData);
       } else {
         setError("Failed to save booking. Please try again.");
       }
