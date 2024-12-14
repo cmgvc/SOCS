@@ -72,3 +72,15 @@
 .toggle-btn button:hover {
     background-color: #8a8a8a;
 }
+
+@media (max-width: 480px) {
+    .booking {
+        margin: 0;
+        padding: 10px; 
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+
