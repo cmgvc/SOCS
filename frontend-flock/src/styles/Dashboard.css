@@ -1,9 +1,11 @@
+/* General Styles */
 .dash-login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 80vh;
+    padding: 20px;
 }
 
 .dash-login button {
@@ -25,7 +27,7 @@
 .dashboard {
     display: flex;
     flex-direction: column;
-    padding: 5vh;
+    padding: 5vh 10vw;
     margin-bottom: 10vh;
 }
 
@@ -66,9 +68,11 @@
 .dash-header {
     display: flex;
     justify-content: space-between;
-    flex: 1;
+    flex-wrap: wrap;
     text-align: left;
-    margin-left: 12vw;
+    margin-left: 8vw;
+    margin-right: 8vw;
+    align-items: center;
 }
 
 .dash-header button {
@@ -80,7 +84,6 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     cursor: pointer;
-    margin-right: 9vw;
     margin-top: 3vh;
 }
 
@@ -91,6 +94,7 @@
 .upcoming-panel {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -108,6 +112,7 @@
 
 .meeting-cards {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 4vh;
     gap: 20px;
     justify-content: center;
@@ -119,9 +124,10 @@
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-align: center;
-    width: 19vw;
-    justify-content: center;
-    height: 43vh;
+    flex: 1;
+    min-width: 280px;
+    max-width: 300px;
+    height: auto;
 
     a {
         text-decoration: underline;
@@ -150,7 +156,7 @@
         padding: var(--spacing-sm) var(--spacing-md);
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadow);
-        margin-top: 3vh;;
+        margin-top: 3vh;
     }
 
     h5 {
@@ -186,6 +192,7 @@
     display: flex;
     justify-content: center;
     gap: 3vw;
+    flex-wrap: wrap;
 }
 
 .logout-modal {
@@ -223,7 +230,6 @@
     }
 }
 
-
 .modal {
     position: fixed;
     top: 0;
@@ -251,7 +257,77 @@
     }
 }
 
-a {
-    color: var(--dark-gray);   
+@media (max-width: 768px) {
+    .dash-header {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+
+    .dashboard {
+        padding: 5vw;
+    }
+
+    .meeting-card {
+        flex: 1 1 calc(50% - 20px); 
+        max-width: 45%;
+        padding: 20px;
+        min-width: 200px;
+    }
+
+    .meeting-card h4 {
+        font-size: 0.9rem; 
+    }
+
+    .meeting-card h5, .meeting-card p {
+        font-size: 0.8rem;
+    }
+
+    .panel-arrow {
+        margin-top: 8vh;
+    }
 }
 
+@media (max-width: 480px) {
+    .dash-login {
+        padding: 10px;
+    }
+
+    .dash-login button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: small; 
+    }
+
+    .meeting-card {
+        min-width: 150px; 
+        border-radius: 30px;
+        margin-left: -3vw;
+    }
+
+    .panel-arrow button {
+        margin: 0;
+    }
+
+    button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        scale: 0.8;
+    }
+
+    .meeting-card h4 {
+        font-size: 0.8rem; 
+    }
+
+    .meeting-card h5, .meeting-card p {
+        font-size: 0.7rem; 
+    }
+
+    .cancel-btn {
+        padding: var(--spacing-xs) var(--spacing-sm); 
+        font-size: 0.8rem; 
+    }
+
+    .dash-header button {
+        margin: 1vh 0;
+        font-size: small; 
+    }
+}
