@@ -8,10 +8,10 @@ router.use(express.json());
 
 router.post('/', async (req, res) => {
     try {
-        const { title, duration, date, faculty, participants, status } = req.body;
+        const { title, duration, date, faculty, participants, status, meetingType } = req.body;
 
         // Basic validation
-        if (!title || !duration || !date || !faculty || !status) {
+        if (!title || !duration || !date || !faculty || !status || !meetingType) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
@@ -31,10 +31,11 @@ router.post('/', async (req, res) => {
         const newMeeting = new Meeting({
             title,
             duration,
-            date: date,
+            date,
             faculty,
-            participants: participants || [], // Default to empty array if not provided
-            status
+            participants, // Default to empty array if not provided
+            status,
+            meetingType
         });
 
         // Save to database

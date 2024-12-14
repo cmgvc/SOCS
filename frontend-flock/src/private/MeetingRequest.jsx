@@ -41,6 +41,12 @@ function MeetingRequest() {
             return;
         }
 
+        const durationInt = parseInt(meetingDuration, 10);
+        if (isNaN(durationInt) || durationInt <= 0) {
+            setError('Please enter a valid duration in whole minutes.');
+            return;
+        }
+
         // Combine date and time into a single Date object
         const [hours, minutes] = meetingTime.split(':');
         const meetingDateTime = new Date(meetingDate);
@@ -49,12 +55,13 @@ function MeetingRequest() {
 
         // Create the meeting object
         const meeting = {
-            title: meetingType,
-            duration: meetingDuration,
+            title: 'Requested Meeting',
+            duration: durationInt,
             date: meetingDateTime,
             faculty: professorName || newProfessorName,
             participants: [], // Add logic to include participants if needed
-            status: status
+            status: status,
+            meetingType: meetingType
         };
 
         try {
