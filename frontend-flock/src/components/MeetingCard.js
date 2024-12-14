@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const MeetingCard = ({ meeting }) => {
   const email = localStorage.getItem("email");
-  const backendUrl = 'http://localhost:5001';
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const isFaculty = localStorage.getItem("isFaculty");
   const {
     title,
@@ -107,7 +107,7 @@ const MeetingCard = ({ meeting }) => {
         </button>
       )}
 
-      {!isPastOrStarted && status === "Pending" && (
+      {!isPastOrStarted && status === "Pending" && isFaculty === 'true' && (
         <div className="pending-actions">
           <button
             className="cancel-btn"
@@ -123,6 +123,11 @@ const MeetingCard = ({ meeting }) => {
             Decline
           </button>
         </div>
+      )}
+      {isFaculty === 'false' && (
+        <p>
+          <b>Status: {status}</b>
+        </p>
       )}
 
       {!isFaculty && (status === "Pending" || status === "Declined") && (
