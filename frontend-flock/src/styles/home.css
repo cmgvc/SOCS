@@ -13,10 +13,10 @@
 
 .overlay-text {
   font-family: "Poppins", sans-serif;
-  position: absolute; /* Position the text absolutely within the container */
-  top: 65%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Adjust for proper centering */
+  position: absolute; 
+  top: 65%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
   color: #444040;
   text-align: center;
 }
@@ -51,7 +51,7 @@
   min-height: 100vh;
 }
 .left-panel {
-  background-color: #ec2227; /* Adjust this to the shade of red you prefer */
+  background-color: #ec2227;
   padding: 2rem;
   flex: 1;
   display: flex;
@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #5c5c5c; /* Gray background behind image */
+  background: #5c5c5c; 
   padding: 2rem;
 }
 
@@ -114,9 +114,9 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* space between heading and images */
-  padding: 80px 20px 0; /* no bottom padding so images sit at the bottom */
-  margin-bottom: 0; /* remove bottom margin if any */
+  justify-content: space-between; 
+  padding: 80px 20px 0;
+  margin-bottom: 0; 
 }
 
 .bottom-section-red h2 {
@@ -131,7 +131,7 @@
 .images-row {
   display: flex;
   justify-content: space-around;
-  align-items: flex-end; /* align images at the bottom of the red section */
+  align-items: flex-end;
   margin: 0 auto;
   max-width: 1200px;
 }
@@ -139,7 +139,7 @@
 .home-image {
   flex: 1;
   max-width: 320px;
-  margin: 0 20px 0; /* remove any bottom margin */
+  margin: 0 20px 0; 
   height: auto;
 }
 
@@ -148,7 +148,7 @@
   display: flex;
   flex-direction: row;
   min-height: 40vh;
-  padding-top: 0; /* start immediately after red section */
+  padding-top: 0;
 }
 
 .bottom-section-grey > div {
@@ -181,4 +181,32 @@
   height: 100%;
   border-radius: 8px;
   object-fit: cover; 
+}
+
+@media (max-width: 992px) {
+  .overlay-text h1 {
+    font-size: 1.8rem;
+  }
+  .overlay-text p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .overlay-text h1 {
+    font-size: 1.3rem;
+  }
+  .overlay-text p {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .overlay-text h1 {
+    font-size: 1rem;
+  }
+  .overlay-text p {
+    font-size: 0.8rem;
+  }
 }
