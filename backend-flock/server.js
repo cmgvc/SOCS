@@ -6,6 +6,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const meetingRoutes = require("./routes/meetings");
 const availabilityRoutes = require("./routes/availability");
+const facultyRoutes = require("./routes/faculty");
 
 const app = express();
 
@@ -36,6 +37,8 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
 app.use("/availability", availabilityRoutes);
+app.use("/faculty", facultyRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -3,7 +3,7 @@ import React from 'react';
 
 const MeetingCard = ({ meeting }) => {
     const email = localStorage.getItem('email');
-    const backendUrl = 'http://localhost:5001';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
     const title = meeting.title;
     const date = meeting.date;
     const formatDate = (dateString) => {
