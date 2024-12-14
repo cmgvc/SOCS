@@ -30,7 +30,6 @@ const CreateBookingSidebar = () => {
     const meetingDurationSplit = meetingDuration.split(" ");
     const timeType = meetingDurationSplit[1];
     const time = parseFloat(meetingDurationSplit[0]);
-    console.log(time);
     if (timeType === "hour" || timeType === "hours") {
       return time * 60;
     }
@@ -58,11 +57,27 @@ const CreateBookingSidebar = () => {
   const isValidTimeSlotWeekly = (slot, meetingDurationInMinutes) => {
     const { start, end } = slot;
 
-    const startMinutes =
-      parseInt(start.split(":")[0], 10) * 60 +
-      parseInt(start.split(":")[1], 10);
-    const endMinutes =
-      parseInt(end.split(":")[0], 10) * 60 + parseInt(end.split(":")[1], 10);
+    const convertToMinutes = (time) => {
+      const [hourMinute, period] = time.split(" ");
+      const [hour, minute] = hourMinute.split(":").map(Number);
+
+      let totalMinutes = hour * 60 + minute;
+
+      // Adjust for PM times, except for 12 PM (noon)
+      if (period === "PM" && hour !== 12) {
+        totalMinutes += 720; // Add 12 hours
+      }
+
+      // Adjust for 12 AM (midnight)
+      if (period === "AM" && hour === 12) {
+        totalMinutes -= 720; // Subtract 12 hours
+      }
+
+      return totalMinutes;
+    };
+
+    const startMinutes = convertToMinutes(start);
+    const endMinutes = convertToMinutes(end);
 
     // Ensure end time is greater than start time
     if (endMinutes <= startMinutes) return false;
