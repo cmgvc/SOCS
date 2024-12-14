@@ -28,3 +28,14 @@
 .dates-container .meeting-btn:hover {
     background-color: #d41f24;
 }
+
+.meetings-container {
+    display: flex;
+    gap: 10vw;
+    margin-top: 2vh;
+    justify-content: space-evenly;
+}
+
+.meeting-btn {
+    margin: 2vh;
+}

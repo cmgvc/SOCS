@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -9,14 +10,13 @@ const meetingRoutes = require("./routes/meetings");
 const app = express();
 
 const PORT = process.env.PORT || 5001;
-const uri = process.env.MONGO_URI;
 
-app.use(cors({ origin: "http://localhost:3000" })); // allow frontend origin
+app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:3000"})); // allow frontend origin
 app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -36,3 +36,4 @@ app.use("/availabilities", require("./routes/availabilities"));
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

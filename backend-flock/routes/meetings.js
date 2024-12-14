@@ -4,6 +4,7 @@ const Meeting = require("../models/Meeting");
 
 const router = express.Router();
 
+// get all meetings for a user
 router.post("/", async (req, res) => {
     try {
         const userEmail = req.body.email;
@@ -14,6 +15,7 @@ router.post("/", async (req, res) => {
     }
 });
 
+// cancel a meeting for a user
 router.post("/cancel", async (req, res) => {
     const { email, meetingId } = req.body;
     try {

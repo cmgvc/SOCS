@@ -6,35 +6,36 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function Dashboard() {
-    const [startIndex, setStartIndex] = useState(0);
+    const [startPrevIndex, setStartPrevIndex] = useState(0);
+    const [startNextIndex, setStartNextIndex] = useState(0);
     const email = localStorage.getItem('email');
     const backendUrl = "http://localhost:5001";
     const [upcomingMeetings, setUpcomingMeetings] = useState([])
     const [pastMeetings, setPastMeetings] = useState([])
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const getUpcomingDisplayedCards = upcomingMeetings.slice(startIndex, startIndex + 3)
-    const getHistoryDisplayedCards = pastMeetings.slice(startIndex, startIndex + 3)
+    const getUpcomingDisplayedCards = upcomingMeetings.slice(startNextIndex, startNextIndex + 3)
+    const getHistoryDisplayedCards = pastMeetings.slice(startPrevIndex, startPrevIndex + 3)
 
     const handleUpcomingNextClick = () => {
-        if (startIndex + 3 < upcomingMeetings.length) {
-            setStartIndex(prevIndex => prevIndex + 1)
+        if (startNextIndex + 3 < upcomingMeetings.length) {
+            setStartNextIndex(prevIndex => prevIndex + 1)
         }
     };
 
     const handleUpcomingPrevClick = () => {
-        if (startIndex > 0) {
-            setStartIndex(prevIndex => prevIndex - 1)
+        if (startPrevIndex > 0) {
+            setStartPrevIndex(prevIndex => prevIndex - 1)
         }
     }
     const handleHistoryNextClick = () => {
-        if (startIndex + 3 < upcomingMeetings.length) {
-            setStartIndex(prevIndex => prevIndex + 1)
+        if (startNextIndex + 3 < upcomingMeetings.length) {
+            setStartNextIndex(prevIndex => prevIndex + 1)
         }
     };
 
     const handleHistoryPrevClick = () => {
-        if (startIndex > 0) {
-            setStartIndex(prevIndex => prevIndex - 1)
+        if (startPrevIndex > 0) {
+            setStartPrevIndex(prevIndex => prevIndex - 1)
         }
     }
     
@@ -111,13 +112,13 @@ function Dashboard() {
                         <a href='meetingRequest' ><button >Request alternate meeting time</button></a>
                     </div>
                     <div className='upcoming-panel'>
-                        <button onClick={handleUpcomingPrevClick} disabled={startIndex === 0} className='panel-arrow'><ArrowBackIosIcon /></button>
+                        <button onClick={handleUpcomingPrevClick} disabled={startNextIndex === 0} className='panel-arrow'><ArrowBackIosIcon /></button>
                         <div className='meeting-cards'>
                             {getUpcomingDisplayedCards.map(meeting => (
                                 <MeetingCard key={meeting._id || meeting.title} meeting={meeting} />
                             ))}
                         </div>
-                        <button onClick={handleUpcomingNextClick} disabled={startIndex + 3 >= upcomingMeetings.length} className='panel-arrow'><ArrowForwardIosIcon /></button>
+                        <button onClick={handleUpcomingNextClick} disabled={startNextIndex + 3 >= upcomingMeetings.length} className='panel-arrow'><ArrowForwardIosIcon /></button>
                     </div>
                 </div>
                 <div className='dash-section'>
@@ -125,13 +126,13 @@ function Dashboard() {
                         <h2>Past Meetings</h2>
                     </div>
                     <div className='upcoming-panel'>
-                        <button onClick={handleHistoryPrevClick} disabled={startIndex === 0} className='panel-arrow'><ArrowBackIosIcon /></button>
+                        <button onClick={handleHistoryPrevClick} disabled={startPrevIndex === 0} className='panel-arrow'><ArrowBackIosIcon /></button>
                         <div className='meeting-cards'>
                             {getHistoryDisplayedCards.map(meeting => (
                                 <MeetingCard key={meeting._id} meeting={meeting} />
                             ))}
                         </div>
-                        <button onClick={handleHistoryNextClick} disabled={startIndex + 3 >= upcomingMeetings.length} className='panel-arrow'><ArrowForwardIosIcon /></button>
+                        <button onClick={handleHistoryNextClick} disabled={startPrevIndex + 3 >= upcomingMeetings.length} className='panel-arrow'><ArrowForwardIosIcon /></button>
                     </div>
                 </div>
             </div>

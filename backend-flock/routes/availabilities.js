@@ -15,4 +15,20 @@ router.post("/", async (req, res) => {
     }
 });
 
+// get meeting by url
+router.get('/url', async (req, res) => {
+    const { url } = req.query;
+    try {
+        const meeting = await Availability.find({ bookingURL: url });
+        if (meeting) {
+            res.json(meeting);
+        } else {
+            res.status(404).json({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error checking availability:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 module.exports = router;
