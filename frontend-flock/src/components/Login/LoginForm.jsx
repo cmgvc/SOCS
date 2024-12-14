@@ -18,10 +18,9 @@ const LoginForm = () => {
     process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const validateEmail = (email) => {
-    const mcgillEmailRegex = /^[^\s@]+@mail\.mcgill\.ca$/;
+    const mcgillEmailRegex = /^[^\s@]+@(mail\.)?mcgill\.ca$/;
     setIsEmailValid(mcgillEmailRegex.test(email));
   };
-
   const validatePassword = (password) => {
     setIsPasswordValid(password.length >= 8);
   };
@@ -46,7 +45,7 @@ const LoginForm = () => {
     e.preventDefault();
     if (isEmailValid && isPasswordValid) {
       try {
-        const response = await fetch("http://localhost:5001/auth/login", {
+        const response = await fetch(`${backendUrl}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -57,6 +56,7 @@ const LoginForm = () => {
           localStorage.setItem("firstName", `${data.user.firstName}`);
           localStorage.setItem("lastName", `${data.user.lastName}`);
           localStorage.setItem("email", `${data.user.email}`);
+          localStorage.setItem("isFaculty", `${data.user.isFaculty}`);
           window.open("/", "_self");
         } else {
           setErrorMessage(data.message || "Login failed. Please try again.");
@@ -122,7 +122,7 @@ const LoginForm = () => {
             </label>
           </div>
           <div className="forgot-password">
-            <a href="/forgot-password">Forgot your password?</a>
+            <a href="">Forgot your password?</a>
           </div>
         </div>
 
