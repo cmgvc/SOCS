@@ -61,7 +61,8 @@ function MeetingRequest() {
             faculty: professorName || newProfessorName,
             participants: [], // Add logic to include participants if needed
             status: status,
-            meetingType: meetingType
+            meetingType: meetingType,
+            time: meetingTime
         };
 
         try {
