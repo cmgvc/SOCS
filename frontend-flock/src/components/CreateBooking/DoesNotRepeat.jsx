@@ -1,10 +1,13 @@
 // Danielle Wahrhaftig 260984602
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./does-not-repeat.css";
 import { ReactComponent as AddIcon } from "../../svg/add-square.svg";
 import { ReactComponent as CancelIcon } from "../../svg/cancel-right.svg";
 
-const DoesNotRepeat = ({ meetingDuration = "1 hour" }) => {
+const DoesNotRepeat = ({
+  meetingDuration = "1 hour",
+  onAvailabilityChange,
+}) => {
   const getTomorrowDate = () => {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -58,6 +61,11 @@ const DoesNotRepeat = ({ meetingDuration = "1 hour" }) => {
   const [dates, setDates] = useState([
     { date: getTomorrowDate(), startTime: "09:00", endTime: "17:00" },
   ]);
+
+  useEffect(() => {
+    // Call the parent callback whenever `dates` changes
+    onAvailabilityChange(dates);
+  }, [dates, onAvailabilityChange]);
 
   const [error, setError] = useState(null);
 

@@ -19,6 +19,8 @@ const CreateBookingSidebar = () => {
   const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
   const backendUrl = process.env.backendUrl || "http://localhost:5001";
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState(null); // Add this state
+
   const [schedulingLimits, setSchedulingLimits] = useState({
     maxDays: null,
     minHours: null,
@@ -34,7 +36,94 @@ const CreateBookingSidebar = () => {
     return time;
   };
 
+  const isValidTimeSlot = (slot, meetingDurationInMinutes) => {
+    const { startTime, endTime } = slot;
+
+    const startMinutes =
+      parseInt(startTime.split(":")[0], 10) * 60 +
+      parseInt(startTime.split(":")[1], 10);
+    const endMinutes =
+      parseInt(endTime.split(":")[0], 10) * 60 +
+      parseInt(endTime.split(":")[1], 10);
+
+    // Ensure end time is greater than start time
+    if (endMinutes <= startMinutes) return false;
+
+    // Ensure the difference is a multiple of the meeting duration
+    const difference = endMinutes - startMinutes;
+    return difference % meetingDurationInMinutes === 0;
+  };
+
+  const isOverlapping = (slots) => {
+    const slotsByDate = slots.reduce((acc, slot) => {
+      if (!acc[slot.date]) acc[slot.date] = [];
+      acc[slot.date].push(slot);
+      return acc;
+    }, {});
+
+    for (const date in slotsByDate) {
+      const slotsForDate = slotsByDate[date];
+      for (let i = 0; i < slotsForDate.length; i++) {
+        for (let j = i + 1; j < slotsForDate.length; j++) {
+          const slotA = slotsForDate[i];
+          const slotB = slotsForDate[j];
+
+          const startA = new Date(`${date}T${slotA.startTime}`);
+          const endA = new Date(`${date}T${slotA.endTime}`);
+          const startB = new Date(`${date}T${slotB.startTime}`);
+          const endB = new Date(`${date}T${slotB.endTime}`);
+
+          // Check if times overlap
+          if (startA < endB && startB < endA) {
+            return true; // Overlap detected
+          }
+        }
+      }
+    }
+    return false; // No overlaps
+  };
+
   const handleSave = async () => {
+    // Check if "Does not repeat" is selected
+    if (availability === "Does not repeat") {
+      // Check for missing dates
+      const invalidDate = doesNotRepeatData.some(
+        (slot) => slot.date === "" || slot.date === "Select a date"
+      );
+      if (invalidDate) {
+        setError("All date fields must be filled with valid dates.");
+        return; // Prevent saving
+      }
+
+      // Check if there are no time slots
+      if (doesNotRepeatData.length === 0) {
+        setError("Must add a time slot.");
+        return; // Prevent saving
+      }
+
+      // Meeting duration in minutes
+      const meetingDurationInMinutes = handleMeetingDuration(meetingDuration);
+
+      // Validate each time slot
+      const invalidTimeSlot = doesNotRepeatData.some(
+        (slot) => !isValidTimeSlot(slot, meetingDurationInMinutes)
+      );
+      if (invalidTimeSlot) {
+        setError(
+          `Each time slot must align with the ${meetingDuration} duration.`
+        );
+        return;
+      }
+      // Check for overlapping slots
+      if (isOverlapping(doesNotRepeatData)) {
+        setError("Time slots on the same date cannot overlap.");
+        return;
+      }
+    }
+
+    // Clear error if validation passes
+    setError(null);
+
     const bookingData = {
       title: document.querySelector(".add-title-input").value,
       email: localStorage.getItem("email"),
@@ -99,7 +188,7 @@ const CreateBookingSidebar = () => {
       <h3 className="bold-title">Meeting duration</h3>
       <h4 className="booking-subtitle">How long should each meeting last?</h4>
       <DropdownMenu
-        options={["30 minutes", "45 minutes", "1 hour", "1.5 hours", "2 hours"]}
+        options={["30 minutes", "1 hour", "1.5 hours", "2 hours"]}
         defaultOption={meetingDuration}
         onChange={(selected) =>
           selected === "Custom..."
@@ -157,6 +246,7 @@ const CreateBookingSidebar = () => {
           onSchedulingLimitsChange={handleSchedulingLimitsChange}
         />
       )}
+      {error && <div className="error-message">{error}</div>}
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>
