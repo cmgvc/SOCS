@@ -63,7 +63,7 @@ function MeetingRequest() {
       duration: durationInt,
       date: meetingDateTime,
       faculty: professorName || newProfessorName,
-      participants: [],
+      participants: [localStorage.getItem("email")],
       status: status,
       meetingType: meetingType,
       time: meetingTime,
