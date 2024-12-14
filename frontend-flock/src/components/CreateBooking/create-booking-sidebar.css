@@ -197,6 +197,29 @@
   transform: rotate(180deg);
 }
 
+.booking-url-container a:hover {
+  text-decoration: underline;
+}
+
+.booking-url-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  word-wrap: break-word; /* Ensure long URLs wrap */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.booking-url-container a {
+  color: #ff8080;
+  text-decoration: none;
+}
+
+.booking-url-container a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 950px) {
   .cb-create-meeting-sidebar {
     width: 60%;
