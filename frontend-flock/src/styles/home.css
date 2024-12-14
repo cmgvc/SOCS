@@ -1,176 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 .home-container {
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .home-gradient {
-    width: 100vw; 
-    height: auto; 
-    display: block; 
-  }
+  width: 100%;
+  overflow: hidden;
+}
 
-  .overlay-text {
-    font-family: 'Poppins', sans-serif;
-    position: absolute; /* Position the text absolutely within the container */
-    top: 75%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for proper centering */
-    color: #444040; 
-    text-align: center;
-  }
-  
-  .overlay-text h1 {
-    margin: 10px 5px 5px 5px;
-    font-size: 2rem;
-  }
-  
-  .overlay-text p {
-    margin: 10px 5px 5px 5px;
-    font-size: 1.25rem; 
-  }
+.home-gradient {
+  width: 100vw;
+  height: auto;
+  display: block;
+}
 
+.overlay-text {
+  font-family: "Poppins", sans-serif;
+  position: absolute; /* Position the text absolutely within the container */
+  top: 65%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for proper centering */
+  color: #444040;
+  text-align: center;
+}
 
-  .overlay-buttons{
-    margin: 30px 20px 0 0;
-    background: var(--primary-red);
-    color: #fff;
-    border: none;
-    font-size: 1rem;
-    height: 45px;
-    border-radius: 100px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: var(--box-shadow);
-    width: 150px;
-  }
+.overlay-text h1 {
+  margin: 10px 5px 5px 5px;
+  font-size: 2rem;
+}
 
-  .middle-section {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-    
-  }
-  .left-panel {
-    background-color: #EC2227; /* Adjust this to the shade of red you prefer */
-    padding: 2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: #fff;
-    text-align: left;
-  }
-  
-  .left-panel h1 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    margin-bottom: 2rem;
-    font-weight: bold;
-    text-shadow: 2px 2px #5031311e;
-  }
-  
-  .features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .features li {
-    margin-bottom: 1rem;
-    position: relative;
-    padding-left: 2rem;
-    font-size: 1.1rem;
-  }
-  
-  .features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  .right-panel {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #5C5C5C; /* Gray background behind image */
-    padding: 2rem;
-  }
-  
-  .right-panel img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    border: 1px solid #ccc;
-    background: #fff;
-    border-radius: 4px;
-  }
+.overlay-text p {
+  margin: 10px 5px 5px 5px;
+  font-size: 1.25rem;
+}
 
-  .bottom-section-red {
-    background-color: #FAE5E6;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;  /* space between heading and images */
-    padding: 80px 20px 0;            /* no bottom padding so images sit at the bottom */
-    margin-bottom: 0;                /* remove bottom margin if any */
-  }
-  
-  .bottom-section-red h2 {
-    font-size: 2.5rem;
-    margin-top: 10px;
-    margin-bottom: 70px;
-    color: #000;
-    font-weight: bold;
-    max-height: 60vh;
-  }
-  
-  .images-row {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;           /* align images at the bottom of the red section */
-    margin: 0 auto;
-    max-width: 1200px;
-  }
-  
-  .home-image {
-    flex: 1; 
-    max-width: 320px;
-    margin: 0 20px 0;               /* remove any bottom margin */
-    height: auto;
-  }
-  
-  .bottom-section-grey {
-    background-color: #EFEFEF;
-    display: flex;
-    flex-direction: row;
-    min-height: 40vh;
-    padding-top: 0;                  /* start immediately after red section */
-  }
-  
-  .bottom-section-grey > div {
-    flex: 1;
-    margin: 20px 20px 0px 50px;
-    
-  }
-  
-  .bottom-section-grey h3 {
-    color: #656565;
-    margin-bottom: 0px;
-    text-align: left;
-    margin-top: 0px;
-    
-  }
-  
-  .bottom-section-grey p {
-    color: #656565;
-    line-height: 1.5;
-    text-align: left;
-    
-  }
-  
+.overlay-buttons {
+  margin: 30px 20px 0 0;
+  background: var(--primary-red);
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  height: 45px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: var(--box-shadow);
+  width: 150px;
+}
+
+.middle-section {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+.left-panel {
+  background-color: #ec2227; /* Adjust this to the shade of red you prefer */
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: left;
+}
+
+.left-panel h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  text-shadow: 2px 2px #5031311e;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features li {
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 2rem;
+  font-size: 1.1rem;
+}
+
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-weight: bold;
+}
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #5c5c5c; /* Gray background behind image */
+  padding: 2rem;
+}
+
+.right-panel img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.bottom-section-red {
+  background-color: #fae5e6;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* space between heading and images */
+  padding: 80px 20px 0; /* no bottom padding so images sit at the bottom */
+  margin-bottom: 0; /* remove bottom margin if any */
+}
+
+.bottom-section-red h2 {
+  font-size: 2.5rem;
+  margin-top: 10px;
+  margin-bottom: 70px;
+  color: #000;
+  font-weight: bold;
+  max-height: 60vh;
+}
+
+.images-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end; /* align images at the bottom of the red section */
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.home-image {
+  flex: 1;
+  max-width: 320px;
+  margin: 0 20px 0; /* remove any bottom margin */
+  height: auto;
+}
+
+.bottom-section-grey {
+  background-color: #efefef;
+  display: flex;
+  flex-direction: row;
+  min-height: 40vh;
+  padding-top: 0; /* start immediately after red section */
+}
+
+.bottom-section-grey > div {
+  flex: 1;
+  margin: 20px 20px 0px 50px;
+}
+
+.bottom-section-grey h3 {
+  color: #656565;
+  margin-bottom: 0px;
+  text-align: left;
+  margin-top: 0px;
+}
+
+.bottom-section-grey p {
+  color: #656565;
+  line-height: 1.5;
+  text-align: left;
+}
