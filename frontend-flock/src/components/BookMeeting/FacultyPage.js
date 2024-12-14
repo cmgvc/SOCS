@@ -1,4 +1,4 @@
-// CHloe Gavrilovic 260955835s
+// CHloe Gavrilovic 260955835
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BookingCalendar from './BookingCalendar';
@@ -8,7 +8,7 @@ import './faculty-page.css';
 function FacultyPage({ facultyName }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const backendUrl = 'http://localhost:5001';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
     const [meetings, setMeetings] = useState([]);
 
     const handleDateChange = (date) => {

@@ -9,7 +9,7 @@ function Dashboard() {
     const [startPrevIndex, setStartPrevIndex] = useState(0);
     const [startNextIndex, setStartNextIndex] = useState(0);
     const email = localStorage.getItem('email');
-    const backendUrl = "http://localhost:5001";
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
     const [upcomingMeetings, setUpcomingMeetings] = useState([])
     const [pastMeetings, setPastMeetings] = useState([])
     const [showLogoutModal, setShowLogoutModal] = useState(false);

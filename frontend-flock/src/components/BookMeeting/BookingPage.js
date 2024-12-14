@@ -1,3 +1,4 @@
+// Chloe Gavriloivc 260955835
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './booking-page.css';
@@ -11,7 +12,7 @@ export const BookingPage = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [meeting, setMeeting] = useState(null);
     const [recurring, setRecurring] = useState(false);
-    const backendUrl = 'http://localhost:5001';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
     const daysOfWeek = { 0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday" };
 
     const handleDateChange = (date) => {
