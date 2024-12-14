@@ -29,7 +29,8 @@ const CreateBookingSidebar = () => {
   const handleMeetingDuration = (meetingDuration) => {
     const meetingDurationSplit = meetingDuration.split(" ");
     const timeType = meetingDurationSplit[1];
-    const time = parseInt(meetingDurationSplit[0]);
+    const time = parseFloat(meetingDurationSplit[0]);
+    console.log(time);
     if (timeType === "hour" || timeType === "hours") {
       return time * 60;
     }
