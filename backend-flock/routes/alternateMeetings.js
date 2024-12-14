@@ -1,4 +1,4 @@
-// routes/alternateMeetings.js
+// Jacob Weldon 260986471
 const express = require('express');
 const router = express.Router();
 const Meeting = require('../models/Meeting');
@@ -38,6 +38,8 @@ router.post('/', async (req, res) => {
             meetingType,
             time
         });
+
+        console.log(newMeeting);
 
         // Save to database
         await newMeeting.save();

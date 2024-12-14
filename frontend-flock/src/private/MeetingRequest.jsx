@@ -1,3 +1,4 @@
+// Jacob Weldon 20986471
 import React, { useState } from "react";
 import CalendarComponent from "../components/date-select-calendar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,8 +16,7 @@ function MeetingRequest() {
   const [meetingDuration, setMeetingDuration] = useState("");
   const [meetingType, setMeetingType] = useState("");
   const [status] = useState("pending"); // Default status while requesting meeting
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "http://localhost:5001";
 
   const handleInputChange = (e) => {
     setNewProfessorName(e.target.value);
