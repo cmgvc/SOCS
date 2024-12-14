@@ -15,6 +15,18 @@ router.post("/", async (req, res) => {
     }
 });
 
+// get all meetings for a faculty member
+router.post("/faculty", async (req, res) => {
+    try {
+        const facultyEmail = req.body.email;
+        const meetings = await Meeting.find({ faculty: facultyEmail });
+        console.log(meetings);
+        res.json(meetings);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // cancel a meeting for a user
 router.post("/cancel", async (req, res) => {
     const { email, meetingId } = req.body;
@@ -36,6 +48,29 @@ router.post("/cancel", async (req, res) => {
         res.json({ success: true, message: "Participant removed successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+router.post('/cancelFaculty', async (req, res) => {
+    const { email, meetingId } = req.body;
+
+    try {
+        const meeting = await Meeting.findById(meetingId);
+
+        if (!meeting) {
+            return res.status(404).json({ message: 'Meeting not found.' });
+        }
+
+        if (meeting.faculty !== email) {
+            return res.status(403).json({ message: 'You are not authorized to cancel this meeting.' });
+        }
+
+        await Meeting.findByIdAndDelete(meetingId);
+
+        res.status(200).json({ message: 'Meeting cancelled successfully.' });
+    } catch (error) {
+        console.error('Error cancelling meeting:', error);
+        res.status(500).json({ message: 'Error cancelling meeting.' });
     }
 });
 
@@ -71,13 +106,30 @@ router.post("/book", async (req, res) => {
                 meetingType,
                 time
             });
-            console.log(newMeeting);
             const savedMeeting = await newMeeting.save();
             return res.status(201).json(savedMeeting); 
         }
     } catch (error) {
         console.error(error); 
         return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+});
+
+router.post('/updateStatus', async (req, res) => {
+    const { email, meetingId, status } = req.body;
+    try {
+        const meeting = await Meeting.findById(meetingId);
+        if (!meeting) {
+            return res.status(404).json({ message: 'Meeting not found' });
+        }
+
+        meeting.status = status;
+        await meeting.save();
+
+        res.status(200).json({ message: `Meeting ${status} successfully.` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating meeting status.' });
     }
 });
 

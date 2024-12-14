@@ -4,7 +4,7 @@ import "../styles/Calendar.css";
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 function generateTimeSlots(start = "08:00", end = "19:00") {
-  const increment = 5; // 5-minute increments
+  const increment = 5; 
   const times = [];
   const [startH, startM] = start.split(':').map(Number);
   const [endH, endM] = end.split(':').map(Number);
@@ -103,13 +103,13 @@ const StyledCalendar = ({
         const newSlot = { startTime, endTime };
 
         if (dateIndex > -1) {
-          // Check for exact duplicate before merging
+          // duplicate check
           const duplicate = updatedUnavailable[dateIndex].timeSlots.find(
             ts => ts.startTime === startTime && ts.endTime === endTime
           );
           if (!duplicate) {
             updatedUnavailable[dateIndex].timeSlots.push(newSlot);
-            // Merge after adding
+            // add and merge
             updatedUnavailable[dateIndex].timeSlots = mergeTimeSlots(updatedUnavailable[dateIndex].timeSlots);
           }
         } else {
@@ -202,7 +202,7 @@ const StyledCalendar = ({
                 );
               })}
             </div>
-  
+      
             {weekDates.map((date, dayIndex) => (
               <div key={dayIndex} className="day-column">
                 {timeSlots.map((time, slotIndex) => (

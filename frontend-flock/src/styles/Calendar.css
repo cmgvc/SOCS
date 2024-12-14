@@ -115,7 +115,7 @@
 .hour-slot.unavailable {
   background-color: #A09999;
   cursor: not-allowed;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 /* Style for selected slots */
