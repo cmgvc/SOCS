@@ -39,6 +39,8 @@ router.post('/', async (req, res) => {
             time
         });
 
+        console.log(newMeeting);
+
         // Save to database
         await newMeeting.save();
 
