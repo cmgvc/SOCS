@@ -4,7 +4,7 @@ import '../styles/BookMeeting.css';
 
 function BookMeeting() {
     const [meetingUrl, setMeetingUrl] = useState('');
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+    const backendUrl =  "http://localhost:5001";
 
     const handleMeetingUrlSearch = async () => {
         if (!meetingUrl.trim()) {

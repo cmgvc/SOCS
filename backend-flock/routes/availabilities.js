@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 router.get('/url', async (req, res) => {
     const { url } = req.query;
     try {
-        const meeting = await Availability.find({ bookingURL: url });
+        const meeting = await Availability.find({ bookingUrl: url });
         if (meeting) {
             res.json(meeting);
         } else {
