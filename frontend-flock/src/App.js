@@ -13,7 +13,6 @@ import MeetingRequest from "./private/MeetingRequest";
 import BookMeeting from "./pages/BookMeeting";
 import BlockCalendar from "./pages/BlockCalendar";
 import Dashboard from "./pages/Dashboard";
-import MeetingPage from "./pages/MeetingPage";
 import BookingPage from "./components/BookMeeting/BookingPage";
 
 function App() {
@@ -33,7 +32,6 @@ function App() {
           <Route path="/block" element={<BlockCalendar />} />
           <Route path="/book" element={<BookMeeting />} />
           <Route path="/booking/:email/:token" element={<BookingPage />} />
-          <Route path="/meeting/:facultyEmail/:startTime/:meetingId" element={<MeetingPage />} />
         </Routes>
         <Footer />
       </Router>
