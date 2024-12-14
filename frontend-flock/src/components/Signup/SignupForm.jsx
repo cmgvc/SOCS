@@ -19,7 +19,7 @@ const SignupForm = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch(`${backendUrl}/auth/signup`, {
+      const response = await fetch("http://localhost:5001/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

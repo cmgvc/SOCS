@@ -2,28 +2,47 @@
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
 import CustomDurationModal from "./CustomDurationModal";
-import CustomMeetingModal from "./CustomMeetingModal"; // Import Custom Meeting Modal
+import CustomMeetingModal from "./CustomMeetingModal";
 import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
 import DoesNotRepeat from "./DoesNotRepeat";
+import SchedulingLimits from "./SchedulingWindow";
+import { ReactComponent as Chevron } from "../../svg/chevron-down.svg";
 import "./create-booking-sidebar.css";
 
 const CreateBookingSidebar = () => {
   const [meetingType, setMeetingType] = useState("1-1");
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
   const [availability, setAvailability] = useState("Repeat weekly");
+  const [repeatWeeklyData, setRepeatWeeklyData] = useState({});
+  const [doesNotRepeatData, setDoesNotRepeatData] = useState([]);
   const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
-  const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false); // Manage Custom Meeting Modal
+  const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
+  const backendUrl = process.env.backendUrl || "http://localhost:5001";
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const bookingData = {
       title: document.querySelector(".add-title-input").value,
+      email: localStorage.getItem("email"),
       meetingType,
       meetingDuration,
-      availability,
+      doesRepeatWeekly: availability === "Repeat weekly" ? true : false,
+      availabilityData:
+        availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData,
+      windowDaysAdvance: 60,
+      windowTimeBefore: 4,
     };
 
-    console.log("Booking Data:", bookingData);
-    // Handle save logic (e.g., send to API)
+    console.log(bookingData);
+
+    try {
+      const response = await fetch(`${backendUrl}/availability/save`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookingData),
+      });
+    } catch (error) {
+      console.error("Error signing up:", error);
+    }
   };
 
   const handleCustomDurationSubmit = (duration) => {
@@ -32,8 +51,8 @@ const CreateBookingSidebar = () => {
   };
 
   const handleCustomMeetingSubmit = (customMeetingType) => {
-    setMeetingType(customMeetingType); // Update with custom meeting type
-    setShowCustomMeetingModal(false); // Close the modal
+    setMeetingType(customMeetingType);
+    setShowCustomMeetingModal(false);
   };
 
   return (
@@ -79,22 +98,28 @@ const CreateBookingSidebar = () => {
         Set when you're regularly available for meetings.
       </h4>
       <DropdownMenu
-        options={["Repeat weekly", "Does not repeat", "Custom..."]}
+        options={["Repeat weekly", "Does not repeat"]}
         defaultOption={availability}
         onChange={(selected) => {
           setAvailability(selected);
         }}
       />
-      {availability === "Repeat weekly" && <RepeatWeeklyAvailability />}
-      {availability === "Does not repeat" && <DoesNotRepeat />}
+      {availability === "Repeat weekly" && (
+        <RepeatWeeklyAvailability
+          meetingDuration={meetingDuration}
+          onAvailabilityChange={setRepeatWeeklyData}
+        />
+      )}
+      {availability === "Does not repeat" && (
+        <DoesNotRepeat onAvailabilityChange={setDoesNotRepeatData} />
+      )}
       <hr className="sidebar-divider" />
-      <h3 className="bold-title">Scheduling window</h3>
+      <div className="scheduling-window-title">
+        <h3 className="bold-title">Scheduling window</h3>
+        <Chevron className="chevron" />
+      </div>
       <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
-      <hr className="sidebar-divider" />
-      <h3 className="bold-title">Adjusted availability</h3>
-      <h4 className="booking-subtitle">
-        Indicate times you're available for specific dates.
-      </h4>
+      <SchedulingLimits />
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>

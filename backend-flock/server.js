@@ -39,6 +39,7 @@ app.use("/meetings", meetingRoutes);
 app.use("/availability", availabilityRoutes);
 app.use("/faculty", facultyRoutes);
 
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

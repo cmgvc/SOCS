@@ -1,15 +1,13 @@
 .repeat-weekly-container {
-  margin-top: 1rem;
   display: flex; /* Use flexbox */
   flex-direction: column; /* Stack items vertically */
 }
 
 .day-row-availability {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 30px;
+  height: auto;
   justify-content: flex-start;
 }
 
@@ -46,15 +44,6 @@
   font-size: 0.9rem;
   margin: 0 0.2rem;
   color: white;
-}
-
-.time-picker {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  text-align: center;
-  font-size: 1rem;
-  width: 4.5rem; /* Consistent width for alignment */
 }
 
 .add-availability-button {
@@ -95,8 +84,43 @@ input[type="time"] {
   margin-left: 0.25rem;
 }
 
+.time-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #8b8686;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  width: 78px;
+  height: 35px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.time-picker option {
+  background-color: #444040;
+  color: white;
+}
+
+.time-separator {
+  font-size: 1rem;
+  color: white;
+  margin: 0 0.5rem;
+}
+
 .time-slots-wrapper {
   display: flex;
   flex-direction: column; /* Stack time slots vertically */
   gap: 0.5rem; /* Space between time slots */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-message {
+  color: #f57c7c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }

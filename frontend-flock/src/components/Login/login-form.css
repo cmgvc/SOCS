@@ -36,7 +36,7 @@ input {
 }
 
 input:focus {
-  border-color: #007bff;
+  border-color: #ff0000;
   outline: none;
 }
 
