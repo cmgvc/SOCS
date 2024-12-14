@@ -1,3 +1,4 @@
+// Danielle Wahrhaftig 260984602
 import React, { useEffect, useState } from "react";
 import { ReactComponent as AddSquareSvg } from "../../svg/add-square.svg";
 import { ReactComponent as CancelRightSvg } from "../../svg/cancel-right.svg";
