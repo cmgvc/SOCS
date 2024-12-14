@@ -33,11 +33,20 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
       return `${hour12}:${minute.toString().padStart(2, "0")} ${period}`;
     };
 
-    return doesNotRepeatData.map((slot) => ({
-      date: slot.date,
-      start: convertTo12Hour(slot.startTime), // Convert and rename startTime
-      end: convertTo12Hour(slot.endTime), // Convert and rename endTime
-    }));
+    const availabilityData = doesNotRepeatData.reduce((acc, slot) => {
+      if (!acc[slot.date]) {
+        acc[slot.date] = []; // Initialize an array for the date if it doesn't exist
+      }
+
+      acc[slot.date].push({
+        start: convertTo12Hour(slot.startTime),
+        end: convertTo12Hour(slot.endTime),
+      });
+
+      return acc;
+    }, {});
+
+    return availabilityData;
   };
 
   const handleMeetingDuration = (meetingDuration) => {
