@@ -50,6 +50,7 @@
   flex-direction: row;
   min-height: 100vh;
 }
+
 .left-panel {
   background-color: #ec2227;
   padding: 2rem;
@@ -91,23 +92,26 @@
   font-weight: bold;
 }
 
+
 .right-panel {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative; 
   background: #5c5c5c; 
-  padding: 2rem;
+  padding: 0; 
+  overflow: hidden; 
 }
 
-.right-panel img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 4px;
+.schedule-video {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 0; 
 }
+
+
 
 .bottom-section-red {
   background-color: #fae5e6;
@@ -130,83 +134,5 @@
 
 .images-row {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.home-image {
-  flex: 1;
-  max-width: 320px;
-  margin: 0 20px 0; 
-  height: auto;
-}
-
-.bottom-section-grey {
-  background-color: #efefef;
-  display: flex;
-  flex-direction: row;
-  min-height: 40vh;
-  padding-top: 0;
-}
-
-.bottom-section-grey > div {
-  flex: 1;
-  margin: 20px 20px 0px 50px;
-}
-
-.bottom-section-grey h3 {
-  color: #656565;
-  margin-bottom: 0px;
-  text-align: left;
-  margin-top: 0px;
-}
-
-.bottom-section-grey p {
-  color: #656565;
-  line-height: 1.5;
-  text-align: left;
-}
-
-.top-section {
-  justify-content: center;
-  align-items: center;
-  max-height: 800px;
-  width: 100%;
-}
-
-.schedule-video {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  object-fit: cover; 
-}
-
-@media (max-width: 992px) {
-  .overlay-text h1 {
-    font-size: 1.8rem;
-  }
-  .overlay-text p {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .overlay-text h1 {
-    font-size: 1.3rem;
-  }
-  .overlay-text p {
-    font-size: 0.9rem;
-  }
-}
-
-
-@media (max-width: 400px) {
-  .overlay-text h1 {
-    font-size: 1rem;
-  }
-  .overlay-text p {
-    font-size: 0.8rem;
-  }
+  justify-content: space-aroun
 }
