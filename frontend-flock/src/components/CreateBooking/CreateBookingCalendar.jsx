@@ -18,16 +18,8 @@ const hours = [
 ];
 const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-// sample unavailable times - for testing ONLY - remove later
-const unavailableTimes = [
-  { dayIndex: 0, startHour: 9, endHour: 10 },
-  { dayIndex: 2, startHour: 15, endHour: 18 },
-];
-
-const CreateBookingCalendar = ({ events = [] }) => {
+const CreateBookingCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [dragging, setDragging] = useState(false);
-  const [selectedBlocks, setSelectedBlocks] = useState([]);
   const [currentSelection, setCurrentSelection] = useState(null);
 
   const handlePrev = () => {
@@ -65,33 +57,6 @@ const CreateBookingCalendar = ({ events = [] }) => {
   };
 
   const weekDates = getWeekDates(startOfWeek);
-
-  const isSelected = (dayIndex, hourIndex) => {
-    return selectedBlocks.some(
-      (block) =>
-        block.dayIndex === dayIndex &&
-        hourIndex >= block.startHour &&
-        hourIndex <= block.endHour
-    );
-  };
-
-  const isCurrentSelection = (dayIndex, hourIndex) => {
-    return (
-      currentSelection &&
-      currentSelection.dayIndex === dayIndex &&
-      hourIndex >= currentSelection.startHour &&
-      hourIndex <= currentSelection.endHour
-    );
-  };
-
-  const isUnavailable = (dayIndex, hourIndex) => {
-    return unavailableTimes.some(
-      (block) =>
-        block.dayIndex === dayIndex &&
-        hourIndex >= block.startHour &&
-        hourIndex <= block.endHour
-    );
-  };
 
   const formattedHeader = currentDate.toLocaleDateString("default", {
     month: "long",
@@ -135,18 +100,7 @@ const CreateBookingCalendar = ({ events = [] }) => {
           {weekDates.map((date, dayIndex) => (
             <div key={dayIndex} className="cb-day-column">
               {hours.map((hour, hourIndex) => (
-                <div
-                  key={hourIndex}
-                  className={`cb-hour-slot ${
-                    isUnavailable(dayIndex, hourIndex)
-                      ? "cb-unavailable"
-                      : isSelected(dayIndex, hourIndex)
-                      ? "cb-selected"
-                      : isCurrentSelection(dayIndex, hourIndex)
-                      ? "cb-current-selection"
-                      : ""
-                  }`}
-                />
+                <div key={hourIndex} className={`cb-hour-slot`} />
               ))}
             </div>
           ))}

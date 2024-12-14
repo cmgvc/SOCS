@@ -1,7 +1,6 @@
 // Coded by Danielle Wahrhaftig
 import React, { useState } from "react";
 import DropdownMenu from "./DropdownMenu";
-import CustomDurationModal from "./CustomDurationModal";
 import CustomMeetingModal from "./CustomMeetingModal";
 import RepeatWeeklyAvailability from "./RepeatWeeklyAvailability";
 import DoesNotRepeat from "./DoesNotRepeat";
@@ -9,7 +8,7 @@ import SchedulingLimits from "./SchedulingWindow";
 import { ReactComponent as Chevron } from "../../svg/chevron-down.svg";
 import "./create-booking-sidebar.css";
 
-const CreateBookingSidebar = () => {
+const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
   const [meetingType, setMeetingType] = useState("1-1");
   const [meetingDuration, setMeetingDuration] = useState("1 hour");
   const [availability, setAvailability] = useState("Repeat weekly");
@@ -146,6 +145,14 @@ const CreateBookingSidebar = () => {
 
   const handleSave = async () => {
     const title = document.querySelector(".cb-add-title-input").value.trim();
+    const availabilityData =
+      availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData;
+
+    // Update the parent state with the selected time slots
+    setSelectedTimeSlots(availabilityData);
+
+    console.log("Updated time slots:", availabilityData);
+
     // Check if the title is empty
     if (!title) {
       setError("The title cannot be empty.");
