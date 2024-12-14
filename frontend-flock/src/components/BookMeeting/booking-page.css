@@ -5,6 +5,16 @@
     justify-content: center;
 }
 
+.booking-page h2 {
+    font-size: 2.5rem;
+    margin-top: -2vh;
+}
+.booking-page h3 {
+    color: var(--dark-gray);
+    margin-top: -5vh;
+
+}
+
 .calendar-container {
     display: flex;
     margin-top: 2vh;
@@ -12,7 +22,8 @@
 }
 
 .meetings-container {
-    width: 55vw;
+    width: 35vw;
+    margin-top: 10vh;
 }
 
 .time-buttons {
