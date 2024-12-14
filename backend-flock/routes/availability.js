@@ -36,6 +36,20 @@ router.post("/save", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // Check for duplicates
+    const existingAvailability = await Availability.findOne({
+      email,
+      title,
+      meetingType,
+    });
+
+    if (existingAvailability) {
+      return res.status(409).json({
+        message: "A similar availability already exists.",
+        existingAvailability,
+      });
+    }
+
     // Validate availabilityData format
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const isValidAvailabilityData = daysOfWeek.every((day) =>
