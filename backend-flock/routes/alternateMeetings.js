@@ -1,4 +1,4 @@
-// routes/alternateMeetings.js
+// Jacob Weldon 260986471
 const express = require('express');
 const router = express.Router();
 const Meeting = require('../models/Meeting');

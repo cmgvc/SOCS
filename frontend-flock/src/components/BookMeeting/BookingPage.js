@@ -8,21 +8,19 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MeetingModal from "./MeetingModal";
 
 export const BookingPage = () => {
-  const { token } = useParams();
   const [startIndex, setStartIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const [meeting, setMeeting] = useState(null);
   const [recurring, setRecurring] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+  const backendUrl = "http://localhost:5001";
   const daysOfWeek = {
     0: "Sun",
     1: "Mon",
-    2: "Tues",
+    2: "Tue",
     3: "Wed",
-    4: "Thurs",
+    4: "Thu",
     5: "Fri",
     6: "Sat",
   };
@@ -47,15 +45,13 @@ export const BookingPage = () => {
     const fetchMeetings = async () => {
       try {
         const currentUrl = window.location.href;
-        const response = await fetch(
-          `${backendUrl}/availabilities/url`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ url: currentUrl }),
-          }
-        );
+        const response = await fetch(`${backendUrl}/availabilities/url`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: currentUrl }),
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch meetings");
         }
@@ -63,7 +59,6 @@ export const BookingPage = () => {
         const data = await response.json();
         setMeeting(data[0]);
         setRecurring(data[0].doesRepeatWeekly);
-        
       } catch (error) {
         console.error("Error fetching meetings:", error);
       }
@@ -118,7 +113,6 @@ export const BookingPage = () => {
     const dayAvailabilities = meeting.availabilityData[day];
     let duration = meeting.meetingDuration;
     duration = parseInt(duration, 10);
-
     if (!dayAvailabilities) return [];
 
     const slots = [];
@@ -139,12 +133,10 @@ export const BookingPage = () => {
     if (!meeting) return [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     const slots = [];
 
     for (const date in meeting.availabilityData) {
       const dayAvailabilities = meeting.availabilityData[date];
-
       const dateParts = date.split("-");
       const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       dateObj.setHours(0, 0, 0, 0);

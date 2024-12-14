@@ -4,8 +4,7 @@ import "../styles/BookMeeting.css";
 
 function BookMeeting() {
   const [meetingUrl, setMeetingUrl] = useState("");
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "http://localhost:5001";
 
   const handleMeetingUrlSearch = async () => {
     if (!meetingUrl.trim()) {
@@ -14,16 +13,13 @@ function BookMeeting() {
     }
 
     try {
-      const response = await fetch(
-        `${backendUrl}/availabilities/url`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ url: meetingUrl }),
-        }
-
-      );
+      const response = await fetch(`${backendUrl}/availabilities/url`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: meetingUrl }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to check availability");

@@ -15,8 +15,7 @@ function Dashboard() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const email = localStorage.getItem("email");
   const isFaculty = localStorage.getItem("isFaculty");
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const getUpcomingDisplayedCards = upcomingMeetings.slice(
     startNextIndex,
@@ -83,11 +82,10 @@ function Dashboard() {
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const endpoint = "/meetings";
-        if (isFaculty) {
-            const endpoint = "/meetings/faculty"
+        let endpoint = "/meetings";
+        if (isFaculty === "true") {
+            endpoint = "/meetings/faculty";
         }
-        console.log(`${backendUrl}${endpoint}`);
         const res = await fetch(`${backendUrl}${endpoint}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -182,9 +180,10 @@ function Dashboard() {
             <div className="dash-section">
               <div className="dash-header">
                 <h2>Upcoming Meetings</h2>
+                {!isFaculty && (
                 <a href="meetingRequest">
                   <button>Request alternate meeting time</button>
-                </a>
+                </a>)}
               </div>
               <div className="upcoming-panel">
                 {upcomingMeetings.length > 0 && (

@@ -49,8 +49,7 @@ const Settings = () => {
       email: e.target.email.value,
     };
 
-    const backendUrl =
-      process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    const backendUrl = "http://localhost:5001";
 
     try {
       const response = await fetch(`${backendUrl}/user/update`, {

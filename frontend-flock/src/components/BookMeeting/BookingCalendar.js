@@ -21,6 +21,7 @@ export default function BookingCalendar({ onDateChange }) {
                 <DateCalendar
                     value={value}
                     onChange={handleDateChange} 
+                    minDate={dayjs(new Date())}
                     sx={{
                         backgroundColor: 'white',
                         borderRadius: '30px',

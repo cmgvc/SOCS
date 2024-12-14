@@ -29,8 +29,7 @@ const CalendarWithSidebar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const startOfWeek = getStartOfWeek(currentDate);
   const weekDates = getWeekDates(startOfWeek);
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+  const backendUrl = "http://localhost:5001";
 
   useEffect(() => {
     // populate with existing data

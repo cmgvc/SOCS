@@ -21,7 +21,7 @@ function generateTimeOptions() {
 }
 
 const timeOptions = generateTimeOptions();
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+const backendUrl = "http://localhost:5001";
 
 function timeToMinutes(t) {
   const [h, m] = t.split(":").map(Number);
@@ -261,7 +261,7 @@ const BlockOffTimesPanel = ({
         return;
       }
 
-      const response = await fetch(`${backendUrl}block`, {
+      const response = await fetch(`${backendUrl}/block`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ facultyEmail, unavailableBlocks }),
