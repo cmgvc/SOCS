@@ -14,6 +14,7 @@ import BookMeeting from "./pages/BookMeeting";
 import BlockCalendar from "./pages/BlockCalendar";
 import Dashboard from "./pages/Dashboard";
 import BookingPage from "./components/BookMeeting/BookingPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -28,8 +29,22 @@ function App() {
           <Route path="/meetingRequest" element={<MeetingRequest />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/create" element={<CreateBooking />} />
-          <Route path="/block" element={<BlockCalendar />} />
+          <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <CreateBooking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/block"
+            element={
+              <ProtectedRoute>
+                <BlockCalendar />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/book" element={<BookMeeting />} />
           <Route path="/booking/:email/:token" element={<BookingPage />} />
         </Routes>

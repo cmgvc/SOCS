@@ -14,10 +14,11 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
   const [availability, setAvailability] = useState("Repeat weekly");
   const [repeatWeeklyData, setRepeatWeeklyData] = useState({});
   const [doesNotRepeatData, setDoesNotRepeatData] = useState([]);
+  const [bookingUrl, setBookingUrl] = useState(null); // Add state for booking URL
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(null); // Add this state
+  const [error, setError] = useState(null);
   const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
 
   const [schedulingLimits, setSchedulingLimits] = useState({
@@ -237,6 +238,14 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBookingUrl(data.bookingUrl); // Update the state with the generated URL
+        console.log("Booking URL:", data.bookingUrl);
+      } else {
+        setError("Failed to save booking. Please try again.");
+      }
     } catch (error) {
       console.error("Error signing up:", error);
     }
@@ -331,6 +340,14 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
         />
       )}
       {error && <div className="error-message">{error}</div>}
+      {bookingUrl && (
+        <div className="booking-url-container">
+          <h4>Your booking URL:</h4>
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
+            {bookingUrl}
+          </a>
+        </div>
+      )}
       <button className="cb-save-btn" onClick={handleSave}>
         Save
       </button>
