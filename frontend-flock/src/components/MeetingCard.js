@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const MeetingCard = ({ meeting }) => {
   const email = localStorage.getItem("email");
-  const backendUrl = "http://localhost:5001";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const isFaculty = localStorage.getItem("isFaculty");
   const {
     title,
@@ -43,7 +43,10 @@ const MeetingCard = ({ meeting }) => {
 
   const handleCancelMeeting = async () => {
     try {
-      const endpoint = isFaculty ? "/meetings/cancelFaculty" : "/cancel";
+        let endpoint = "/meetings/cancel";
+        if (isFaculty === "true") {
+            endpoint = "/meetings/cancelFaculty";
+        }
       await fetch(`${backendUrl}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

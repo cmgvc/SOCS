@@ -82,11 +82,10 @@ function Dashboard() {
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const endpoint = "/meetings";
-        if (isFaculty) {
-          const endpoint = "/meetings/faculty";
+        let endpoint = "/meetings";
+        if (isFaculty === "true") {
+            endpoint = "/meetings/faculty";
         }
-        console.log(`${backendUrl}${endpoint}`);
         const res = await fetch(`${backendUrl}${endpoint}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
