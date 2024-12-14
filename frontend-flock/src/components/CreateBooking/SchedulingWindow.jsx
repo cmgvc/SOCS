@@ -5,26 +5,36 @@ import "./scheduling-window.css";
 const SchedulingLimits = ({ onSchedulingLimitsChange }) => {
   const [maxDaysEnabled, setMaxDaysEnabled] = useState(true);
   const [minHoursEnabled, setMinHoursEnabled] = useState(true);
-  const [maxDays, setMaxDays] = useState(60); // Default maximum days
+  const [maxDays, setMaxDays] = useState(30); // Default maximum days
   const [minHours, setMinHours] = useState(4); // Default minimum hours
 
   const handleMaxDaysToggle = () => {
-    setMaxDaysEnabled((prev) => !prev);
+    setMaxDaysEnabled((prev) => {
+      if (prev) {
+        setMaxDays(null); // set maxDays to null when disabling
+      }
+      return !prev;
+    });
   };
 
   const handleMinHoursToggle = () => {
-    setMinHoursEnabled((prev) => !prev);
+    setMinHoursEnabled((prev) => {
+      if (prev) {
+        setMinHours(null); // Set minHours to null when disabling
+      }
+      return !prev;
+    });
   };
 
   const handleMaxDaysChange = (e) => {
-    setMaxDays(Number(e.target.value));
+    setMaxDays(e.target.value === "" ? "" : Number(e.target.value));
   };
 
   const handleMinHoursChange = (e) => {
-    setMinHours(Number(e.target.value));
+    setMinHours(e.target.value === "" ? "" : Number(e.target.value));
   };
 
-  // Notify parent whenever scheduling limits change
+  // Notify parent only when dependencies change
   useEffect(() => {
     if (onSchedulingLimitsChange) {
       onSchedulingLimitsChange({
@@ -34,13 +44,7 @@ const SchedulingLimits = ({ onSchedulingLimitsChange }) => {
         minHours,
       });
     }
-  }, [
-    maxDaysEnabled,
-    maxDays,
-    minHoursEnabled,
-    minHours,
-    onSchedulingLimitsChange,
-  ]);
+  }, [maxDaysEnabled, maxDays, minHoursEnabled, minHours]);
 
   return (
     <div className="scheduling-limits-container">
@@ -56,7 +60,7 @@ const SchedulingLimits = ({ onSchedulingLimitsChange }) => {
           />
           <input
             type="number"
-            value={maxDays}
+            value={maxDaysEnabled ? maxDays : ""}
             min="1"
             onChange={handleMaxDaysChange}
             disabled={!maxDaysEnabled}
@@ -79,7 +83,7 @@ const SchedulingLimits = ({ onSchedulingLimitsChange }) => {
           />
           <input
             type="number"
-            value={minHours}
+            value={minHoursEnabled ? minHours : ""}
             min="1"
             onChange={handleMinHoursChange}
             disabled={!minHoursEnabled}

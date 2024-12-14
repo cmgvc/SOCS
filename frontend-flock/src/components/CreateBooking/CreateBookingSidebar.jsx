@@ -18,6 +18,11 @@ const CreateBookingSidebar = () => {
   const [showCustomDurationModal, setShowCustomDurationModal] = useState(false);
   const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
   const backendUrl = process.env.backendUrl || "http://localhost:5001";
+  const [isOpen, setIsOpen] = useState(false);
+  const [schedulingLimits, setSchedulingLimits] = useState({
+    maxDays: null,
+    minHours: null,
+  });
 
   const handleSave = async () => {
     const bookingData = {
@@ -28,8 +33,8 @@ const CreateBookingSidebar = () => {
       doesRepeatWeekly: availability === "Repeat weekly" ? true : false,
       availabilityData:
         availability === "Repeat weekly" ? repeatWeeklyData : doesNotRepeatData,
-      windowDaysAdvance: 60,
-      windowTimeBefore: 4,
+      windowDaysAdvance: schedulingLimits.maxDays,
+      windowTimeBefore: schedulingLimits.minHours,
     };
 
     console.log(bookingData);
@@ -53,6 +58,14 @@ const CreateBookingSidebar = () => {
   const handleCustomMeetingSubmit = (customMeetingType) => {
     setMeetingType(customMeetingType);
     setShowCustomMeetingModal(false);
+  };
+
+  const toggleSchedulingLimits = () => {
+    setIsOpen(!isOpen); // Toggle the state
+  };
+
+  const handleSchedulingLimitsChange = (limits) => {
+    setSchedulingLimits(limits);
   };
 
   return (
@@ -116,10 +129,29 @@ const CreateBookingSidebar = () => {
       <hr className="sidebar-divider" />
       <div className="scheduling-window-title">
         <h3 className="bold-title">Scheduling window</h3>
-        <Chevron className="chevron" />
+        <Chevron
+          className={`chevron ${isOpen ? "rotated" : ""}`}
+          onClick={toggleSchedulingLimits}
+        />
       </div>
-      <h4 className="booking-subtitle">30 days in advance to 4 hours before</h4>
-      <SchedulingLimits />
+      {/* Subtitle dynamically updated */}
+      <h4 className="booking-subtitle">
+        {schedulingLimits.maxDaysEnabled
+          ? `${schedulingLimits.maxDays} days in advance`
+          : "No limit in advance bookings"}{" "}
+        to{" "}
+        {schedulingLimits.minHoursEnabled
+          ? `${schedulingLimits.minHours} hours before`
+          : "no limit before the appointment"}
+      </h4>
+      {/* <h4 className="booking-subtitle">
+        {startDays} days in advance to {endHours} hours before
+      </h4> */}
+      {isOpen && (
+        <SchedulingLimits
+          onSchedulingLimitsChange={handleSchedulingLimitsChange}
+        />
+      )}
       <button className="save-btn" onClick={handleSave}>
         Save
       </button>
