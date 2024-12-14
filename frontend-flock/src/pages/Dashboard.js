@@ -83,7 +83,11 @@ function Dashboard() {
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const endpoint = isFaculty ? "/meetings/faculty" : "/meetings";
+        const endpoint = "/meetings";
+        if (isFaculty) {
+            const endpoint = "/meetings/faculty"
+        }
+        console.log(`${backendUrl}${endpoint}`);
         const res = await fetch(`${backendUrl}${endpoint}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -288,7 +292,7 @@ function Dashboard() {
                     <>
                       {" "}
                       <a href={availability.bookingUrl}>
-                        {availability.bookingUrl}
+                        {decodeURIComponent(availability.bookingUrl)}
                       </a>
                       <br />
                       <br />
