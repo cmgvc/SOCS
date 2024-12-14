@@ -5,7 +5,7 @@ import "./create-booking-page.css";
 
 const CreateBookingPage = () => {
   return (
-    <div className="booking-page">
+    <div className="cb-booking-page">
       <CreateBookingSidebar />
       <CreateBookingCalendar />
     </div>

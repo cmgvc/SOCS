@@ -99,51 +99,51 @@ const CreateBookingCalendar = ({ events = [] }) => {
   });
 
   return (
-    <div className="styled-calendar-container">
-      <div className="calendar-header">
-        <button className="nav-arrow" onClick={handlePrev}>
+    <div className="cb-calendar-container">
+      <div className="cb-calendar-header">
+        <button className="cb-nav-arrow" onClick={handlePrev}>
           ←
         </button>
-        <h2 className="month-year">{formattedHeader}</h2>
-        <button className="nav-arrow" onClick={handleNext}>
+        <h2 className="cb-month-year">{formattedHeader}</h2>
+        <button className="cb-nav-arrow" onClick={handleNext}>
           →
         </button>
       </div>
-      <div className="days-container">
-        <div className="days-header-row">
+      <div className="cb-days-container">
+        <div className="cb-days-header-row">
           {/* Day headers */}
           {/* Add an empty placeholder for the times column */}
-          <div className="day-header placeholder"></div>
+          <div className="cb-day-header cb-placeholder"></div>
           {weekDates.map((date, i) => (
-            <div className="day-header" key={i}>
-              <div className="day-name">{days[i]}</div>
-              <div className="day-date">{date.getDate()}</div>
+            <div className="cb-day-header" key={i}>
+              <div className="cb-day-name">{days[i]}</div>
+              <div className="cb-day-date">{date.getDate()}</div>
             </div>
           ))}
         </div>
-        <div className="days-grid">
+        <div className="cb-days-grid">
           {/* Times Column */}
-          <div className="times-column">
+          <div className="cb-times-column">
             {hours.map((hour, i) => (
-              <div key={i} className="time-row">
-                <div className="hour-label">{hour}</div>
+              <div key={i} className="cb-time-row">
+                <div className="cb-hour-label">{hour}</div>
               </div>
             ))}
           </div>
 
           {/* Day Columns */}
           {weekDates.map((date, dayIndex) => (
-            <div key={dayIndex} className="day-column">
+            <div key={dayIndex} className="cb-day-column">
               {hours.map((hour, hourIndex) => (
                 <div
                   key={hourIndex}
-                  className={`hour-slot ${
+                  className={`cb-hour-slot ${
                     isUnavailable(dayIndex, hourIndex)
-                      ? "unavailable"
+                      ? "cb-unavailable"
                       : isSelected(dayIndex, hourIndex)
-                      ? "selected"
+                      ? "cb-selected"
                       : isCurrentSelection(dayIndex, hourIndex)
-                      ? "current-selection"
+                      ? "cb-current-selection"
                       : ""
                   }`}
                 />

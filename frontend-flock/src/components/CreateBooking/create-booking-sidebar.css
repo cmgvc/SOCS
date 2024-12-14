@@ -1,10 +1,10 @@
 /* Coded by Danielle Wahrhaftig */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-.create-meeting-sidebar {
+.cb-create-meeting-sidebar {
   background: #444040;
   color: #fff;
-  padding: 30px;
+  padding: 20px;
   padding-bottom: 15px;
   border-radius: 50px;
   width: 300px;
@@ -20,14 +20,14 @@
   overflow-x: hidden;
 }
 
-.booking-sidebar-title {
+.cb-create-booking-sidebar-title {
   font-size: 0.9rem;
   margin: 10px 0 2px 0;
   font-weight: normal;
   margin-top: 2rem;
 }
 
-.add-title-input {
+.cb-add-title-input {
   all: unset; /* removes default input styling */
   font-size: 1.2rem;
   font-weight: 400;
@@ -41,24 +41,24 @@
   caret-color: #ff0000;
 }
 
-.add-title-input::placeholder {
+.cb-add-title-input::placeholder {
   color: white;
   opacity: 0.9;
 }
 
-.add-title-input:focus + .sidebar-divider {
+.cb-add-title-input:focus + .cb-sidebar-divider {
   border-top-color: #ff0000;
   transform: scaleY(4);
 }
 
-.sidebar-divider {
+.cb-sidebar-divider {
   border: none;
   margin: 5px 0 2px 0;
   border-top: 1px solid #cbcbcb;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.panel-description {
+.cb-panel-description {
   font-size: 0.85rem;
   line-height: 1.3;
   margin-bottom: 20px;
@@ -66,19 +66,19 @@
   font-weight: bold;
 }
 
-.booking-subtitle {
+.cb-booking-subtitle {
   font-size: 0.8rem;
   font-weight: 300;
   margin: 5px 0 2px 0;
 }
 
-.description {
+.cb-description {
   font-size: 0.8rem;
   font-weight: normal;
   margin: 5px 0 15px 0;
 }
 
-.repeat-weekly-toggle {
+.cb-repeat-weekly-toggle {
   background: #555;
   color: #fff;
   border: none;
@@ -89,28 +89,28 @@
   margin-bottom: 15px;
   transition: background 0.3s;
 }
-.repeat-weekly-toggle.active {
+.cb-repeat-weekly-toggle.active {
   background: #444;
 }
 
-.unavailabilities-list {
+.cb-unavailabilities-list {
   margin-top: 10px;
 }
 
-.day-row {
+.cb-day-row {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.day-label {
+.cb-day-label {
   flex: 0 0 40px;
   font-size: 0.85rem;
   color: #eee;
   font-weight: 500;
 }
 
-.day-blocks {
+.cb-day-blocks {
   flex: 1;
   display: flex;
   align-items: center;
@@ -118,19 +118,19 @@
   flex-wrap: wrap;
 }
 
-.available-label {
+.cb-available-label {
   color: #bbb;
   font-size: 0.8rem;
 }
 
-.time-block {
+.cb-time-block {
   background: #555;
   border-radius: 8px;
   padding: 5px 10px;
   font-size: 0.8rem;
 }
 
-.icon-button {
+.cb-icon-button {
   background: none;
   border: 1px solid #fff;
   border-radius: 50%;
@@ -146,7 +146,7 @@
   justify-content: center;
 }
 
-.save-btn {
+.cb-save-btn {
   background: #b60000;
   color: #fff;
   border: none;
@@ -159,31 +159,32 @@
   align-self: flex-end;
 }
 
-.save-btn:hover {
+.cb-save-btn:hover {
   background: #f43d3d;
 }
 
-.bold-title {
+.cb-bold-title {
   margin-bottom: 0;
   font-weight: 600;
   font-size: 0.9rem;
+  width: 90%;
 }
 
-.gap {
+.cb-gap {
   margin-top: 1rem;
 }
 
-.scheduling-window-title {
+.cb-scheduling-window-title {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.scheduling-window-title .bold-title {
+.cb-scheduling-window-title .bold-title {
   width: 90%;
 }
 
-.chevron {
+.cb-chevron {
   width: 20px;
   height: 20px;
   margin-top: 1rem;
@@ -192,6 +193,6 @@
   transition: transform 0.3s ease;
 }
 
-.chevron.rotated {
+.cb-chevron.rotated {
   transform: rotate(180deg);
 }
