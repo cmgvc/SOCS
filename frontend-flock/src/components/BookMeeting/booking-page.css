@@ -7,12 +7,11 @@
 
 .booking-page h2 {
     font-size: 2.5rem;
-    margin-top: -2vh;
+    margin-top: 10vh;
 }
 .booking-page h3 {
     color: var(--dark-gray);
-    margin-top: -5vh;
-
+    margin-top: 5vh;
 }
 
 .calendar-container {
@@ -62,7 +61,7 @@
 }
 
 .back-btn {
-    margin-top: 3vh;
+    margin: 9vh;
     scale: 1.5;
     background-color: var(--dark-gray);
     font-family: var(--font-heading);
