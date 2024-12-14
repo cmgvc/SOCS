@@ -67,7 +67,6 @@ const CreateBookingCalendar = ({ selectedTimeSlots = {} }) => {
   const isSelected = (dayIndex, hourIndex) => {
     const dayName = selectedSlotsDays[dayIndex]; // Map day index to day name (e.g., 0 -> Mon)
     const slotsForDay = selectedTimeSlots[dayName] || []; // Get selected slots for the day
-    console.log(slotsForDay);
 
     const convertTimeToHourIndex = (time) => {
       const [hourMinute, period] = time.split(" "); // Split "9:00 AM" into "9:00" and "AM"

@@ -1,3 +1,4 @@
+// module.exports = router;
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
@@ -34,24 +35,27 @@ router.post("/save", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Validation for non-repeating availability
-    if (!doesRepeatWeekly) {
-      if (!Array.isArray(availabilityData)) {
-        return res.status(400).json({
-          message: "Non-repeating availability data must be an array.",
-        });
-      }
+    // Transform availabilityData for "Does not repeat"
+    let transformedAvailabilityData;
 
-      if (
-        !availabilityData.every(
-          (slot) => slot.date && slot.startTime && slot.endTime
-        )
-      ) {
-        return res.status(400).json({
-          message:
-            "Non-repeating availability data must include date, startTime, and endTime for each slot.",
-        });
-      }
+    if (!doesRepeatWeekly) {
+      // Convert flat array into grouped object format
+      transformedAvailabilityData = {};
+
+      availabilityData.forEach((slot) => {
+        const { date, startTime, endTime } = slot;
+
+        // Ensure the date exists as a key in the transformed object
+        if (!transformedAvailabilityData[date]) {
+          transformedAvailabilityData[date] = [];
+        }
+
+        // Push the time slot to the appropriate date
+        transformedAvailabilityData[date].push({ startTime, endTime });
+      });
+    } else {
+      // For "Repeat weekly", assume the data is already structured correctly
+      transformedAvailabilityData = availabilityData;
     }
 
     // Check for duplicates
@@ -78,7 +82,7 @@ router.post("/save", async (req, res) => {
       meetingType,
       meetingDuration,
       doesRepeatWeekly,
-      availabilityData,
+      availabilityData: transformedAvailabilityData, // Save transformed data here
       windowDaysAdvance,
       windowTimeBefore,
       bookingUrl,
