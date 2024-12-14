@@ -14,7 +14,7 @@ export const BookingPage = () => {
   const [recurring, setRecurring] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const backendUrl = "http://localhost:5001";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const daysOfWeek = {
     0: "Sun",
     1: "Mon",
@@ -202,6 +202,9 @@ export const BookingPage = () => {
     setModalContent(null);
   };
 
+  const availableDates = getAvailabilitiesByDate();
+  const showArrows = availableDates.length > 3
+
   return (
     <div className="booking-page">
       <h2>Booking Page</h2>
@@ -236,13 +239,15 @@ export const BookingPage = () => {
         ) : (
           <>
             <div className="non-recurring-meetings">
-              <button
-                onClick={handlePrevClick}
-                disabled={startIndex === 0}
-                className="panel-arrow"
-              >
-                <ArrowBackIosIcon />
-              </button>
+            {showArrows && (
+                <button
+                  onClick={handlePrevClick}
+                  disabled={startIndex === 0}
+                  className="panel-arrow"
+                >
+                  <ArrowBackIosIcon />
+                </button>
+              )}
               {getAvailabilitiesByDate()
                 .slice(startIndex, startIndex + 3)
                 .map((dateObj, index) => (
@@ -261,13 +266,17 @@ export const BookingPage = () => {
                     </div>
                   </div>
                 ))}
-              <button
-                onClick={handleNextClick}
-                disabled={startIndex + 3 >= getAvailabilitiesByDate().length}
-                className="panel-arrow"
-              >
-                <ArrowForwardIosIcon />
-              </button>
+              {showArrows && (
+                <button
+                  onClick={handleNextClick}
+                  disabled={
+                    startIndex + 3 >= availableDates.length
+                  }
+                  className="panel-arrow"
+                >
+                  <ArrowForwardIosIcon />
+                </button>
+              )}
             </div>
           </>
         )}

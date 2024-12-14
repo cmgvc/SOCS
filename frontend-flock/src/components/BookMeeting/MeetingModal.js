@@ -44,11 +44,12 @@ const MeetingModal = ({ onClose, content }) => {
     return (
         <div className="meeting-modal-overlay">
             <div className="meeting-modal-content">
-                <div className="meeting-modal-header">
+                <div className={meetingBooked ? `meeting-modal-header-success` : "meeting-modal-header"}>
                     {meetingBooked ? (
                         <>
                             <h3><b>Meeting Booked!</b></h3>
                             <a href='/dashboard'><button className="close-btn">Go to Dashboard</button></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button className="close-btn" onClick={onClose}>Close</button>
                                 <p><strong>{content.date}</strong></p>
                                 <p><strong>Time:</strong> {content.time}</p>
