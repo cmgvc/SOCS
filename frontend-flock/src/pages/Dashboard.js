@@ -68,12 +68,12 @@ function Dashboard() {
 
   const handleLogoutClick = () => {
     setShowLogoutModal(true);
-    window.location.reload();
   };
 
   const handleConfirmLogout = () => {
     localStorage.clear();
     setShowLogoutModal(false);
+    window.location.reload();
   };
 
   const handleCancelLogout = () => {
