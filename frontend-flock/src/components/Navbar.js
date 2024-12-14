@@ -39,7 +39,7 @@ function Navbar() {
             src={FlockFavicon}
             alt="Logo"
             className="navbar-icon"
-            style={{ width: "8rem", height: "8rem" }}
+            // style={{ width: "8rem", height: "8rem" }}
           />
           <div className="banner-bar"></div>
           <div className="navbar-text">

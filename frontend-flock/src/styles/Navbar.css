@@ -143,3 +143,52 @@
   margin-left: 0.5rem;
   margin-top: 0.5rem;
 }
+
+.navbar-icon {
+  width: 8rem;
+  height: 8rem;
+}
+
+@media (max-width: 1300px) {
+  .banner-bar {
+    display: none;
+  }
+  .navbar-text {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar-text h1 {
+    display: none;
+  }
+  .navbar-text p {
+    display: none;
+  }
+
+  .navbar-icon {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .navbar-banner {
+    justify-content: center;
+    align-items: center;
+    padding-left: 25px;
+  }
+  .navbar-links {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-text {
+    display: none;
+  }
+
+  .navbar-links {
+    transform: scale(0.8);
+    margin-right: 0;
+    gap: 0.5rem;
+  }
+}
