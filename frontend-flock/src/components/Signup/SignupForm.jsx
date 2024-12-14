@@ -9,6 +9,8 @@ const SignupForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const backendUrl =  process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+
   const handleSignup = async (e) => {
     e.preventDefault();
 

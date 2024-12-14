@@ -1,0 +1,62 @@
+.booking-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-page h2 {
+    font-size: 2.5rem;
+    margin-top: -2vh;
+}
+.booking-page h3 {
+    color: var(--dark-gray);
+    margin-top: -5vh;
+
+}
+
+.calendar-container {
+    display: flex;
+    margin-top: 2vh;
+    justify-content: space-around;
+}
+
+.meetings-container {
+    width: 35vw;
+    margin-top: 10vh;
+}
+
+.time-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+    flex-wrap: wrap; 
+    gap: 2vw;
+}
+
+.time-buttons button {
+    background-color: var(--primary-red);
+    font-family: var(--font-heading);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+}
+
+.time-buttons button:hover {
+    background-color: #d41f24;
+}
+
+.non-recurring-meetings {
+    display: flex;
+    gap: 10vw;
+    margin-top: 2vh;
+    width: 80vw;
+}
+
+.non-recurring-meeting {
+    width: 20vw;
+
+}

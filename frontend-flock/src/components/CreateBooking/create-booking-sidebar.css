@@ -7,7 +7,7 @@
   padding: 30px;
   padding-bottom: 15px;
   border-radius: 50px;
-  width: 280px;
+  width: 300px;
   max-height: calc(800px - 30px);
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -159,6 +159,10 @@
   align-self: flex-end;
 }
 
+.save-btn:hover {
+  background: #f43d3d;
+}
+
 .bold-title {
   margin-bottom: 0;
   font-weight: 600;
@@ -167,4 +171,22 @@
 
 .gap {
   margin-top: 1rem;
+}
+
+.scheduling-window-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.scheduling-window-title .bold-title {
+  width: 90%;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  width: 10%;
 }
