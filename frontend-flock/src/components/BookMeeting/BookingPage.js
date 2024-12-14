@@ -5,6 +5,7 @@ import './booking-page.css';
 import BookingCalendar from './BookingCalendar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import MeetingModal from './MeetingModal';
 
 export const BookingPage = () => {
     const { token } = useParams();
@@ -12,6 +13,8 @@ export const BookingPage = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [meeting, setMeeting] = useState(null);
     const [recurring, setRecurring] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
     const daysOfWeek = { 0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday" };
 
@@ -141,27 +144,51 @@ export const BookingPage = () => {
         return slots.sort((a, b) => a.dateObj - b.dateObj);
     };
     
-    
+    const extractNameFromEmail = (email) => {
+        if (!email) return '';
+        const parts = email.split('@')[0].split('.');
+        if (parts.length >= 2) {
+            const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            return `${capitalize(parts[0])} ${capitalize(parts[1])}`;
+        }
+        return email;
+    };
+
+    const openModal = (time, meeting, date) => {
+        setModalContent({
+            time,
+            title: meeting.title,
+            email: meeting.email,
+            name: extractNameFromEmail(meeting.email),
+            date: date ? date.toDateString() : '',
+            duration: meeting.duration,
+            type: meeting.meetingType
+        });
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setModalContent(null);
+    };
 
     return (
         <div className='booking-page'>
             <h2>Booking Page</h2>
-
+            <h3>{meeting?.title}</h3>
+            <h3>{extractNameFromEmail(meeting?.email)}</h3>
             <div className='dates-container'>
                 {recurring ? (
                     <>
-                        <p>Select a meeting date:</p>
+                        <p>Select a meeting date/time:</p>
                         <div className='calendar-container'>
                             <BookingCalendar onDateChange={handleDateChange} />
                             <div className="meetings-container">
-                                <h3>Available Times:</h3>
                                 <div className='time-buttons'>
                                     {getAvailabilitiesForSelectedDay().map((slot, index) => (
-                                        <Link to={`/meeting/${token}/${meeting._id}/${slot.start}`} key={index}>
-                                            <button className='meeting-btn'>
-                                                {slot.start}
-                                            </button>
-                                        </Link>
+                                         <button key={index} className='meeting-btn' onClick={() => openModal(slot.start, meeting, selectedDate)}>
+                                         {slot.start}
+                                     </button>
                                     ))}
                                 </div>
                             </div>
@@ -180,9 +207,9 @@ export const BookingPage = () => {
                                     <p>{dateObj.dateName}</p>
                                     <div className='time-buttons'>
                                         {dateObj.slots.map((slot, slotIndex) => (
-                                            <Link to={`/meeting/${token}/${meeting._id}/${slot.start}`} key={slotIndex}>
-                                                <button className='meeting-btn'>{slot.start}</button>
-                                            </Link>
+                                            <button key={slotIndex} className='meeting-btn' onClick={() => openModal(slot.start, meeting)}>
+                                            {slot.start}
+                                        </button>
                                         ))}
                                     </div>
                                 </div>
@@ -193,6 +220,10 @@ export const BookingPage = () => {
                 
                 )}
             </div>
+            {modalOpen && (
+                <MeetingModal onClose={closeModal} content={modalContent}>
+                </MeetingModal>
+            )}
         </div>
     );
 };
