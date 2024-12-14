@@ -16,7 +16,7 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -32,6 +32,7 @@ app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
 app.use("/faculty", require("./routes/faculty"));
 app.use("/availabilities", require("./routes/availabilities"));
+app.use("/alternateMeetings", require("./routes/alternateMeetings"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
