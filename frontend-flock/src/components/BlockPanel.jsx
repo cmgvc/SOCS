@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "../styles/BlockPanel.css";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -12,8 +12,8 @@ function generateTimeOptions() {
   for (let h = startH; h <= endH; h++) {
     for (let m = 0; m < 60; m += 5) {
       if (h === endH && m > 0) break; // don't go past 19:00
-      const hh = String(h).padStart(2, '0');
-      const mm = String(m).padStart(2, '0');
+      const hh = String(h).padStart(2, "0");
+      const mm = String(m).padStart(2, "0");
       options.push(`${hh}:${mm}`);
     }
   }
@@ -21,28 +21,29 @@ function generateTimeOptions() {
 }
 
 const timeOptions = generateTimeOptions();
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
 function timeToMinutes(t) {
-  const [h,m] = t.split(':').map(Number);
-  return h*60+m;
+  const [h, m] = t.split(":").map(Number);
+  return h * 60 + m;
 }
 
 function minutesToTime(m) {
-  const hh = String(Math.floor(m/60)).padStart(2, '0');
-  const mm = String(m%60).padStart(2, '0');
+  const hh = String(Math.floor(m / 60)).padStart(2, "0");
+  const mm = String(m % 60).padStart(2, "0");
   return `${hh}:${mm}`;
 }
 
 // merge logic
 function mergeTimeSlots(timeSlots) {
   if (!timeSlots.length) return [];
-  let intervals = timeSlots.map(ts => ({
+  let intervals = timeSlots.map((ts) => ({
     start: timeToMinutes(ts.startTime),
     end: timeToMinutes(ts.endTime),
     repeatWeekly: ts.repeatWeekly || false,
-    recurringId: ts.recurringId || null
+    recurringId: ts.recurringId || null,
   }));
-  intervals.sort((a,b) => a.start - b.start);
+  intervals.sort((a, b) => a.start - b.start);
 
   const merged = [];
   let current = intervals[0];
@@ -58,24 +59,30 @@ function mergeTimeSlots(timeSlots) {
   }
   merged.push(current);
 
-  return merged.map(intv => ({
+  return merged.map((intv) => ({
     startTime: minutesToTime(intv.start),
     endTime: minutesToTime(intv.end),
     repeatWeekly: intv.repeatWeekly,
-    recurringId: intv.recurringId
+    recurringId: intv.recurringId,
   }));
 }
 
 function formatTime24to12(timeStr) {
-  const [h, m] = timeStr.split(':').map(Number);
-  const suffix = h >= 12 ? 'PM' : 'AM';
-  const hour12 = (h % 12) || 12;
+  const [h, m] = timeStr.split(":").map(Number);
+  const suffix = h >= 12 ? "PM" : "AM";
+  const hour12 = h % 12 || 12;
   const minuteStr = m.toString().padStart(2, "0");
   return `${hour12}:${minuteStr} ${suffix}`;
 }
 
-const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksChange, weekDates, onJumpToDate }) => {
-
+const BlockOffTimesPanel = ({
+  mode,
+  onModeChange,
+  unavailableBlocks,
+  onBlocksChange,
+  weekDates,
+  onJumpToDate,
+}) => {
   const [inlineAddTimes, setInlineAddTimes] = useState({});
   const [jumpDate, setJumpDate] = useState("");
 
@@ -88,7 +95,13 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
   }, [unavailableBlocks, weekDates]);
 
   // block for specific date
-  function addBlockToDate(dateStr, sTime, eTime, repeatWeekly = false, recurringId = null) {
+  function addBlockToDate(
+    dateStr,
+    sTime,
+    eTime,
+    repeatWeekly = false,
+    recurringId = null
+  ) {
     if (eTime <= sTime) {
       alert("End time must be after start time");
       return;
@@ -96,16 +109,23 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
 
     let updated = [...unavailableBlocks];
     const dateIndex = updated.findIndex((block) => block.date === dateStr);
-    const newTimeSlot = { startTime: sTime, endTime: eTime, repeatWeekly, recurringId };
+    const newTimeSlot = {
+      startTime: sTime,
+      endTime: eTime,
+      repeatWeekly,
+      recurringId,
+    };
 
     if (dateIndex > -1) {
       const duplicate = updated[dateIndex].timeSlots.find(
-        ts => ts.startTime === sTime && ts.endTime === eTime
+        (ts) => ts.startTime === sTime && ts.endTime === eTime
       );
       if (duplicate) return; // check for prior existence
 
       updated[dateIndex].timeSlots.push(newTimeSlot);
-      updated[dateIndex].timeSlots = mergeTimeSlots(updated[dateIndex].timeSlots);
+      updated[dateIndex].timeSlots = mergeTimeSlots(
+        updated[dateIndex].timeSlots
+      );
     } else {
       updated.push({
         date: dateStr,
@@ -114,22 +134,33 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
     }
 
     onBlocksChange(undefined, updated);
-    setInlineAddTimes(prev => ({ ...prev, [dateStr]: { ...prev[dateStr], editing: false } }));
+    setInlineAddTimes((prev) => ({
+      ...prev,
+      [dateStr]: { ...prev[dateStr], editing: false },
+    }));
   }
 
   const handleDeleteUnavailability = (dateStr, tsToDelete) => {
     let updated = [...unavailableBlocks];
 
     if (tsToDelete.repeatWeekly && tsToDelete.recurringId) {
-      updated = updated.map(dayBlock => ({
-        ...dayBlock,
-        timeSlots: dayBlock.timeSlots.filter(ts => ts.recurringId !== tsToDelete.recurringId)
-      })).filter(db => db.timeSlots.length > 0);
+      updated = updated
+        .map((dayBlock) => ({
+          ...dayBlock,
+          timeSlots: dayBlock.timeSlots.filter(
+            (ts) => ts.recurringId !== tsToDelete.recurringId
+          ),
+        }))
+        .filter((db) => db.timeSlots.length > 0);
     } else {
       const dateIndex = updated.findIndex((block) => block.date === dateStr);
       if (dateIndex > -1) {
         updated[dateIndex].timeSlots = updated[dateIndex].timeSlots.filter(
-          (ts) => !(ts.startTime === tsToDelete.startTime && ts.endTime === tsToDelete.endTime)
+          (ts) =>
+            !(
+              ts.startTime === tsToDelete.startTime &&
+              ts.endTime === tsToDelete.endTime
+            )
         );
         if (updated[dateIndex].timeSlots.length === 0) {
           updated.splice(dateIndex, 1);
@@ -146,7 +177,9 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
     if (dateIndex === -1) return; // Not found
 
     const slotIndex = updated[dateIndex].timeSlots.findIndex(
-      ts => ts.startTime === tsToToggle.startTime && ts.endTime === tsToToggle.endTime
+      (ts) =>
+        ts.startTime === tsToToggle.startTime &&
+        ts.endTime === tsToToggle.endTime
     );
     if (slotIndex === -1) return;
 
@@ -166,7 +199,14 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
         const nextDate = new Date(baseDate);
         nextDate.setDate(nextDate.getDate() + 7 * i);
         const nextDateStr = nextDate.toISOString().split("T")[0];
-        addBlockToDateNoInline(nextDateStr, sTime, eTime, true, recurringId, updated);
+        addBlockToDateNoInline(
+          nextDateStr,
+          sTime,
+          eTime,
+          true,
+          recurringId,
+          updated
+        );
       }
     } else {
       // disable logic
@@ -177,19 +217,33 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
     onBlocksChange(undefined, updated);
   };
 
-  function addBlockToDateNoInline(dateStr, sTime, eTime, repeatWeekly, recurringId, updated) {
+  function addBlockToDateNoInline(
+    dateStr,
+    sTime,
+    eTime,
+    repeatWeekly,
+    recurringId,
+    updated
+  ) {
     if (eTime <= sTime) return;
 
     const dateIndex = updated.findIndex((block) => block.date === dateStr);
-    const newTimeSlot = { startTime: sTime, endTime: eTime, repeatWeekly, recurringId };
+    const newTimeSlot = {
+      startTime: sTime,
+      endTime: eTime,
+      repeatWeekly,
+      recurringId,
+    };
 
     if (dateIndex > -1) {
       const duplicate = updated[dateIndex].timeSlots.find(
-        ts => ts.startTime === sTime && ts.endTime === eTime
+        (ts) => ts.startTime === sTime && ts.endTime === eTime
       );
       if (!duplicate) {
         updated[dateIndex].timeSlots.push(newTimeSlot);
-        updated[dateIndex].timeSlots = mergeTimeSlots(updated[dateIndex].timeSlots);
+        updated[dateIndex].timeSlots = mergeTimeSlots(
+          updated[dateIndex].timeSlots
+        );
       }
     } else {
       updated.push({
@@ -207,7 +261,7 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
         return;
       }
 
-      const response = await fetch("http://localhost:5001/block", {
+      const response = await fetch(`${backendUrl}block`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ facultyEmail, unavailableBlocks }),
@@ -224,30 +278,30 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
 
   // inline add
   const startInlineAdd = (dateStr) => {
-    setInlineAddTimes(prev => ({
+    setInlineAddTimes((prev) => ({
       ...prev,
-      [dateStr]: { startTime: "09:00", endTime: "10:00", editing: true }
+      [dateStr]: { startTime: "09:00", endTime: "10:00", editing: true },
     }));
   };
 
   const cancelInlineAdd = (dateStr) => {
-    setInlineAddTimes(prev => ({
+    setInlineAddTimes((prev) => ({
       ...prev,
-      [dateStr]: { ...prev[dateStr], editing: false }
+      [dateStr]: { ...prev[dateStr], editing: false },
     }));
   };
 
   const setInlineAddStart = (dateStr, val) => {
-    setInlineAddTimes(prev => ({
+    setInlineAddTimes((prev) => ({
       ...prev,
-      [dateStr]: { ...prev[dateStr], startTime: val }
+      [dateStr]: { ...prev[dateStr], startTime: val },
     }));
   };
 
   const setInlineAddEnd = (dateStr, val) => {
-    setInlineAddTimes(prev => ({
+    setInlineAddTimes((prev) => ({
       ...prev,
-      [dateStr]: { ...prev[dateStr], endTime: val }
+      [dateStr]: { ...prev[dateStr], endTime: val },
     }));
   };
 
@@ -269,23 +323,33 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
       <h3 className="panel-title">Block Off Times</h3>
       <hr className="panel-divider" />
       <p className="panel-description">
-        Select any time you are not free, so that students cannot request a meeting with you at that time.
+        Select any time you are not free, so that students cannot request a
+        meeting with you at that time.
       </p>
       <hr className="panel-divider" />
       <h4 className="sub-title">Unavailabilities</h4>
-      <h5 className="description">Set when you are unavailable for meetings.</h5>
-      
+      <h5 className="description">
+        Set when you are unavailable for meetings.
+      </h5>
+
       <div style={{ marginBottom: "15px" }}>
         <label style={{ fontSize: "0.8rem", color: "#fff" }}>
           Jump to:{" "}
-          <input 
-            type="date" 
-            value={jumpDate} 
+          <input
+            type="date"
+            value={jumpDate}
             onChange={(e) => {
               setJumpDate(e.target.value);
               handleJumpToWeek(e);
             }}
-            style={{ background: "#555", color: "#fff", border: "none", borderRadius: "5px", padding: "3px 8px", fontSize: "0.8rem" }}
+            style={{
+              background: "#555",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              padding: "3px 8px",
+              fontSize: "0.8rem",
+            }}
           />
         </label>
       </div>
@@ -302,26 +366,33 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
             <div key={i} className="day-row">
               <div className="day-label">{dayName}</div>
               <div className="day-content">
-                {timeSlots.length === 0 && (!inlineData || !inlineData.editing) ? (
+                {timeSlots.length === 0 &&
+                (!inlineData || !inlineData.editing) ? (
                   <span className="unavailable-text">Unavailable</span>
                 ) : (
                   <>
                     {timeSlots.map((ts, index) => (
                       <div key={index} className="time-row-item">
-                        <span className="time-chip">{formatTime24to12(ts.startTime)}</span>
+                        <span className="time-chip">
+                          {formatTime24to12(ts.startTime)}
+                        </span>
                         <span className="time-dash">-</span>
-                        <span className="time-chip">{formatTime24to12(ts.endTime)}</span>
+                        <span className="time-chip">
+                          {formatTime24to12(ts.endTime)}
+                        </span>
                         <button
                           className="icon-button repeat-button"
                           title="Toggle repeat weekly"
-                          style={{ color: ts.repeatWeekly ? 'green' : '#fff' }}
+                          style={{ color: ts.repeatWeekly ? "green" : "#fff" }}
                           onClick={() => handleToggleRepeatWeekly(dateStr, ts)}
                         >
                           ↺
                         </button>
                         <button
                           className="icon-button remove-button"
-                          onClick={() => handleDeleteUnavailability(dateStr, ts)}
+                          onClick={() =>
+                            handleDeleteUnavailability(dateStr, ts)
+                          }
                           title="Delete this unavailability"
                         >
                           &#x2298;
@@ -332,19 +403,27 @@ const BlockOffTimesPanel = ({ mode, onModeChange, unavailableBlocks, onBlocksCha
                       <div className="time-row-item inline-add-form">
                         <select
                           value={inlineData.startTime}
-                          onChange={(e) => setInlineAddStart(dateStr, e.target.value)}
+                          onChange={(e) =>
+                            setInlineAddStart(dateStr, e.target.value)
+                          }
                         >
                           {timeOptions.map((t, idx) => (
-                            <option key={idx} value={t}>{t}</option>
+                            <option key={idx} value={t}>
+                              {t}
+                            </option>
                           ))}
                         </select>
                         <span className="time-dash">-</span>
                         <select
                           value={inlineData.endTime}
-                          onChange={(e) => setInlineAddEnd(dateStr, e.target.value)}
+                          onChange={(e) =>
+                            setInlineAddEnd(dateStr, e.target.value)
+                          }
                         >
                           {timeOptions.map((t, idx) => (
-                            <option key={idx} value={t}>{t}</option>
+                            <option key={idx} value={t}>
+                              {t}
+                            </option>
                           ))}
                         </select>
                         <button

@@ -14,7 +14,8 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
   const [availability, setAvailability] = useState("Repeat weekly");
   const [repeatWeeklyData, setRepeatWeeklyData] = useState({});
   const [doesNotRepeatData, setDoesNotRepeatData] = useState([]);
-  const backendUrl = process.env.backendUrl || "http://localhost:5001";
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null); // Add this state
   const [showCustomMeetingModal, setShowCustomMeetingModal] = useState(false);
