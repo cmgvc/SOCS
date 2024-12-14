@@ -36,12 +36,13 @@ const SignupForm = () => {
         localStorage.setItem("lastName", `${data.user.lastName}`);
         localStorage.setItem("email", `${data.user.email}`);
         localStorage.setItem("token", `${data.token}`);
+        localStorage.setItem("isFaculty", `${data.user.isFaculty}`);
 
         // redirect to home page after a short delay
         setTimeout(() => {
           setShowModal(false);
           window.open("/", "_self");
-        }, 2000);
+        }, 1500);
       } else {
         setErrorMessage(data.message || "Signup failed.");
       }
