@@ -8,7 +8,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MeetingModal from "./MeetingModal";
 
 export const BookingPage = () => {
-  const { token } = useParams();
   const [startIndex, setStartIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const [meeting, setMeeting] = useState(null);
@@ -20,9 +19,9 @@ export const BookingPage = () => {
   const daysOfWeek = {
     0: "Sun",
     1: "Mon",
-    2: "Tues",
+    2: "Tue",
     3: "Wed",
-    4: "Thurs",
+    4: "Thu",
     5: "Fri",
     6: "Sat",
   };
@@ -118,7 +117,6 @@ export const BookingPage = () => {
     const dayAvailabilities = meeting.availabilityData[day];
     let duration = meeting.meetingDuration;
     duration = parseInt(duration, 10);
-
     if (!dayAvailabilities) return [];
 
     const slots = [];
@@ -139,12 +137,10 @@ export const BookingPage = () => {
     if (!meeting) return [];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     const slots = [];
 
     for (const date in meeting.availabilityData) {
       const dayAvailabilities = meeting.availabilityData[date];
-
       const dateParts = date.split("-");
       const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       dateObj.setHours(0, 0, 0, 0);
