@@ -91,6 +91,7 @@ export const BookingPage = () => {
         }
         return slots;
     };
+    
 
     const getAvailabilitiesForSelectedDay = () => {
         if (!meeting || !selectedDate) return [];
@@ -98,7 +99,9 @@ export const BookingPage = () => {
         const selectedDay = date.getDay();
         const day = daysOfWeek[selectedDay];
         const dayAvailabilities = meeting.availabilityData[day];
-        const duration = meeting.meetingDuration;
+        let duration = meeting.meetingDuration;
+        duration = parseInt(duration, 10);
+
         if (!dayAvailabilities) return [];
     
         const slots = [];
@@ -117,32 +120,47 @@ export const BookingPage = () => {
 
     const getAvailabilitiesByDate = () => {
         if (!meeting) return [];
-    
         const today = new Date();
         today.setHours(0, 0, 0, 0); 
+    
         const slots = [];
+    
         for (const date in meeting.availabilityData) {
-            const dateObj = new Date(date);
-            dateObj.setHours(0, 0, 0, 0); 
-            if (dateObj < today) continue; 
-            const dateName = dateObj.toDateString();
             const dayAvailabilities = meeting.availabilityData[date];
-            const duration = meeting.meetingDuration;
+            
+            const dateParts = date.split('-');
+            const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]); 
+            dateObj.setHours(0, 0, 0, 0);
+            
+            if (dateObj < today) continue;
+    
+            const dateName = dateObj.toDateString();
+    
+            let duration = meeting.meetingDuration;
+            duration = parseInt(duration, 10);
     
             if (!dayAvailabilities || (dayAvailabilities.length === 1 && dayAvailabilities[0] === '')) {
                 continue;
             }
-            slots.push({ dateName, dateObj, slots: [] });
+    
+            let dateSlot = slots.find(slot => slot.dateObj.getTime() === dateObj.getTime());
+            if (!dateSlot) {
+                dateSlot = { dateName, dateObj, slots: [] };
+                slots.push(dateSlot);
+            }
+    
             dayAvailabilities.forEach((availability) => {
                 const { start, end } = availability;
                 const splitSlots = splitAvailabilityByDuration(start, end, duration);
-                splitSlots.forEach((slot) => {
-                    slots[slots.length - 1].slots.push(slot);
-                });
+                dateSlot.slots.push(...splitSlots); 
             });
         }
+    
         return slots.sort((a, b) => a.dateObj - b.dateObj);
     };
+    
+    
+    
     
     const extractNameFromEmail = (email) => {
         if (!email) return '';
