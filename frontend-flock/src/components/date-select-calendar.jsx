@@ -1,7 +1,7 @@
 // Jacob Weldon 260986471
 import React, { useState } from 'react';
 import '../styles/date-select-calendar.css';
-import PropTypes from 'prop-types'; // For prop type validation
+import PropTypes from 'prop-types';
 
 const CalendarComponent = ({ onDateChange }) => { // Accept onDateChange as a prop
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -18,7 +18,7 @@ const CalendarComponent = ({ onDateChange }) => { // Accept onDateChange as a pr
     const selectDate = (day) => {
         const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
         const today = new Date();
-        today.setHours(0,0,0,0); // Normalize today's date to midnight for an accurate comparison
+        today.setHours(0,0,0,0);
     
         if (newDate < today) {
             alert('You cannot select a date in the past.');
@@ -42,10 +42,9 @@ const CalendarComponent = ({ onDateChange }) => { // Accept onDateChange as a pr
 
         const firstDayOfMonth = new Date(year, month, 1);
         const lastDayOfMonth = new Date(year, month + 1, 0);
-        const startDay = firstDayOfMonth.getDay(); // Day of week (0-6)
+        const startDay = firstDayOfMonth.getDay();
         const totalDays = lastDayOfMonth.getDate();
 
-        // Previous month details
         const prevMonth = month === 0 ? 11 : month - 1;
         const prevYear = month === 0 ? year - 1 : year;
         const lastDayPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();

@@ -63,7 +63,7 @@ function MeetingRequest() {
       duration: durationInt,
       date: meetingDateTime,
       faculty: professorName || newProfessorName,
-      participants: [], // Add logic to include participants if needed
+      participants: [],
       status: status,
       meetingType: meetingType,
       time: meetingTime,
@@ -81,7 +81,7 @@ function MeetingRequest() {
       if (response.ok) {
         // Successfully created meeting
         alert("Meeting requested successfully!");
-        // Optionally, reset form fields or navigate to another page
+        // navigate back to profLookup page
         navigate("/profLookup");
       } else {
         const errorData = await response.json();
