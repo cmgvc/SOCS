@@ -42,9 +42,9 @@ const MeetingModal = ({ onClose, content }) => {
     }
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
-                <div className="modal-header">
+        <div className="meeting-modal-overlay">
+            <div className="meeting-modal-content">
+                <div className="meeting-modal-header">
                     {meetingBooked ? (
                         <>
                             <h3><b>Meeting Booked!</b></h3>
@@ -54,8 +54,9 @@ const MeetingModal = ({ onClose, content }) => {
                                 <p><strong>Time:</strong> {content.time}</p>
                         </>
                     ) : (
+                        
                         content ? (
-                            <>
+                            <><div className='booking-modal-content'>
                                 <h3><b>{content.title}</b></h3>
                                 <p><strong>{content.date}</strong></p>
                                 <p><strong>Time:</strong> {content.time}</p>
@@ -69,11 +70,13 @@ const MeetingModal = ({ onClose, content }) => {
                                         *{errorMessage}
                                     </p>
                                 )}
-
+                               
                                 <button className="close-btn" onClick={handleBookMeeting}>Book Meeting</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="close-btn" onClick={onClose}>Close</button>
+                                </div>
                             </>
-                        ) : (
+                        )  : (
                             <>
                                 <p>Loading...</p>
                                 <button className="close-btn" onClick={onClose}>Close</button>

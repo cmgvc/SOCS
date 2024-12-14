@@ -77,6 +77,7 @@ function MeetingRequest() {
         },
         body: JSON.stringify(meeting),
       });
+
       if (response.ok) {
         // Successfully created meeting
         alert("Meeting requested successfully!");

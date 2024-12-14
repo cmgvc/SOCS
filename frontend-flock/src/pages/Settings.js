@@ -49,8 +49,11 @@ const Settings = () => {
       email: e.target.email.value,
     };
 
+    const backendUrl =
+      process.env.REACT_APP_BACKEND_URL;
+
     try {
-      const response = await fetch("http://localhost:5001/user/update", {
+      const response = await fetch(`${backendUrl}/user/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

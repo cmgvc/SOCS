@@ -5,7 +5,6 @@ import {ReactComponent as Home2} from "../svg/home-2.svg";
 import {ReactComponent as Home3} from "../svg/home-3.svg";
 import "../styles/home.css";
 
-
 export default function Home() {
   return (
     <div className="home-container">
@@ -14,9 +13,9 @@ export default function Home() {
         <h1>Welcome to Flock, the McGill Computer Science Department's Booking System</h1>
         <p>Your place to connect with Professors, Teaching Assistants, and fellow Students</p>
         <div className="redirect-buttons">  
-          <button className="overlay-buttons">Book</button>
-          <button className="overlay-buttons">Faculty</button>
-          <button className="overlay-buttons">Students</button>
+          <a href='/book'><button className="overlay-buttons">Book</button></a>
+          <a href='/dashboard'><button className="overlay-buttons">Faculty</button></a>
+          <a href='/dashboard'><button className="overlay-buttons">Students</button></a>
         </div>
       </div>
       <div className="middle-section">

@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", async (req, res) => {
     try {
         const facultyEmail = req.body.email;
-        const meetings = await Availability.find({ facultyEmail: facultyEmail });
+        const meetings = await Availability.find({ email: facultyEmail });
         res.json(meetings);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
 });
 
 // get meeting by url
-router.get('/url', async (req, res) => {
-    const { url } = req.query;
+router.post('/url', async (req, res) => {
+    const { url } = req.body;
     try {
         const meeting = await Availability.find({ bookingUrl: url });
         if (meeting) {

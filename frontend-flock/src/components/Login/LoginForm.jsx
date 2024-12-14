@@ -15,7 +15,7 @@ const LoginForm = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
+    process.env.REACT_APP_BACKEND_URL;
 
   const validateEmail = (email) => {
     const mcgillEmailRegex = /^[^\s@]+@(mail\.)?mcgill\.ca$/;
