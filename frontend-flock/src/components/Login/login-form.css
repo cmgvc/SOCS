@@ -118,3 +118,15 @@ input::placeholder {
 .forgot-password a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  .login-form-container {
+    margin-left: 0;
+    margin-right: 0;
+    width: 85%;
+    margin-bottom: 2rem;
+  }
+  .login-title {
+    margin-top: 1.5rem;
+  }
+}

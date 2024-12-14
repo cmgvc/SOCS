@@ -12,6 +12,7 @@ function Navbar() {
     localStorage.getItem("firstName") || "Login"
   );
   const [isOpen, setOpen] = useState(false);
+  const isFaculty = localStorage.getItem("isFaculty");
 
   useEffect(() => {
     const storedName = localStorage.getItem("firstName");
@@ -78,12 +79,16 @@ function Navbar() {
             </li>
             {token && (
               <>
-                <li>
-                  <a href="/create">Create Booking</a>
-                </li>
-                <li>
-                  <a href="/block">Block Off Times</a>
-                </li>
+                {isFaculty && (
+                  <>
+                    <li>
+                      <a href="/create">Create Booking</a>
+                    </li>
+                    <li>
+                      <a href="/block">Block Off Times</a>
+                    </li>
+                  </>
+                )}
                 <li>
                   <a href="/request">Request Meeting</a>
                 </li>

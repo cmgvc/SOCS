@@ -1,7 +1,6 @@
 // Danielle Wahrhaftig 260984602
 import React, { useState, useEffect } from "react";
 import "./does-not-repeat.css";
-import { ReactComponent as AddIcon } from "../../svg/add-square.svg";
 import { ReactComponent as CancelIcon } from "../../svg/cancel-right.svg";
 
 const DoesNotRepeat = ({

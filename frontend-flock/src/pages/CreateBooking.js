@@ -4,10 +4,11 @@ import CreateBookingSidebar from "../components/CreateBooking/CreateBookingSideb
 import "./create-booking-page.css";
 
 const CreateBookingPage = () => {
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
   return (
-    <div className="booking-page">
-      <CreateBookingSidebar />
-      <CreateBookingCalendar />
+    <div className="cb-booking-page">
+      <CreateBookingSidebar setSelectedTimeSlots={setSelectedTimeSlots} />
+      <CreateBookingCalendar selectedTimeSlots={selectedTimeSlots} />
     </div>
   );
 };
