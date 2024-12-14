@@ -224,6 +224,7 @@ export const BookingPage = () => {
                 <MeetingModal onClose={closeModal} content={modalContent}>
                 </MeetingModal>
             )}
+            <a href='/book'><button className='back-btn'>Back</button></a>
         </div>
     );
 };
