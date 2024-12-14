@@ -32,7 +32,7 @@
 
 #calendar-grid {
     width: 100%;
-    border-collapse: collapse; /* Removes the default table borders */
+    border-collapse: collapse;
     align-items: center;
 }
 
@@ -65,8 +65,7 @@
 }
 
 .day-cell.adjacent-month {
-    color: #aaa; /* Pale grey color */
-    /* Ensure cursor is default */
+    color: #aaa;
     cursor: default;
 }
 
