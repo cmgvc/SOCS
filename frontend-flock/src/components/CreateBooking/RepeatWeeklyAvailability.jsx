@@ -1,3 +1,4 @@
+// Danielle Wahrhaftig 260984602
 import React, { useEffect, useState } from "react";
 import { ReactComponent as AddSquareSvg } from "../../svg/add-square.svg";
 import { ReactComponent as CancelRightSvg } from "../../svg/cancel-right.svg";
@@ -53,7 +54,7 @@ const RepeatWeeklyAvailability = ({
   // Generate time options for the dropdown, based on meeting duration
   const generateTimeOptions = () => {
     const options = [];
-    for (let i = 0; i < 24 * 60; i += durationInMinutes) {
+    for (let i = 0; i < 24 * 60; i += 30) {
       options.push(convertTo12Hour(i));
     }
     return options;

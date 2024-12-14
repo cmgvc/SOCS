@@ -1,5 +1,4 @@
 // coded by Danielle Wahrhaftig
-
 import React, { useState } from "react";
 import "./create-booking-calendar.css";
 
@@ -66,29 +65,6 @@ const CreateBookingCalendar = ({ events = [] }) => {
   };
 
   const weekDates = getWeekDates(startOfWeek);
-
-  const handleMouseDown = (dayIndex, hourIndex) => {
-    if (isUnavailable(dayIndex, hourIndex)) return;
-    setDragging(true);
-    setCurrentSelection({ dayIndex, startHour: hourIndex, endHour: hourIndex });
-  };
-
-  const handleMouseMove = (dayIndex, hourIndex) => {
-    if (dragging && currentSelection) {
-      setCurrentSelection((prev) => ({
-        ...prev,
-        endHour: Math.max(hourIndex, prev.startHour),
-      }));
-    }
-  };
-
-  const handleMouseUp = () => {
-    if (dragging && currentSelection) {
-      setSelectedBlocks((prev) => [...prev, currentSelection]);
-      setCurrentSelection(null);
-    }
-    setDragging(false);
-  };
 
   const isSelected = (dayIndex, hourIndex) => {
     return selectedBlocks.some(
@@ -170,9 +146,6 @@ const CreateBookingCalendar = ({ events = [] }) => {
                       ? "current-selection"
                       : ""
                   }`}
-                  onMouseDown={() => handleMouseDown(dayIndex, hourIndex)}
-                  onMouseMove={() => handleMouseMove(dayIndex, hourIndex)}
-                  onMouseUp={handleMouseUp}
                 />
               ))}
             </div>
