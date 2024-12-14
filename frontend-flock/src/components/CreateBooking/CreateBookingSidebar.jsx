@@ -151,8 +151,6 @@ const CreateBookingSidebar = ({ setSelectedTimeSlots }) => {
     // Update the parent state with the selected time slots
     setSelectedTimeSlots(availabilityData);
 
-    console.log("Updated time slots:", availabilityData);
-
     // Check if the title is empty
     if (!title) {
       setError("The title cannot be empty.");

@@ -17,10 +17,10 @@ const hours = [
   "7 PM",
 ];
 const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+const selectedSlotsDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const CreateBookingCalendar = () => {
+const CreateBookingCalendar = ({ selectedTimeSlots = {} }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [currentSelection, setCurrentSelection] = useState(null);
 
   const handlePrev = () => {
     setCurrentDate((prev) => {
@@ -63,6 +63,36 @@ const CreateBookingCalendar = () => {
     year: "numeric",
   });
 
+  // Helper function to check if a slot is selected
+  const isSelected = (dayIndex, hourIndex) => {
+    const dayName = selectedSlotsDays[dayIndex]; // Map day index to day name (e.g., 0 -> Mon)
+    const slotsForDay = selectedTimeSlots[dayName] || []; // Get selected slots for the day
+    console.log(slotsForDay);
+
+    const convertTimeToHourIndex = (time) => {
+      const [hourMinute, period] = time.split(" "); // Split "9:00 AM" into "9:00" and "AM"
+      const [hour, minute] = hourMinute.split(":").map(Number); // Split "9:00" into [9, 0]
+      let totalHour = hour;
+
+      // Convert to 24-hour format
+      if (period === "PM" && hour !== 12) {
+        totalHour += 12; // Add 12 hours for PM (except 12 PM)
+      }
+      if (period === "AM" && hour === 12) {
+        totalHour = 0; // Midnight is 0 hours
+      }
+
+      return totalHour - 8; // Subtract 8 because "8 AM" corresponds to index 0
+    };
+
+    // Check if hourIndex falls within any of the selected slots
+    return slotsForDay.some((slot) => {
+      const startIndex = convertTimeToHourIndex(slot.start);
+      const endIndex = convertTimeToHourIndex(slot.end);
+      return hourIndex >= startIndex && hourIndex < endIndex; // Check if hourIndex is within the range
+    });
+  };
+
   return (
     <div className="cb-calendar-container">
       <div className="cb-calendar-header">
@@ -100,7 +130,12 @@ const CreateBookingCalendar = () => {
           {weekDates.map((date, dayIndex) => (
             <div key={dayIndex} className="cb-day-column">
               {hours.map((hour, hourIndex) => (
-                <div key={hourIndex} className={`cb-hour-slot`} />
+                <div
+                  key={hourIndex}
+                  className={`cb-hour-slot ${
+                    isSelected(dayIndex, hourIndex) ? "cb-selected" : ""
+                  }`}
+                />
               ))}
             </div>
           ))}
