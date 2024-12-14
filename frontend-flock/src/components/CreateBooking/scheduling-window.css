@@ -1,81 +1,81 @@
-
-  /* scheduling-window.css */
+/* scheduling-window.css */
 .scheduling-limits-container {
-    font-family: "Poppins", sans-serif;
-    color: white;
-    background-color: #444040;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .limit-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .limit-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .checkbox-label {
-    font-size: 0.9rem;
-    color: white;
-  }
-  
-  .limit-input-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .limit-input {
-    width: 60px;
-    padding: 0.4rem;
-    border-radius: 5px;
-    border: 1px solid #888;
-    background-color: #555;
-    color: white;
-    text-align: center;
-  }
-  
-  .input-unit {
-    font-size: 0.9rem;
-    color: white;
-  }
-  
-  /* Ensure the checkbox and inputs align neatly */
-  .limit-checkbox input {
-    width: 18px;
-    height: 18px;
-    accent-color: #ffffff; /* White accent for checkbox */
-    cursor: pointer;
-  }
+  font-family: "Poppins", sans-serif;
+  color: white;
+  background-color: #444040;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-  .input-row {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .input-row input {
-    width: 20%;
-    height: 20px;
-  }
+.limit-group {
+  margin-bottom: 1.5rem;
+}
 
-  .input-row input[type="checkbox"] {
-    accent-color: #f94646;
+.limit-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
 
-  }
+.checkbox-label {
+  font-size: 0.9rem;
+  color: white;
+}
 
-  .input-row .input-unit {
-    margin-left: 0.5rem;
-  }
-  
-  .input-row .time-input {
-    background-color: #8b8686;
-    border-radius: 15px;
-    color: white;
-  }
-  
+.limit-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.limit-input {
+  width: 60px;
+  padding: 0.4rem;
+  border-radius: 5px;
+  border: 1px solid #888;
+  background-color: #555;
+  color: white;
+  text-align: center;
+}
+
+.input-unit {
+  font-size: 0.9rem;
+  color: white;
+}
+
+/* Ensure the checkbox and inputs align neatly */
+.limit-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #ffffff; /* White accent for checkbox */
+  cursor: pointer;
+}
+
+.input-row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.input-row input {
+  width: 20%;
+  height: 20px;
+}
+
+.input-row input[type="checkbox"] {
+  accent-color: #f94646;
+}
+
+.input-row .input-unit {
+  margin-left: 0.5rem;
+}
+
+.input-row .time-input {
+  all: unset;
+  background-color: #8b8686;
+  border-radius: 15px;
+  padding: 5px;
+  width: 30%;
+  text-align: center;
+}
