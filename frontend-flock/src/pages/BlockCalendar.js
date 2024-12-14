@@ -31,7 +31,7 @@ const CalendarWithSidebar = () => {
   const weekDates = getWeekDates(startOfWeek);
 
   useEffect(() => {
-    // On load, fetch existing unavailability from DB
+    // populate with existing data
     const facultyEmail = localStorage.getItem("email");
     if (!facultyEmail) {
       console.error("No faculty email found in local storage.");
@@ -42,7 +42,7 @@ const CalendarWithSidebar = () => {
       .then(res => res.json())
       .then(data => {
         if (data.unavailabilities) {
-          // Transform data into { date: "YYYY-MM-DD", timeSlots: [{startTime, endTime}] }[] format
+          // turn data into { date: "YYYY-MM-DD", timeSlots: [{startTime, endTime}] }[] format
           const loadedBlocks = data.unavailabilities.map(ua => ({
             date: ua.date,
             timeSlots: ua.timeSlots.map(ts => ({ startTime: ts.startTime, endTime: ts.endTime }))
@@ -78,6 +78,11 @@ const CalendarWithSidebar = () => {
     });
   };
 
+  // set currentDate to the selected date -> updates calendar and panel
+  const handleJumpToDate = (d) => {
+    setCurrentDate(d);
+  };
+
   return (
     <div style={{ margin: "20px" }}>
       <br/>
@@ -89,6 +94,7 @@ const CalendarWithSidebar = () => {
           unavailableBlocks={unavailableBlocks}
           onBlocksChange={handleBlocksChange}
           weekDates={weekDates}
+          onJumpToDate={handleJumpToDate}
         />
         <StyledCalendar 
           mode={mode} 
