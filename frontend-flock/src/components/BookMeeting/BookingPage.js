@@ -160,8 +160,6 @@ export const BookingPage = () => {
     };
     
     
-    
-    
     const extractNameFromEmail = (email) => {
         if (!email) return '';
         const parts = email.split('@')[0].split('.');
