@@ -194,7 +194,6 @@ const CreateBookingSidebar = () => {
       // Validate intervals for each slot
       const timeSlots = Object.values(repeatWeeklyData).flat();
       for (const slot of timeSlots) {
-        console.log(slot);
         if (!isValidTimeSlotWeekly(slot, meetingDurationInMinutes)) {
           setError(
             `Each time slot must align with the ${meetingDuration} duration.`
@@ -325,7 +324,7 @@ const CreateBookingSidebar = () => {
           onSchedulingLimitsChange={handleSchedulingLimitsChange}
         />
       )}
-      {error && <div className="cb-error-message">{error}</div>}
+      {error && <div className="error-message">{error}</div>}
       <button className="cb-save-btn" onClick={handleSave}>
         Save
       </button>
