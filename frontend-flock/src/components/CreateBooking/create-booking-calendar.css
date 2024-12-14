@@ -128,3 +128,9 @@
   background-color: lightcoral;
   border-radius: 10px;
 }
+
+@media (max-width: 950px) {
+  .cb-calendar-container {
+    width: 90%;
+  }
+}

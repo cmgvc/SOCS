@@ -196,3 +196,9 @@
 .cb-chevron.rotated {
   transform: rotate(180deg);
 }
+
+@media (max-width: 950px) {
+  .cb-create-meeting-sidebar {
+    width: 60%;
+  }
+}

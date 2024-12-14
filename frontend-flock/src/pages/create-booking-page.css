@@ -4,3 +4,11 @@
   flex-direction: horizontal;
   gap: 2rem;
 }
+
+@media (max-width: 950px) {
+  .cb-booking-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
