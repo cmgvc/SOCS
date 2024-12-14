@@ -6,6 +6,7 @@ const MeetingCard = ({ meeting }) => {
     const backendUrl =  'http://localhost:5001';
     const title = meeting.title;
     const date = meeting.date;
+    const time = meeting.time;
     const formatDate = (dateString) => {
         const newDate = new Date(dateString);
         const dateOptions = {
@@ -62,12 +63,15 @@ const MeetingCard = ({ meeting }) => {
             <div className='meeting-card'>
                 <h4>{formattedDate}</h4>
                 <div className='meeting-date'>
-                    <button>{formattedTime}</button>
+                    <button>{time}</button>
                     <button>{duration} min</button>
                 </div>
-                <p>{title}</p>
-                <p>{meetingType}</p>
-                <h5>{extractNameFromEmail(organizer)}</h5>
+                <p>{title}
+                    <br/><br/>
+                    {meetingType}
+                    <br/><br/>
+                    <b>{extractNameFromEmail(organizer)}</b>
+                </p>
                 {!isPastOrStarted && (
                     <button className='cancel-btn' onClick={handleCancelMeeting}>Cancel</button>
                 )}            
