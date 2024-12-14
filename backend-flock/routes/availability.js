@@ -34,6 +34,26 @@ router.post("/save", async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // Validation for non-repeating availability
+    if (!doesRepeatWeekly) {
+      if (!Array.isArray(availabilityData)) {
+        return res.status(400).json({
+          message: "Non-repeating availability data must be an array.",
+        });
+      }
+
+      if (
+        !availabilityData.every(
+          (slot) => slot.date && slot.startTime && slot.endTime
+        )
+      ) {
+        return res.status(400).json({
+          message:
+            "Non-repeating availability data must include date, startTime, and endTime for each slot.",
+        });
+      }
+    }
+
     // Check for duplicates
     const existingAvailability = await Availability.findOne({
       email,
@@ -48,22 +68,10 @@ router.post("/save", async (req, res) => {
       });
     }
 
-    // Validate availabilityData format
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const isValidAvailabilityData = daysOfWeek.every((day) =>
-      Array.isArray(availabilityData[day])
-    );
-
-    if (!isValidAvailabilityData) {
-      return res
-        .status(400)
-        .json({ message: "Invalid format for availabilityData" });
-    }
-
-    // Generate the booking URL
+    // Generate booking URL
     const bookingUrl = generateBookingUrl(email);
 
-    // Create the new availability document
+    // Create new availability document
     const newAvailability = new Availability({
       title,
       email,
@@ -79,7 +87,6 @@ router.post("/save", async (req, res) => {
     // Save to the database
     const savedAvailability = await newAvailability.save();
 
-    // Respond with success
     res.status(201).json({
       message: "Availability saved successfully!",
       bookingUrl,
