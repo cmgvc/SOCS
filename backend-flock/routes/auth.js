@@ -20,9 +20,16 @@ router.post("/signup", async (req, res) => {
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" "); // handles multi-part last names like "Van Gogh"
 
-  // validate McGill email
-  if (!/^[\w-\.]+@mail\.mcgill\.ca$/.test(email)) {
-    return res.status(400).json({ message: "Email must be @mail.mcgill.ca" });
+  // Determine if the email belongs to faculty or student
+  let isFaculty = null;
+  if (lowercaseEmail.endsWith("@mcgill.ca")) {
+    isFaculty = true; // Faculty
+  } else if (lowercaseEmail.endsWith("@mail.mcgill.ca")) {
+    isFaculty = false; // Student
+  } else {
+    return res
+      .status(400)
+      .json({ message: "Email must be either @mcgill.ca or @mail.mcgill.ca" });
   }
 
   try {
@@ -42,6 +49,7 @@ router.post("/signup", async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
+      isFaculty,
     });
     await newUser.save();
 
@@ -52,8 +60,9 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({
       message: "User registered successfully",
-      user: { firstName, lastName, email: lowercaseEmail },
+      user: { firstName, lastName, email: lowercaseEmail, isFaculty },
       token: token,
+      isFaculty,
     });
   } catch (error) {
     console.error(error);

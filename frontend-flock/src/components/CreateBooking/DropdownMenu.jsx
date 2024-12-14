@@ -1,5 +1,4 @@
 // coded by Danielle Wahrhaftig
-
 import React, { useState, useEffect, useRef } from "react";
 import "./dropdown-menu.css";
 

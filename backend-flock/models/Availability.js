@@ -9,7 +9,7 @@ const availabilitySchema = new mongoose.Schema({
   title: { type: String, required: true },
   email: { type: String, required: true },
   meetingType: { type: String, required: true },
-  meetingDuration: { type: String, required: true },
+  meetingDuration: { type: Number, required: true }, // in minutes
   doesRepeatWeekly: { type: Boolean, required: true },
   availabilityData: {
     Sun: [TimeSlotSchema],
@@ -20,8 +20,8 @@ const availabilitySchema = new mongoose.Schema({
     Fri: [TimeSlotSchema],
     Sat: [TimeSlotSchema],
   },
-  windowDaysAdvance: { type: Number, required: true },
-  windowTimeBefore: { type: Number, required: true },
+  windowDaysAdvance: { type: Number, required: false },
+  windowTimeBefore: { type: Number, required: false },
   bookingUrl: { type: String, required: true }, // Unique URL for booking
 });
 

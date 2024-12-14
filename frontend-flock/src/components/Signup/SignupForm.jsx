@@ -19,7 +19,7 @@ const SignupForm = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch("http://localhost:5001/auth/signup", {
+      const response = await fetch(`${backendUrl}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -35,12 +35,13 @@ const SignupForm = () => {
         localStorage.setItem("lastName", `${data.user.lastName}`);
         localStorage.setItem("email", `${data.user.email}`);
         localStorage.setItem("token", `${data.token}`);
+        localStorage.setItem("isFaculty", `${data.user.isFaculty}`);
 
         // redirect to home page after a short delay
         setTimeout(() => {
           setShowModal(false);
           window.open("/", "_self");
-        }, 2000);
+        }, 1500);
       } else {
         setErrorMessage(data.message || "Signup failed.");
       }
