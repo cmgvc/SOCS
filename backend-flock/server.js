@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth");
 const meetingRoutes = require("./routes/meetings");
 const availabilityRoutes = require("./routes/availability");
 const facultyRoutes = require("./routes/faculty");
+const availabilitiesRoutes = require("./routes/availabilities");
 
 const app = express();
 
@@ -14,7 +15,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin:"http://localhost:3000",
     credentials: true,
   })
 ); // allow frontend origin
@@ -38,7 +39,7 @@ app.use("/auth", authRoutes);
 app.use("/meetings", meetingRoutes);
 app.use("/availability", availabilityRoutes);
 app.use("/faculty", facultyRoutes);
-
+app.use("/availabilities", availabilitiesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

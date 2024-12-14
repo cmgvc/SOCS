@@ -15,7 +15,7 @@ export const BookingPage = () => {
     const [recurring, setRecurring] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
+    const backendUrl = 'http://localhost:5001';
     const daysOfWeek = { 0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday" };
 
     const handleDateChange = (date) => {
@@ -161,8 +161,8 @@ export const BookingPage = () => {
             email: meeting.email,
             name: extractNameFromEmail(meeting.email),
             date: date ? date.toDateString() : '',
-            duration: meeting.duration,
-            type: meeting.meetingType
+            duration: meeting.meetingDuration,
+            type: meeting.meetingType,
         });
         setModalOpen(true);
     };
