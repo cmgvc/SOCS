@@ -3,6 +3,7 @@ import { ReactComponent as Gradient } from "../svg/flock-home.svg";
 import { ReactComponent as Home1 } from "../svg/home-1.svg";
 import { ReactComponent as Home2 } from "../svg/home-2.svg";
 import { ReactComponent as Home3 } from "../svg/home-3.svg";
+import scheduleVideo from '../assets/schedule.mp4';
 import "../styles/home.css";
 
 export default function Home() {
@@ -44,7 +45,17 @@ export default function Home() {
           </ul>
         </div>
         <div class="right-panel">
-          <img src="schedule.png" alt="Scheduling video placeholder" />
+        <video 
+            src={scheduleVideo} 
+            className="schedule-video"
+            controls
+            autoPlay
+            loop
+            muted
+            preload="auto"
+          >
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
