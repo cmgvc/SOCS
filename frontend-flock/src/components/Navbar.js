@@ -1,18 +1,23 @@
-// Chloe Gavrilovic 260955835
 import React, { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import PersonIcon from "@mui/icons-material/Person";
 import Hamburger from "hamburger-react";
 import FlockFavicon from "../svg/flock-favicon.svg";
-import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Navbar() {
   const token = localStorage.getItem("token");
-  const [firstName, setName] = useState(
-    localStorage.getItem("firstName") || "Login"
-  );
+  const [firstName, setName] = useState(localStorage.getItem("firstName") || "Login");
   const [isOpen, setOpen] = useState(false);
   const isFaculty = localStorage.getItem("isFaculty");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("isFaculty");
+    window.open("/", "_self");
+  };
 
   useEffect(() => {
     const storedName = localStorage.getItem("firstName");
@@ -23,74 +28,81 @@ function Navbar() {
 
   useEffect(() => {
     if (isOpen) {
-      window.addEventListener("click", (e) => {
+      const handleClickOutside = (e) => {
         if (e.target.classList.contains("overlay")) {
           setOpen(false);
         }
-      });
+      };
+      window.addEventListener("click", handleClickOutside);
+
+      return () => {
+        window.removeEventListener("click", handleClickOutside);
+      };
     }
   }, [isOpen]);
 
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-banner">
-          <img
-            src={FlockFavicon}
-            alt="Logo"
-            className="navbar-icon"
-            // style={{ width: "8rem", height: "8rem" }}
-          />
-          <div className="banner-bar"></div>
-          <div className="navbar-text">
-            <h1>Flock</h1>
-            <p>by McGill SOCS</p>
+        <div className="navbar-links">
+          <div className="navbar-links-left">
+            <div className="navbar-banner">
+              <a href="/">
+                <img src={FlockFavicon} alt="Logo" className="navbar-icon" />
+              </a>
+              <div className="banner-bar"></div>
+              <a href="/">
+                <div className="navbar-text">
+                  <h1>Flock</h1>
+                  <p>by McGill SOCS</p>
+                </div>
+              </a>
+            </div>
+            <a href="/book">Book Meeting</a>
+            {token && isFaculty === "true" && (
+              <>
+                <a href="/create">Create meeting</a>
+                <a href="/">Set availability</a>
+              </>
+            )}
+          </div>
+          <div className="navbar-links-right">
+            <div className="hamburger-menu">
+              <Hamburger toggled={isOpen} toggle={setOpen} />
+            </div>
+            {!token ? (
+              <a href="/auth">
+                <b>Log in</b>
+              </a>
+            ) : (
+              <a className="logout-btn" onClick={handleLogout}>
+                <p>Log out</p>
+              </a>
+            )}
+            <a href={!token ? "/signup" : "/dashboard"}>
+              <button className="navbar-profile">
+                <PersonIcon />
+                {token ? <p>{firstName}</p> : <p><b>Sign up</b></p>}
+              </button>
+            </a>
           </div>
         </div>
-        <div className="navbar-links">
-          <Hamburger toggled={isOpen} toggle={setOpen} />
-          {token && (
-            <>
-              <a href="/settings">
-                {<SettingsSvg className="settings-icon" />}
-              </a>
-            </>
-          )}
-          <a href={!token ? "/auth" : "/dashboard"}>
-            <button className="navbar-profile">
-              <PersonIcon />
-              {token ? <p>{firstName}</p> : <p>Login</p>}
-            </button>
-          </a>
-        </div>
       </nav>
+
       {isOpen && <div className="overlay"></div>}
       {isOpen && (
         <div id="dropdownMenu" className="dropdown-menu">
           <ul>
             <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/dashboard">Dashboard</a>
-            </li>
-            <li>
               <a href="/book">Book Meeting</a>
             </li>
-            {token && (
+            {token && isFaculty === "true" && (
               <>
-                {isFaculty && (
-                  <>
-                    <li>
-                      <a href="/create">Create Booking</a>
-                    </li>
-                    <li>
-                      <a href="/block">Block Off Times</a>
-                    </li>
-                  </>
-                )}
                 <li>
-                  <a href="/profLookup">Request Meeting</a>
+                  <a href="/create">Create meeting</a>
+                </li>
+                <li>
+                  <a href="/">Set availability</a>
                 </li>
               </>
             )}

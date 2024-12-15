@@ -1,8 +1,10 @@
+// Chloe Gavrilovic 260955835
 import React, { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 import MeetingCard from "../components/MeetingCard";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { ReactComponent as SettingsSvg } from "../svg/settings.svg";
 
 function Dashboard() {
   const [startNextIndex, setStartNextIndex] = useState(0);
@@ -176,6 +178,10 @@ function Dashboard() {
           <div className="dash-title">
             <h1>Dashboard</h1>
             <button onClick={handleLogoutClick}>Logout</button>
+            <br /><br />
+            <a href="/settings">
+                {<SettingsSvg className="settings-icon" />}
+            </a>
           </div>
           <div className="dash-overview">
             <div className="dash-section">

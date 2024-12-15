@@ -31,6 +31,7 @@
     border: 1px solid var(--light-gray);
     background-color: var(--white);
     width: 300px;
+    scale: 0.9;
 }
 
 .booking-input {
@@ -51,6 +52,7 @@
     box-shadow: var(--box-shadow);
     cursor: pointer;
     margin: 3vh;
+    scale: 1.2;
 }
 
 .booking-input button:hover {
