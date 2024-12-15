@@ -54,6 +54,11 @@ function BookMeeting() {
             <button onClick={handleMeetingUrlSearch}>Search</button>
           </div>
         </div>
+        OR
+        <br /><br />
+        <div className="booking-input">
+            <a href='/profLookup'><button>Request custom meeting</button></a>
+        </div>
       </div>
     </div>
   );

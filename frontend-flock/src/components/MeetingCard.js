@@ -1,3 +1,4 @@
+// Chloe Gavrilovic 260955835
 import React, { useState } from "react";
 
 const MeetingCard = ({ meeting }) => {
