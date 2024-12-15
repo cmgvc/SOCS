@@ -14,7 +14,8 @@ const LoginForm = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const backendUrl = "http://localhost:5001";
+  // const backendUrl = "http://localhost:5001";
+  const backendUrl = "https://fall2024-comp307-group04.cs.mcgill.ca:5001";
 
   const validateEmail = (email) => {
     const mcgillEmailRegex = /^[^\s@]+@(mail\.)?mcgill\.ca$/;

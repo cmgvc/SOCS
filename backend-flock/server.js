@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(
   cors({
-    origin:"http://localhost:3000",
+    origin: "https://fall2024-comp307-group04.cs.mcgill.ca:3000",
     credentials: true,
   })
 ); // allow frontend origin
