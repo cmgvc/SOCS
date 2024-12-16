@@ -6,7 +6,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function BookingCalendar({ onDateChange }) {
-    const [value, setValue] = React.useState(dayjs(new Date())); 
+    const [value, setValue] = React.useState(null); 
 
     const handleDateChange = (newValue) => {
         setValue(newValue); 

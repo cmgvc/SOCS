@@ -133,5 +133,23 @@ router.post('/updateStatus', async (req, res) => {
     }
 });
 
+// get all meetings for a faculty member if the meeting is 1-1 and is full
+router.post('/full', async (req, res) => {
+    const { faculty, title } = req.body;
+    try {
+        const meetings = await Meeting.find({
+            title: title,
+            faculty: faculty,
+            meetingType: "1-1", 
+            participants: { $size: 1 } 
+        });
+        console.log(meetings);
+        res.json(meetings); 
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 
 module.exports = router;
