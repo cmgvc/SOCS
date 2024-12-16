@@ -58,13 +58,16 @@ function Navbar() {
                 </div>
               </a>
             </div>
-            <a href="/book">Book Meeting</a>
-            {token && isFaculty === "true" && (
-              <>
-                <a href="/create">Create meeting</a>
-                <a href="/block">Block availability</a>
-              </>
-            )}
+            <div className="navbar-left-pages">
+              <a href="/book">Book Meeting</a>
+              <a href={token ? "/dashboard" : "/auth"}>Dashboard</a>
+              {token && isFaculty === "true" && (
+                <>
+                  <a href="/create">Create meeting</a>
+                  <a href="/block">Block availability</a>
+                </>
+              )}
+            </div>
           </div>
           <div className="navbar-links-right">
             <div className="hamburger-menu">
@@ -94,7 +97,13 @@ function Navbar() {
         <div id="dropdownMenu" className="dropdown-menu">
           <ul>
             <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
               <a href="/book">Book Meeting</a>
+            </li>
+            <li>
+              <a href={token ? "/dashboard" : "/auth"}>Dashboard</a>
             </li>
             {token && isFaculty === "true" && (
               <>
