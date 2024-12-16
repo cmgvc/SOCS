@@ -62,7 +62,7 @@ function Navbar() {
             {token && isFaculty === "true" && (
               <>
                 <a href="/create">Create meeting</a>
-                <a href="/">Set availability</a>
+                <a href="/block">Block availability</a>
               </>
             )}
           </div>
@@ -102,7 +102,7 @@ function Navbar() {
                   <a href="/create">Create meeting</a>
                 </li>
                 <li>
-                  <a href="/">Set availability</a>
+                  <a href="/block">Block availability</a>
                 </li>
               </>
             )}
