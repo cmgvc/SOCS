@@ -6,9 +6,7 @@ import FlockFavicon from "../svg/flock-favicon.svg";
 
 function Navbar() {
   const token = localStorage.getItem("token");
-  const [firstName, setName] = useState(
-    localStorage.getItem("firstName") || "Login"
-  );
+  const [firstName, setName] = useState(localStorage.getItem("firstName") || "Login");
   const [isOpen, setOpen] = useState(false);
   const isFaculty = localStorage.getItem("isFaculty");
 
@@ -48,10 +46,12 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-links">
           <div className="navbar-links-left">
-            <a href="/">
-              <div className="navbar-banner">
+            <div className="navbar-banner">
+              <a href="/">
                 <img src={FlockFavicon} alt="Logo" className="navbar-icon" />
-                <div className="banner-bar"></div>
+              </a>
+              <div className="banner-bar"></div>
+              <a href="/">
                 <div className="navbar-text">
                   <h1>Flock</h1>
                   <p>by McGill SOCS</p>
@@ -85,13 +85,7 @@ function Navbar() {
             <a href={!token ? "/signup" : "/dashboard"}>
               <button className="navbar-profile">
                 <PersonIcon />
-                {token ? (
-                  <p>{firstName}</p>
-                ) : (
-                  <p>
-                    <b>Sign up</b>
-                  </p>
-                )}
+                {token ? <p>{firstName}</p> : <p><b>Sign up</b></p>}
               </button>
             </a>
           </div>
