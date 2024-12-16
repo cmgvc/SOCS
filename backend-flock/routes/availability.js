@@ -6,8 +6,8 @@ const Availability = require("../models/Availability");
 
 const generateBookingUrl = (email) => {
   const uniqueToken = crypto.randomBytes(6).toString("hex");
-  const domainUrl = process.env.domainUrl || "http://localhost:3000";
-  return `${domainUrl}/booking/${encodeURIComponent(email)}/${uniqueToken}`;
+  const baseUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+  return `${baseUrl}/booking/${encodeURIComponent(email)}/${uniqueToken}`;
 };
 
 router.post("/save", async (req, res) => {
