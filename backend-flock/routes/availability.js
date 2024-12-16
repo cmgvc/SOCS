@@ -1,4 +1,4 @@
-// module.exports = router;
+/* coded by Danielle Wahrhaftig */
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();

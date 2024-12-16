@@ -1,3 +1,4 @@
+/* coded by Danielle Wahrhaftig */
 import React, { useState } from "react";
 import CreateBookingCalendar from "../components/CreateBooking/CreateBookingCalendar";
 import CreateBookingSidebar from "../components/CreateBooking/CreateBookingSidebar";

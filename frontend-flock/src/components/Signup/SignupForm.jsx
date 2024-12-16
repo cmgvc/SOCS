@@ -1,3 +1,4 @@
+/* coded by Danielle Wahrhaftig */
 import React, { useEffect, useState } from "react";
 import { ReactComponent as UserIcon } from "../../svg/user-1.svg";
 import { ReactComponent as MailIcon } from "../../svg/mail.svg";
