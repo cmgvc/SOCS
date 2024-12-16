@@ -53,6 +53,7 @@
     gap: 10vw;
     margin-top: 2vh;
     width: 80vw;
+    justify-content: center;
 }
 
 .non-recurring-meeting {

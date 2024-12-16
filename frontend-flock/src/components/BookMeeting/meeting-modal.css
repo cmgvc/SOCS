@@ -14,7 +14,7 @@
 .meeting-modal-content {
     background: white;
     padding-top: 10vh;
-    padding-bottom: 5vh;
+    padding-bottom: 0vh;
     border-radius: 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
