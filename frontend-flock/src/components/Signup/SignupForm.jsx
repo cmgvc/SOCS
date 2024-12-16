@@ -9,7 +9,8 @@ const SignupForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const backendUrl = "http://localhost:5001";
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -17,6 +18,11 @@ const SignupForm = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    if (password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters long.");
+      return;
+    }
 
     try {
       const response = await fetch(`${backendUrl}/auth/signup`, {

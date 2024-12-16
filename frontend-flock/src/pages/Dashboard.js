@@ -17,7 +17,8 @@ function Dashboard() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const email = localStorage.getItem("email");
   const isFaculty = localStorage.getItem("isFaculty");
-  const backendUrl = 'http://localhost:5001';
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const getUpcomingDisplayedCards = upcomingMeetings.slice(
     startNextIndex,
@@ -87,7 +88,7 @@ function Dashboard() {
       try {
         let endpoint = "/meetings";
         if (isFaculty === "true") {
-            endpoint = "/meetings/faculty";
+          endpoint = "/meetings/faculty";
         }
         const res = await fetch(`${backendUrl}${endpoint}`, {
           method: "POST",
@@ -178,19 +179,19 @@ function Dashboard() {
           <div className="dash-title">
             <h1>Dashboard</h1>
             <button onClick={handleLogoutClick}>Logout</button>
-            <br /><br />
-            <a href="/settings">
-                {<SettingsSvg className="settings-icon" />}
-            </a>
+            <br />
+            <br />
+            <a href="/settings">{<SettingsSvg className="settings-icon" />}</a>
           </div>
           <div className="dash-overview">
             <div className="dash-section">
               <div className="dash-header">
                 <h2>Upcoming Meetings</h2>
                 {!isFaculty && (
-                <a href="meetingRequest">
-                  <button>Request alternate meeting time</button>
-                </a>)}
+                  <a href="meetingRequest">
+                    <button>Request alternate meeting time</button>
+                  </a>
+                )}
               </div>
               <div className="upcoming-panel">
                 {upcomingMeetings.length > 0 && (

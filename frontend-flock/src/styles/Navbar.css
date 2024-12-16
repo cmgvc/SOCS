@@ -120,7 +120,7 @@ a {
 
 .dropdown-menu {
   position: absolute;
-  top: 50px; 
+  top: 50px;
   right: 0;
   background-color: var(--white);
   border: 1px solid #ddd;
@@ -211,7 +211,7 @@ a {
   .navbar-text p {
     display: none;
   }
-  
+
   .navbar-icon {
     width: 7rem;
     height: 7rem;
@@ -269,4 +269,3 @@ a {
     display: none;
   }
 }
-

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 const MeetingCard = ({ meeting }) => {
   const email = localStorage.getItem("email");
-  const backendUrl = 'http://localhost:5001';
   const isFaculty = localStorage.getItem("isFaculty");
   const {
     title,
@@ -15,6 +14,8 @@ const MeetingCard = ({ meeting }) => {
     _id: meetingId,
     status,
   } = meeting;
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const [showModal, setShowModal] = useState(false);
 
@@ -44,10 +45,10 @@ const MeetingCard = ({ meeting }) => {
 
   const handleCancelMeeting = async () => {
     try {
-        let endpoint = "/meetings/cancel";
-        if (isFaculty === "true") {
-            endpoint = "/meetings/cancelFaculty";
-        }
+      let endpoint = "/meetings/cancel";
+      if (isFaculty === "true") {
+        endpoint = "/meetings/cancelFaculty";
+      }
       await fetch(`${backendUrl}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -108,7 +109,7 @@ const MeetingCard = ({ meeting }) => {
         </button>
       )}
 
-      {!isPastOrStarted && status === "Pending" && isFaculty === 'true' && (
+      {!isPastOrStarted && status === "Pending" && isFaculty === "true" && (
         <div className="pending-actions">
           <button
             className="cancel-btn"
@@ -125,7 +126,7 @@ const MeetingCard = ({ meeting }) => {
           </button>
         </div>
       )}
-      {isFaculty === 'false' && (
+      {isFaculty === "false" && (
         <p>
           <b>Status: {status}</b>
         </p>

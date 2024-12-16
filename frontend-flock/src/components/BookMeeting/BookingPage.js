@@ -14,7 +14,6 @@ export const BookingPage = () => {
   const [recurring, setRecurring] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const backendUrl = 'http://localhost:5001';
   const daysOfWeek = {
     0: "Sun",
     1: "Mon",
@@ -24,6 +23,8 @@ export const BookingPage = () => {
     5: "Fri",
     6: "Sat",
   };
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const handleDateChange = (date) => {
     setSelectedDate(new Date(date));
@@ -203,7 +204,7 @@ export const BookingPage = () => {
   };
 
   const availableDates = getAvailabilitiesByDate();
-  const showArrows = availableDates.length > 3
+  const showArrows = availableDates.length > 3;
 
   return (
     <div className="booking-page">
@@ -239,7 +240,7 @@ export const BookingPage = () => {
         ) : (
           <>
             <div className="non-recurring-meetings">
-            {showArrows && (
+              {showArrows && (
                 <button
                   onClick={handlePrevClick}
                   disabled={startIndex === 0}
@@ -269,9 +270,7 @@ export const BookingPage = () => {
               {showArrows && (
                 <button
                   onClick={handleNextClick}
-                  disabled={
-                    startIndex + 3 >= availableDates.length
-                  }
+                  disabled={startIndex + 3 >= availableDates.length}
                   className="panel-arrow"
                 >
                   <ArrowForwardIosIcon />
