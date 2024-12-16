@@ -23,7 +23,7 @@ function generateTimeOptions() {
 }
 
 const timeOptions = generateTimeOptions();
-const backendUrl = "http://localhost:5001";
+const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
 function timeToMinutes(t) {
   const [h, m] = t.split(":").map(Number);
@@ -387,7 +387,9 @@ const BlockOffTimesPanel = ({
                         <button
                           className="icon-button repeat-button"
                           title="Toggle repeat weekly"
-                          style={{ color: ts.repeatWeekly ? "#FF2424" : "#fff" }}
+                          style={{
+                            color: ts.repeatWeekly ? "#FF2424" : "#fff",
+                          }}
                           onClick={() => handleToggleRepeatWeekly(dateStr, ts)}
                         >
                           ↺

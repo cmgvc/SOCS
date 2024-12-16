@@ -13,10 +13,11 @@ const alternateMeetingsRoutes = require("./routes/alternateMeetings");
 const app = express();
 
 const PORT = process.env.PORT || 5001;
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: frontendUrl,
     credentials: true,
   })
 ); // allow frontend origin
@@ -45,7 +46,7 @@ app.use("/alternateMeetings", alternateMeetingsRoutes);
 
 const unavailabilitiesRoutes = require("./routes/unavailabilities");
 app.use("/block", unavailabilitiesRoutes);
-
+// app.set("env", "production");
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -4,7 +4,8 @@ import "../styles/BookMeeting.css";
 
 function BookMeeting() {
   const [meetingUrl, setMeetingUrl] = useState("");
-  const backendUrl = "http://localhost:5001";
+  const backendUrl =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const handleMeetingUrlSearch = async () => {
     if (!meetingUrl.trim()) {
@@ -55,9 +56,12 @@ function BookMeeting() {
           </div>
         </div>
         OR
-        <br /><br />
+        <br />
+        <br />
         <div className="booking-input">
-            <a href='/profLookup'><button>Request custom meeting</button></a>
+          <a href="/profLookup">
+            <button>Request custom meeting</button>
+          </a>
         </div>
       </div>
     </div>
