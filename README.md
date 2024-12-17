@@ -235,3 +235,13 @@ ___
         - frontend-flock/styles/Navbar.css
         - frontend-flock/App.js
         - frontend-flock/index.css
+- **Jacob Weldon**
+    - Backend
+        - backend-flock/routes/alternateMeetings.js
+    - Frontend
+        - frontend-flock/src/components/date-select-calendar.jsx
+        - frontend-flock/src/styles/date-select-calendar.css
+        - frontend-flock/src/private/MeetingRequests.css
+        - frontend-flock/src/private/MeetingRequests.jsx
+        - frontend-flock/src/private/ProfLookup.css
+        - frontend-flock/src/private/ProfLookup.jsx
