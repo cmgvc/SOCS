@@ -198,11 +198,9 @@ export const BookingPage = () => {
 
             // Filter out booked times and past times
             const availableSlots = daySlots.filter((slot) => 
-                // If it's today, check the time
                 (date.toDateString() === today.toDateString() 
                     ? isTimeSlotAvailable(slot.start, date)
                     : true) &&
-                // Check if not booked
                 !bookedTimes.some(
                     booked => booked.time === slot.start && 
                               booked.date === date.toDateString()
@@ -330,7 +328,7 @@ export const BookingPage = () => {
                         <button
                           key={slotIndex}
                           className="meeting-btn"
-                          onClick={() => openModal(slot.start, meeting)}
+                          onClick={() => openModal(slot.start, meeting, dateObj.dateObj)}
                         >
                           {slot.start}
                         </button>
