@@ -105,7 +105,6 @@ function Dashboard() {
                 const endpoints = isFaculty 
                     ? ["/meetings", "/meetings/faculty"] // handles both meetings created by faculty as well as meetings they booked into other faculty members' availabilities
                     : ["/meetings"];
-                
                 const allMeetings = await Promise.all(
                     endpoints.map(endpoint => 
                         fetch(`${backendUrl}${endpoint}`, {
@@ -126,7 +125,6 @@ function Dashboard() {
                     return uniqueMeetings(meetings.filter(filter))
                         .sort(dateComparator);
                 };
-        
                 // separate meetings into upcoming, past, and requested
                 const upcoming = sortAndFilterMeetings(
                     meeting => new Date(meeting.date) > currentTime && 
@@ -356,6 +354,8 @@ function Dashboard() {
                                                                 </div>
                                                             )
                                                     )}
+                                                    <a href={availability.bookingUrl}>{availability.bookingUrl}</a>
+                                                    <br />
                                                     <button 
                                                         className="cancel-btn" 
                                                         onClick={() => openConfirmationModal(availability._id)}
