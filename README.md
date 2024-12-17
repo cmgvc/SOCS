@@ -245,3 +245,19 @@ ___
         - frontend-flock/src/private/MeetingRequests.jsx
         - frontend-flock/src/private/ProfLookup.css
         - frontend-flock/src/private/ProfLookup.jsx
+- **Emily Roest**
+    - Backend
+        - backend-flock/models/Unavailability.js
+        - backend-flock/routes/unavailabilities.js
+        - backend-flock/server.js
+    - Frontend
+        - frontend-flock/src/assets/schedule.mp4
+        - frontend-flock/src/components/BlockPanel.jsx
+        - frontend-flock/src/components/Calendar.jsx
+        - frontend-flock/src/pages/BlockCalendar.js
+        - frontend-flock/src/pages/Home.js
+        - frontend-flock/src/styles/BlockCalendar.css
+        - frontend-flock/src/styles/BlockPanel.css
+        - frontend-flock/src/styles/Calendar.css
+        - frontend-flock/src/styles/home.css
+        - frontend-flock/src/App.js
