@@ -204,7 +204,7 @@ Upon accessing Flock, users are greeted with:
 - **Chloe Gavrilovic** - Book Meetings, Dashboard, Log Out, Navbar, Footer
 - **Emily Roest** - Block Availabilities, Home Page
 - **Danielle Wahrhaftig** - Create Meetings, Log In, Sign Up, User Settings
-- **Jacob Weldon** - Request Alternate Meetings
+- **Jacob Weldon** - Request Alternate Meetings, Professor Look Up, Date Select Calendar Component
 
 ---
 
