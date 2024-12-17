@@ -1,3 +1,5 @@
+/* Emily Roest, 260960015 */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 .home-container {
@@ -6,16 +8,27 @@
 }
 
 .home-gradient {
-  width: 100vw;
-  height: auto;
+  height: 150vh;
   display: block;
+  overflow: visible;
+  width: auto;
+}
+
+.top-section {
+  position: relative;     
+  display: flex;          
+  justify-content: center;
+  align-items: center;
+  height: 100vh;          
+  width: 100%;
+  overflow: hidden;       
 }
 
 .overlay-text {
   font-family: "Poppins", sans-serif;
-  position: absolute; 
-  top: 65%; 
-  left: 50%; 
+  position: absolute;       
+  top: 50%;                 
+  left: 50%;
   transform: translate(-50%, -50%); 
   color: #444040;
   text-align: center;
@@ -62,7 +75,7 @@
   text-align: left;
 }
 
-.left-panel h1 {
+.left-panel h2 {
   font-size: 2.5rem;
   line-height: 1.2;
   margin-bottom: 2rem;
@@ -92,39 +105,33 @@
   font-weight: bold;
 }
 
-
 .right-panel {
   flex: 1;
-  position: relative; 
-  background: #5c5c5c; 
-  padding: 0; 
-  overflow: hidden; 
+  position: relative;
+  overflow: hidden;
 }
 
 .schedule-video {
-  position: absolute; 
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; 
-  border-radius: 0; 
+  object-fit: cover;
+  display: block;
+  border: none;
+  background: none;
 }
-
-
 
 .bottom-section-red {
   background-color: #fae5e6;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   padding: 80px 20px 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
 }
 
 .bottom-section-red h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   margin-top: 10px;
   margin-bottom: 70px;
   color: #000;
@@ -134,5 +141,42 @@
 
 .images-row {
   display: flex;
-  justify-content: space-aroun
+  justify-content: space-around;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.home-image {
+  flex: 1;
+  max-width: 100%;
+  margin: 0 20px 0;
+  height: auto;
+}
+
+.bottom-section-grey {
+  background-color: #efefef;
+  display: flex;
+  flex-direction: row;
+  min-height: 40vh;
+  padding-top: 0;
+}
+
+.bottom-section-grey > div {
+  flex: 1;
+  margin: 20px 20px 0px 50px;
+}
+
+.bottom-section-grey h3 {
+  color: #656565;
+  margin-bottom: 0px;
+  text-align: left;
+  margin-top: 0px;
+}
+
+.bottom-section-grey p {
+  color: #656565;
+  line-height: 1.5;
+  text-align: left;
 }

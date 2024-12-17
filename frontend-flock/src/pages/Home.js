@@ -1,3 +1,4 @@
+// Emily Roest, 260960015
 import React from "react";
 import { ReactComponent as Gradient } from "../svg/flock-home.svg";
 import { ReactComponent as Home1 } from "../svg/home-1.svg";
@@ -7,6 +8,8 @@ import scheduleVideo from '../assets/schedule.mp4';
 import "../styles/home.css";
 
 export default function Home() {
+  const isFaculty = localStorage.getItem("isFaculty") === "true";
+
   return (
     <div className="home-container">
       <div className="top-section">
@@ -21,22 +24,30 @@ export default function Home() {
             fellow Students
           </p>
           <div className="redirect-buttons">
-            <a href="/book">
-              <button className="overlay-buttons">Book</button>
-            </a>
-            <a href="/dashboard">
-              <button className="overlay-buttons">Faculty</button>
-            </a>
-            <a href="/dashboard">
-              <button className="overlay-buttons">Students</button>
-            </a>
+            {isFaculty ? (
+              <>
+                <a href="/create">
+                  <button className="overlay-buttons">Create Meeting</button>
+                </a>
+                <a href="/block">
+                  <button className="overlay-buttons">Set Availability</button>
+                </a>
+                <a href="/book">
+                  <button className="overlay-buttons">Book Meeting</button>
+                </a>
+              </>
+            ) : (
+              <a href="/book">
+                <button className="overlay-buttons">Book Meeting</button>
+              </a>
+            )}
           </div>
         </div>
       </div>
       <div className="middle-section">
-        <div class="left-panel">
+        <div className="left-panel">
           <h2>Scheduling made easy with Flock</h2>
-          <ul class="features">
+          <ul className="features">
             <li>Customize your personal dashboard</li>
             <li>Set your availability</li>
             <li>Choose your meeting type</li>
@@ -44,9 +55,9 @@ export default function Home() {
             <li>See meeting history and upcoming events</li>
           </ul>
         </div>
-        <div class="right-panel">
-        <video 
-            src={scheduleVideo} 
+        <div className="right-panel">
+          <video
+            src={scheduleVideo}
             className="schedule-video"
             controls
             autoPlay
