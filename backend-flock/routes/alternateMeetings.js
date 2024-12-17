@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Meeting = require('../models/Meeting');
 const User = require('../models/User');  
+const Unavailability = require('../models/Unavailability')
 
 router.use(express.json());
 

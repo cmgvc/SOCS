@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 // define constants
 const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-// generate times
+// create list of time slots between 8 AM and 7 PM
 function generateTimeOptions() {
   const options = [];
   const startH = 8;
@@ -22,21 +22,27 @@ function generateTimeOptions() {
   return options;
 }
 
+// populate list of time slots and connect to backend
 const timeOptions = generateTimeOptions();
 const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
+
+// helper functions section
+
+// converts string to total minutes, adj. to in backend
 function timeToMinutes(t) {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
 
+// reverse
 function minutesToTime(m) {
   const hh = String(Math.floor(m / 60)).padStart(2, "0");
   const mm = String(m % 60).padStart(2, "0");
   return `${hh}:${mm}`;
 }
 
-// merge logic
+// merge logic - same as in backend, standardize times, sort, then merge adj. into overlapping
 function mergeTimeSlots(timeSlots) {
   if (!timeSlots.length) return [];
   let intervals = timeSlots.map((ts) => ({
@@ -69,7 +75,7 @@ function mergeTimeSlots(timeSlots) {
   }));
 }
 
-// time formatting
+// time formatting - change 24 hour to 12 hour in accordance with teammate times
 function formatTime24to12(timeStr) {
   const [h, m] = timeStr.split(":").map(Number);
   const suffix = h >= 12 ? "PM" : "AM";
@@ -78,7 +84,7 @@ function formatTime24to12(timeStr) {
   return `${hour12}:${minuteStr} ${suffix}`;
 }
 
-// panel logic
+// main components - render user interface
 const BlockOffTimesPanel = ({
   mode,
   onModeChange,
@@ -87,9 +93,12 @@ const BlockOffTimesPanel = ({
   weekDates,
   onJumpToDate,
 }) => {
+  // state management for adding blocks and jumping to new days
   const [inlineAddTimes, setInlineAddTimes] = useState({});
   const [jumpDate, setJumpDate] = useState("");
 
+  // create list of unavailable time slots for each day 
+  // gets date, finds matching unavail. block, else empty
   const unavailabilities = useMemo(() => {
     return weekDates.map((date) => {
       const dateStr = date.toISOString().split("T")[0];
@@ -98,7 +107,7 @@ const BlockOffTimesPanel = ({
     });
   }, [unavailableBlocks, weekDates]);
 
-  // block for specific date
+  // block for specific date handling inline addition, no overlapping
   function addBlockToDate(
     dateStr,
     sTime,
@@ -106,6 +115,7 @@ const BlockOffTimesPanel = ({
     repeatWeekly = false,
     recurringId = null
   ) {
+    // validation
     if (eTime <= sTime) {
       alert("End time must be after start time");
       return;
@@ -120,12 +130,13 @@ const BlockOffTimesPanel = ({
       recurringId,
     };
 
+    // prevent duplicates
     if (dateIndex > -1) {
       const duplicate = updated[dateIndex].timeSlots.find(
         (ts) => ts.startTime === sTime && ts.endTime === eTime
       );
+      // add slot and merge, else add new
       if (duplicate) return;
-
       updated[dateIndex].timeSlots.push(newTimeSlot);
       updated[dateIndex].timeSlots = mergeTimeSlots(
         updated[dateIndex].timeSlots
@@ -144,9 +155,12 @@ const BlockOffTimesPanel = ({
     }));
   }
 
+  // delete function - removes specific time slots from unavailable list
   const handleDeleteUnavailability = (dateStr, tsToDelete) => {
     let updated = [...unavailableBlocks];
 
+    // remove all slots with the same recurringID for weekly repeats
+    // this logic needs to be fixed 
     if (tsToDelete.repeatWeekly && tsToDelete.recurringId) {
       updated = updated
         .map((dayBlock) => ({
@@ -172,14 +186,17 @@ const BlockOffTimesPanel = ({
       }
     }
 
+    // update with modified blocks
     onBlocksChange(undefined, updated);
   };
 
+  // handle flag for repeat weekly 
   const handleToggleRepeatWeekly = (dateStr, tsToToggle) => {
     let updated = [...unavailableBlocks];
     const dateIndex = updated.findIndex((block) => block.date === dateStr);
     if (dateIndex === -1) return; // Not found
 
+    // find slot
     const slotIndex = updated[dateIndex].timeSlots.findIndex(
       (ts) =>
         ts.startTime === tsToToggle.startTime &&
@@ -191,6 +208,7 @@ const BlockOffTimesPanel = ({
     const currentlyRepeating = !!slot.repeatWeekly;
     slot.repeatWeekly = !currentlyRepeating;
 
+    // if not repeating, assign recurringId
     if (!currentlyRepeating) {
       const recurringId = uuidv4();
       slot.recurringId = recurringId;
@@ -199,6 +217,7 @@ const BlockOffTimesPanel = ({
       const sTime = slot.startTime;
       const eTime = slot.endTime;
 
+      // default is 16 week recurrence
       for (let i = 1; i <= 16; i++) {
         const nextDate = new Date(baseDate);
         nextDate.setDate(nextDate.getDate() + 7 * i);
@@ -220,6 +239,7 @@ const BlockOffTimesPanel = ({
     onBlocksChange(undefined, updated);
   };
 
+  // for recurring blocks, add without triggering inline state changes
   function addBlockToDateNoInline(
     dateStr,
     sTime,
@@ -228,6 +248,8 @@ const BlockOffTimesPanel = ({
     recurringId,
     updated
   ) {
+
+    // input validation
     if (eTime <= sTime) return;
 
     const dateIndex = updated.findIndex((block) => block.date === dateStr);
@@ -256,6 +278,7 @@ const BlockOffTimesPanel = ({
     }
   }
 
+  // save all unavailable blocks to backend
   const handleSaveToDatabase = async () => {
     try {
       const facultyEmail = localStorage.getItem("email");
@@ -279,7 +302,7 @@ const BlockOffTimesPanel = ({
     }
   };
 
-  // inline add
+  // inline add time block for specific date
   const startInlineAdd = (dateStr) => {
     setInlineAddTimes((prev) => ({
       ...prev,
@@ -287,6 +310,7 @@ const BlockOffTimesPanel = ({
     }));
   };
 
+  // cancel toption
   const cancelInlineAdd = (dateStr) => {
     setInlineAddTimes((prev) => ({
       ...prev,
@@ -294,6 +318,7 @@ const BlockOffTimesPanel = ({
     }));
   };
 
+  // set start time
   const setInlineAddStart = (dateStr, val) => {
     setInlineAddTimes((prev) => ({
       ...prev,
@@ -301,6 +326,7 @@ const BlockOffTimesPanel = ({
     }));
   };
 
+  // set end time
   const setInlineAddEnd = (dateStr, val) => {
     setInlineAddTimes((prev) => ({
       ...prev,
@@ -308,11 +334,13 @@ const BlockOffTimesPanel = ({
     }));
   };
 
+  // confirmation
   const confirmInlineAdd = (dateStr) => {
     const { startTime: s, endTime: e } = inlineAddTimes[dateStr];
     addBlockToDate(dateStr, s, e, false, null);
   };
 
+  // logic to handle jumping to a specific week based on input date
   const handleJumpToWeek = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate) {

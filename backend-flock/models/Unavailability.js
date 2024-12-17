@@ -1,7 +1,8 @@
+// Emily Roest, 260960015
 const mongoose = require('mongoose');
 
 const TimeSlotSchema = new mongoose.Schema({
-  startTime: { type: String, required: true }, // "HH:mm" (24-hour format)
+  startTime: { type: String, required: true }, // "HH:mm"
   endTime: { type: String, required: true }, 
 });
 
