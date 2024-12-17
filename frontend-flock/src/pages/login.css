@@ -1,3 +1,8 @@
+/* coded by Danielle Wahrhaftig */
+#root {
+  height: 700px;
+}
+
 .login-page {
   position: relative;
   width: 100%;
@@ -40,4 +45,20 @@
   text-align: center;
   max-width: 800px;
   margin: auto;
+}
+
+@media (max-width: 1400px) {
+  .tree-background {
+    top: -105px;
+  }
+
+  .login-content {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .tree-background {
+    top: -90px;
+  }
 }

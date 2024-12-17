@@ -1,59 +1,59 @@
+// Coded by Danielle Wahrhaftig 260984602
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ReactComponent as UserIcon } from "../svg/user-1.svg";
-import { ReactComponent as MailIcon } from "../svg/mail.svg";
 import { ReactComponent as KeyIcon } from "../svg/key.svg";
 
 import "./settings.css";
 
 const Settings = () => {
-  const navigate = useNavigate();
-
-  // Load initial user data from localStorage
   const [userDetails, setUserDetails] = useState({
     name: `${localStorage.getItem("firstName") || ""} ${
       localStorage.getItem("lastName") || ""
     }`.trim(), // Combine first and last name
-    email: localStorage.getItem("email") || "",
     password: "********", // Masked password for display
   });
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Update localStorage and state after saving changes
   const updateLocalStorageAndState = (updatedDetails) => {
     const [firstName, ...lastNameParts] = updatedDetails.name.split(" ");
-    const lastName = lastNameParts.join(" "); // Handle cases where the last name has spaces
+    const lastName = lastNameParts.join(" "); // handle cases where the last name has spaces
 
     localStorage.setItem("firstName", firstName);
     localStorage.setItem("lastName", lastName);
-    localStorage.setItem("email", updatedDetails.email);
 
     setUserDetails({
       ...userDetails,
       ...updatedDetails,
-      password: "********", // Keep password masked
+      password: "********", // keep password masked
     });
 
     setSuccessMessage("Profile updated successfully!");
-    setTimeout(() => setSuccessMessage(""), 3000); // Clear success message after 3 seconds
+    setTimeout(() => setSuccessMessage(""), 3000); // clear success message after 3 seconds
   };
 
-  // Handle form submission
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     const updatedDetails = {
-      name: e.target.name.value,
-      email: e.target.email.value,
+      name: e.target.name.value.trim(),
     };
 
+    const email = localStorage.getItem("email");
+
+    const nameParts = updatedDetails.name.split(" ");
+    if (nameParts.length < 2) {
+      setErrorMessage("Please provide both first and last name.");
+      return;
+    }
+
+    // proceed with the update request
     const backendUrl =
       process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
     try {
-      const response = await fetch(`${backendUrl}/user/update`, {
+      const response = await fetch(`${backendUrl}/auth/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -61,6 +61,7 @@ const Settings = () => {
         },
         body: JSON.stringify({
           ...updatedDetails,
+          email,
           password:
             e.target.password.value !== "********"
               ? e.target.password.value
@@ -79,12 +80,6 @@ const Settings = () => {
       console.error("Error updating profile:", error);
       setErrorMessage("Something went wrong. Please try again.");
     }
-  };
-
-  // Handle logout
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/auth"); // Redirect to login page
   };
 
   return (
@@ -107,7 +102,7 @@ const Settings = () => {
           />
         </div>
 
-        {/* Email */}
+        {/* Email
         <div className="form-group">
           <MailIcon className="input-icon" aria-label="Mail Icon" />
           <input
@@ -120,7 +115,7 @@ const Settings = () => {
             }
             required
           />
-        </div>
+        </div> */}
 
         {/* Password */}
         <div className="form-group">

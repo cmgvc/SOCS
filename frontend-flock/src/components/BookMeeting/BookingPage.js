@@ -48,9 +48,11 @@ export const BookingPage = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ faculty: data[0].email, title: data[0].title }),
                 });
-    
                 const bookedData = await bookedResponse.json();
-                setBookedTimes(bookedData.map(meeting => meeting.time));
+                setBookedTimes(bookedData.map(meeting => ({
+                    date: new Date(meeting.date).toDateString(),
+                    time: meeting.time
+                })));
             } catch (error) {
                 console.error("Error fetching meetings:", error);
             }
@@ -104,11 +106,14 @@ export const BookingPage = () => {
     return slots;
     };
 
-    const filterBookedSlots = (slots, bookedTimes) => {
+    const filterBookedSlots = (slots, bookedTimes, selectedDate) => {
         const validBookedTimes = Array.isArray(bookedTimes) ? bookedTimes : [];
     
         return slots.filter((slot) => {
-            return slot.start && !validBookedTimes.includes(slot.start);
+            return slot.start && !validBookedTimes.some(
+                booked => booked.time === slot.start && 
+                          booked.date === selectedDate.toDateString()
+            );
         });
     };
     
@@ -118,6 +123,7 @@ export const BookingPage = () => {
         if (!meeting || !selectedDate) return [];
         const date = new Date(selectedDate);
         const selectedDay = daysOfWeek[date.getDay()]; 
+
         const dayAvailabilities = meeting.availabilityData[selectedDay];
 
         if (!dayAvailabilities || dayAvailabilities.length === 0) return [];
@@ -126,7 +132,7 @@ export const BookingPage = () => {
         const slots = dayAvailabilities.flatMap(({ start, end }) =>
             splitAvailabilityByDuration(start, end, duration)
         );
-        const filteredSlots = filterBookedSlots(slots, bookedTimes);
+        const filteredSlots = filterBookedSlots(slots, bookedTimes, selectedDate);
         return filteredSlots;
     };
 
@@ -314,4 +320,5 @@ export const BookingPage = () => {
 };
 
 export default BookingPage;
+
 

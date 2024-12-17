@@ -29,8 +29,7 @@ body {
   background-color: var(--light-gray);
 }
 
-.login-body,
-.signup-body {
+.login-body {
   overflow: hidden;
 }
 

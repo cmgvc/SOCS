@@ -1,3 +1,4 @@
+/* coded by Danielle Wahrhaftig */
 const mongoose = require("mongoose");
 
 const TimeSlotSchema = new mongoose.Schema({
