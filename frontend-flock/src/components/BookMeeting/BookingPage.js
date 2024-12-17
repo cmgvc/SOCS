@@ -15,7 +15,7 @@ export const BookingPage = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [bookedTimes, setBookedTimes] = useState([]);
-    const backendUrl = 'http://localhost:5001';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
     const daysOfWeek = {
         0: "Sun",
         1: "Mon",
