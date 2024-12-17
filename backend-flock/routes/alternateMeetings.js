@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         const { title, duration, date, faculty, participants, status, meetingType, time } = req.body;
 
         // Basic validation
-        if (!title || !duration || !date || !faculty || !status || !meetingType) {
+        if (!title || !duration || !date || !faculty || !status || !meetingType || !time) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
@@ -35,6 +35,38 @@ router.post('/', async (req, res) => {
         // Validate that the meeting date and time are not in the past
         if (meetingDate < now) {
             return res.status(400).json({ message: 'Meeting date and time cannot be in the past.' });
+        }
+
+        const year = meetingDate.getFullYear();
+        const month = String(meetingDate.getMonth() + 1).padStart(2, '0');
+        const day = String(meetingDate.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+
+        const unavailability = await Unavailability.findOne({
+            facultyEmail: email,
+            date: dateString
+        });
+
+        if (unavailability) {
+            const [reqHours, reqMinutes] = time.split(':');
+            const requestedStart = parseInt(reqHours, 10) * 60 + parseInt(reqMinutes, 10);
+            const requestedEnd = requestedStart + parseInt(duration, 10);
+
+            // Check each timeslot for overlap
+            for (const slot of unavailability.timeSlots) {
+                const [startH, startM] = slot.startTime.split(':').map(Number);
+                const [endH, endM] = slot.endTime.split(':').map(Number);
+
+                const slotStart = startH * 60 + startM;
+                const slotEnd = endH * 60 + endM;
+
+                // Overlap check condition:
+                if (requestedStart < slotEnd && requestedEnd > slotStart) {
+                    return res.status(400).json({ 
+                        message: 'Requested meeting time overlaps with faculty unavailability.'
+                    });
+                }
+            }
         }
 
         // Create new meeting
