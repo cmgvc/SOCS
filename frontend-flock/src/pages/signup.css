@@ -4,7 +4,12 @@
   width: 100vw;
   min-height: 100vh;
   height: auto;
-  overflow: visible;
+  overflow: hidden;
+}
+
+html,
+body {
+  height: 500px;
 }
 
 .signup-title {
