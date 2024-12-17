@@ -2,8 +2,9 @@
 .signup-page {
   position: relative;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
 }
 
 .signup-title {

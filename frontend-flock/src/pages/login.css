@@ -1,4 +1,8 @@
 /* coded by Danielle Wahrhaftig */
+#root {
+  height: 700px;
+}
+
 .login-page {
   position: relative;
   width: 100%;
@@ -43,7 +47,7 @@
   margin: auto;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1400px) {
   .tree-background {
     top: -105px;
   }

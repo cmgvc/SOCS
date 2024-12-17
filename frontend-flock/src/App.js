@@ -1,6 +1,11 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -48,10 +53,23 @@ function App() {
           <Route path="/book" element={<BookMeeting />} />
           <Route path="/booking/:email/:token" element={<BookingPage />} />
         </Routes>
-        <Footer />
+        <ConditionalFooter />
       </Router>
     </div>
   );
+}
+
+function ConditionalFooter() {
+  const location = useLocation();
+
+  // List of routes where the footer should NOT be displayed
+  const noFooterRoutes = ["/auth", "/signup"];
+
+  if (noFooterRoutes.includes(location.pathname)) {
+    return null; // do not render the footer
+  }
+
+  return <Footer />;
 }
 
 export default App;
