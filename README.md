@@ -177,8 +177,9 @@ Upon accessing Flock, users are greeted with:
 <img width="1487" alt="Screenshot 2024-12-17 at 4 59 56 PM" src="https://github.com/user-attachments/assets/baab006c-a93b-403d-8ff5-c146a71b71cb" />
 
 ### 3. **Book Meeting**
-<img width="1493" alt="Screenshot 2024-12-17 at 4 55 52 PM" src="https://github.com/user-attachments/assets/8b7e429a-c8b7-47d4-9dfb-d23b4<img width="1373" alt="Screenshot 2024-12-17 at 5 03 58 PM" src="https://github.com/user-attachments/assets/5a25d2c8-8fd1-459a-8c72-765b23381ca6" />
-815d5cd" />
+<img width="1493" alt="Screenshot 2024-12-17 at 4 55 52 PM" src="https://github.com/user-attachments/assets/8b7e429a-c8b7-47d4-9dfb-d23b4815d5cd" />
+<img width="1373" alt="Screenshot 2024-12-17 at 5 03 58 PM" src="https://github.com/user-attachments/assets/5a25d2c8-8fd1-459a-8c72-765b23381ca6" />
+
 
 ### 4. **Request Meeting**
 <img width="1377" alt="Screenshot 2024-12-17 at 4 57 10 PM" src="https://github.com/user-attachments/assets/298e39fd-8dac-4135-a07a-a6f1b9502516" />
