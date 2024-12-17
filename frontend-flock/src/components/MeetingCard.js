@@ -141,18 +141,11 @@ const MeetingCard = ({ meeting }) => {
           </button>
         </div>
       )}
-      {isFaculty === 'false' && (
+      {isFaculty === 'false' && (status === "Pending" || status === "Declined") && (
         <p>
           <b>Status: {status}</b>
         </p>
       )}
-
-      {!isFaculty && (status === "Pending" || status === "Declined") && (
-        <p>
-          <b>Status: {status}</b>
-        </p>
-      )}
-
 
       {isFaculty === "true" && organizer === email && (
         <button

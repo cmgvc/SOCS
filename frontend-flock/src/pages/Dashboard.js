@@ -190,7 +190,7 @@ function Dashboard() {
         return () => clearInterval(interval);
     }, [email, isFaculty]);
 
-    // Fetch availabilities effect
+    // Fetch availabilities
     useEffect(() => {
         const fetchAvailabilities = async () => {
             if (isFaculty) {

@@ -104,17 +104,14 @@ export const BookingPage = () => {
     return slots;
     };
 
-    const filterBookedSlots = (slots) => {
-        return slots.map((slot) => {
-            if (Array.isArray(slot.slots)) {
-                const filteredSlots = slot.slots.filter(
-                    (nestedSlot) => nestedSlot.start && !bookedTimes.includes(nestedSlot.start)
-                );
-                return { ...slot, slots: filteredSlots }; 
-            }
-            return slot; 
+    const filterBookedSlots = (slots, bookedTimes) => {
+        const validBookedTimes = Array.isArray(bookedTimes) ? bookedTimes : [];
+    
+        return slots.filter((slot) => {
+            return slot.start && !validBookedTimes.includes(slot.start);
         });
     };
+    
   
     // availabilities when meeting is recurring (weekly)
     const getAvailabilitiesForSelectedDay = () => {
@@ -129,7 +126,7 @@ export const BookingPage = () => {
         const slots = dayAvailabilities.flatMap(({ start, end }) =>
             splitAvailabilityByDuration(start, end, duration)
         );
-        const filteredSlots = filterBookedSlots(slots);
+        const filteredSlots = filterBookedSlots(slots, bookedTimes);
         return filteredSlots;
     };
 
