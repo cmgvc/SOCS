@@ -167,7 +167,7 @@ Upon accessing Flock, users are greeted with:
 
 ## Screenshots
 ### 1. **Home Page**
-*Image of homepage with demo video and key features.*
+<img width="1381" alt="Screenshot 2024-12-17 at 4 54 39 PM" src="https://github.com/user-attachments/assets/0ce5e1fd-fa3f-4edc-a3f0-8528dfed3ece" />
 
 ### 2. **Dashboard (Student)**
 *Image showing upcoming, past, and requested meetings.*
