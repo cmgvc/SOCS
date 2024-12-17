@@ -26,7 +26,7 @@ export const BookingPage = () => {
         6: "Sat",
   };
   
-    // fetch meeting data
+    // fetch meeting availability data
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
@@ -43,6 +43,7 @@ export const BookingPage = () => {
                 setMeeting(data[0]);
                 setRecurring(data[0].doesRepeatWeekly);
     
+                // fetch full meetings 
                 const bookedResponse = await fetch(`${backendUrl}/meetings/full`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -57,7 +58,6 @@ export const BookingPage = () => {
                 console.error("Error fetching meetings:", error);
             }
         };
-    
         fetchMeetings();
     }, []);
     
@@ -72,6 +72,7 @@ export const BookingPage = () => {
         return estDate;
     };
 
+    // check if time has already passed
     const isTimeSlotAvailable = (slotTime, selectedDate) => {
         const estDate = convertToEST(selectedDate);
         const [time, modifier] = slotTime.split(" ");
@@ -116,23 +117,25 @@ export const BookingPage = () => {
         return `${hour12}:${mins.toString().padStart(2, "0")} ${modifier}`;
     };
 
+    // split availability into slots based on duration
     const splitAvailabilityByDuration = (startTime, endTime, duration) => {
-    const slots = [];
-    let currentStart = parseTimeToMinutes(startTime);
-    const end = parseTimeToMinutes(endTime);
-    const totalMinutes = end - currentStart;
+        const slots = [];
+        let currentStart = parseTimeToMinutes(startTime);
+        const end = parseTimeToMinutes(endTime);
+        const totalMinutes = end - currentStart;
 
-    const numberOfSlots = totalMinutes / duration;
-    for (let i = 0; i < numberOfSlots; i++) {
-        const currentEnd = currentStart + duration;
-        slots.push({
-            start: convertMinutesToTime(currentStart),
-        });
-        currentStart = currentEnd;
-    }
-    return slots;
+        const numberOfSlots = totalMinutes / duration;
+        for (let i = 0; i < numberOfSlots; i++) {
+            const currentEnd = currentStart + duration;
+            slots.push({
+                start: convertMinutesToTime(currentStart),
+            });
+            currentStart = currentEnd;
+        }
+        return slots;
     };
 
+    // filter out booked (full) slots
     const filterBookedSlots = (slots, bookedTimes, selectedDate) => {
         const validBookedTimes = Array.isArray(bookedTimes) ? bookedTimes : [];
     
@@ -254,6 +257,7 @@ export const BookingPage = () => {
         setModalContent(null);
     };
 
+    // handle pagination
     const availableDates = getAvailabilitiesByDate();
     const showArrows = availableDates.length > 3
 

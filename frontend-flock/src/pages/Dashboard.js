@@ -25,6 +25,7 @@ function Dashboard() {
     const isFaculty = localStorage.getItem("isFaculty") === "true";
     const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
+    // navigation handlers
     const createNavigationHandler = (listKey, indexKey) => {
         return {
             next: () => {
@@ -51,7 +52,7 @@ function Dashboard() {
     const historyNavigation = createNavigationHandler('pastMeetings', 'startPrevIndex');
     const requestedNavigation = createNavigationHandler('requestedMeetings', 'startRequestedIndex');
 
-    // Logout and modal handlers
+    // logout and modal handlers
     const handleLogoutClick = () => setState(prev => ({ ...prev, showLogoutModal: true }));
     
     const handleConfirmLogout = () => {
@@ -61,7 +62,7 @@ function Dashboard() {
 
     const handleCancelLogout = () => setState(prev => ({ ...prev, showLogoutModal: false }));
 
-    // Availability handlers
+    // faculty availability handlers
     const handleCancelAvailability = async (id) => {
         try {
             const res = await fetch(`${backendUrl}/availabilities/cancel`, {
@@ -97,12 +98,12 @@ function Dashboard() {
         selectedAvailabilityId: null 
     }));
 
-    // Fetch meetings
+    // fetch meetings based on faculty or student role
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
                 const endpoints = isFaculty 
-                    ? ["/meetings", "/meetings/faculty"] 
+                    ? ["/meetings", "/meetings/faculty"] // handles both meetings created by faculty as well as meetings they booked into other faculty members' availabilities
                     : ["/meetings"];
                 
                 const allMeetings = await Promise.all(
@@ -126,6 +127,7 @@ function Dashboard() {
                         .sort(dateComparator);
                 };
         
+                // separate meetings into upcoming, past, and requested
                 const upcoming = sortAndFilterMeetings(
                     meeting => new Date(meeting.date) > currentTime && 
                                meeting.status !== "Pending" && 
@@ -168,7 +170,8 @@ function Dashboard() {
         };
     
         fetchMeetings();
-    
+
+        // check for past meetings every minute
         const interval = setInterval(() => {
             const currentTime = new Date();
             setState(prev => {
@@ -190,7 +193,7 @@ function Dashboard() {
         return () => clearInterval(interval);
     }, [email, isFaculty]);
 
-    // Fetch availabilities
+    // fetch availabilities for faculty members 
     useEffect(() => {
         const fetchAvailabilities = async () => {
             if (isFaculty) {

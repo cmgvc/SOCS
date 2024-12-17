@@ -68,6 +68,7 @@ const MeetingCard = ({ meeting }) => {
     }
   };
 
+  // handle faculty accepting or declining a meeting request
   const handleUpdateMeetingStatus = async (status) => {
     try {
       await fetch(`${backendUrl}/meetings/updateStatus`, {
@@ -92,6 +93,7 @@ const MeetingCard = ({ meeting }) => {
     return email;
   };
 
+  // handle pagination for participants on modal
   const displayedParticipants = participants.slice(startIndex, startIndex + 3);
 
   const handlePrev = () => {

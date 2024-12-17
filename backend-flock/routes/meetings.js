@@ -20,7 +20,6 @@ router.post("/faculty", async (req, res) => {
     try {
         const facultyEmail = req.body.email;
         const meetings = await Meeting.find({ faculty: facultyEmail });
-        console.log(meetings);
         res.json(meetings);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -75,10 +74,8 @@ router.post('/cancelFaculty', async (req, res) => {
 });
 
 router.post("/book", async (req, res) => {
-    console.log("Request received:", req.body);
     try {
         const { title, date, duration, faculty, student, status, meetingType, time } = req.body;
-        
         let existingMeeting = await Meeting.findOne({ 
             title, 
             date, 
@@ -143,7 +140,6 @@ router.post('/full', async (req, res) => {
             meetingType: "1-1", 
             participants: { $size: 1 } 
         });
-        console.log(meetings);
         res.json(meetings); 
     } catch (error) {
         res.status(500).json({ message: error.message });
