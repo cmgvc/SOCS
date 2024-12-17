@@ -59,13 +59,13 @@ To run Flock locally:
    - Create a `.env` file in the root directory.
    - Add the following variables:
      ```
-    MONGODB_URI=mongodb://localhost:27017/Flock
-    JWT_SECRET=jK9y47H&sk2x!dZP03tX$lwk1m!Y^92NzVhx9-18s@*qLB
-    PORT=5001
-    EMAIL_HOST=smtp.gmail.com
-    EMAIL_PORT=587
-    EMAIL_USER=mcgill.cs.noreply@gmail.com
-    EMAIL_PASS=cclc qpsr alhc llwg
+       MONGODB_URI=mongodb://localhost:27017/Flock
+       JWT_SECRET=jK9y47H&sk2x!dZP03tX$lwk1m!Y^92NzVhx9-18s@*qLB
+       PORT=5001
+       EMAIL_HOST=smtp.gmail.com
+       EMAIL_PORT=587
+       EMAIL_USER=mcgill.cs.noreply@gmail.com
+       EMAIL_PASS=cclc qpsr alhc llwg
      ```
 
 4. **Run the Application**:
