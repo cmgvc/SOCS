@@ -67,6 +67,33 @@ export const BookingPage = () => {
         }
     }, [selectedDate, meeting, bookedTimes]);
 
+    const convertToEST = (date) => {
+        const estDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+        return estDate;
+    };
+
+    const isTimeSlotAvailable = (slotTime, selectedDate) => {
+        const estDate = convertToEST(selectedDate);
+        const [time, modifier] = slotTime.split(" ");
+        let [hours, minutes] = time.split(":");
+        hours = parseInt(hours);
+        minutes = parseInt(minutes);
+
+        if (modifier === "PM" && hours !== 12) {
+            hours += 12;
+        }
+        if (modifier === "AM" && hours === 12) {
+            hours = 0;
+        }
+
+        const slotDateTime = new Date(estDate);
+        slotDateTime.setHours(hours, minutes, 0, 0);
+
+        const currentTime = convertToEST(new Date());
+
+        return slotDateTime > currentTime;
+    };
+
     const parseTimeToMinutes = (timeString) => {
         const [time, modifier] = timeString.split(" ");
         let [hours, minutes] = time.split(":");
@@ -110,10 +137,14 @@ export const BookingPage = () => {
         const validBookedTimes = Array.isArray(bookedTimes) ? bookedTimes : [];
     
         return slots.filter((slot) => {
-            return slot.start && !validBookedTimes.some(
+            const timeAvailable = isTimeSlotAvailable(slot.start, selectedDate);
+
+            const notBooked = !validBookedTimes.some(
                 booked => booked.time === slot.start && 
                           booked.date === selectedDate.toDateString()
             );
+
+            return slot.start && timeAvailable && notBooked;
         });
     };
     
@@ -139,7 +170,7 @@ export const BookingPage = () => {
     // availabilities when meeting is not recurring
     const getAvailabilitiesByDate = () => {
         if (!meeting) return [];
-        const today = new Date();
+        const today = convertToEST(new Date());
         today.setHours(0, 0, 0, 0); 
 
         const slots = [];
@@ -161,9 +192,25 @@ export const BookingPage = () => {
                 daySlots.push(...slotsForThisAvailability);
             });
 
-
             if (daySlots.length === 0) {
                 return; 
+            }
+
+            // Filter out booked times and past times
+            const availableSlots = daySlots.filter((slot) => 
+                // If it's today, check the time
+                (date.toDateString() === today.toDateString() 
+                    ? isTimeSlotAvailable(slot.start, date)
+                    : true) &&
+                // Check if not booked
+                !bookedTimes.some(
+                    booked => booked.time === slot.start && 
+                              booked.date === date.toDateString()
+                )
+            );
+
+            if (availableSlots.length === 0) {
+                return;
             }
 
             slots.push({
@@ -174,7 +221,7 @@ export const BookingPage = () => {
                     year: "numeric",
                 }),
                 dateObj: date,
-                slots: daySlots.filter((slot) => !bookedTimes.includes(slot.start)),
+                slots: availableSlots,
             });
         });
         return slots.sort((a, b) => a.dateObj - b.dateObj);
