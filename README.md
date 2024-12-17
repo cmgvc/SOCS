@@ -170,19 +170,24 @@ Upon accessing Flock, users are greeted with:
 <img width="1381" alt="Screenshot 2024-12-17 at 4 54 39 PM" src="https://github.com/user-attachments/assets/0ce5e1fd-fa3f-4edc-a3f0-8528dfed3ece" />
 
 ### 2. **Dashboard (Student)**
-*Image showing upcoming, past, and requested meetings.*
+<img width="1505" alt="Screenshot 2024-12-17 at 4 57 39 PM" src="https://github.com/user-attachments/assets/51e9ac70-2df4-4d06-b8e4-73a9233f1032" />
+<img width="1499" alt="Screenshot 2024-12-17 at 4 58 03 PM" src="https://github.com/user-attachments/assets/6fe2bfee-b8eb-4a34-a40d-b39f4f4a6601" />
+<img width="1498" alt="Screenshot 2024-12-17 at 4 59 10 PM" src="https://github.com/user-attachments/assets/9e339b33-c637-4c43-a82b-35e277e6a07b" />
+<img width="1504" alt="Screenshot 2024-12-17 at 4 59 28 PM" src="https://github.com/user-attachments/assets/687d395b-2355-45eb-a47f-c31dc4106e72" />
+<img width="1487" alt="Screenshot 2024-12-17 at 4 59 56 PM" src="https://github.com/user-attachments/assets/baab006c-a93b-403d-8ff5-c146a71b71cb" />
 
 ### 3. **Book Meeting**
-*Image showing book meeting page for recurring and non-recurring meetings.*
+<img width="1493" alt="Screenshot 2024-12-17 at 4 55 52 PM" src="https://github.com/user-attachments/assets/8b7e429a-c8b7-47d4-9dfb-d23b4815d5cd" />
 
 ### 4. **Request Meeting**
-*Image showing request meeting page for a specific faculty member.*
+<img width="1377" alt="Screenshot 2024-12-17 at 4 57 10 PM" src="https://github.com/user-attachments/assets/298e39fd-8dac-4135-a07a-a6f1b9502516" />
 
 ### 5. **Create Meeting (Faculty)**
-*Image of meeting creation page with options for recurring slots.*
+<img width="1509" alt="Screenshot 2024-12-17 at 4 56 32 PM" src="https://github.com/user-attachments/assets/ba6931a2-f89b-41d3-a293-9050e7de1e86" />
 
 ### 6. **Block Availabilities (Faculty)**
-*Image showing the block availability feature.*
+<img width="1501" alt="Screenshot 2024-12-17 at 4 58 49 PM" src="https://github.com/user-attachments/assets/c4fb69b5-bdbc-4498-8341-178fd439c521" />
+
 
 ---
 
