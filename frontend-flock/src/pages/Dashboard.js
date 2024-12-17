@@ -288,12 +288,13 @@ function Dashboard() {
                         state.startNextIndex, 
                         "Upcoming Meetings",
                         <>
-                            <button onClick={() => setState(prev => ({ 
-                                ...prev, 
-                                filterOwnMeetings: !prev.filterOwnMeetings 
-                            }))}>
-                                {state.filterOwnMeetings ? "Show All Meetings" : "Show My Meetings Only"}
-                            </button>
+                            {isFaculty && (
+                                <button onClick={() => setState(prev => ({ 
+                                    ...prev, 
+                                    filterOwnMeetings: !prev.filterOwnMeetings 
+                                }))}>
+                                    {state.filterOwnMeetings ? "Show All Meetings" : "Show My Meetings Only"}
+                                </button>)}
                             {!isFaculty && (
                                 <a href="meetingRequest">
                                     <button>Request alternate meeting time</button>

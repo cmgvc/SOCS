@@ -68,6 +68,19 @@ const MeetingCard = ({ meeting }) => {
     }
   };
 
+  const handleUpdateMeetingStatus = async (status) => {
+    try {
+      await fetch(`${backendUrl}/meetings/updateStatus`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, meetingId, status }),
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(`Error updating meeting status to ${status}:`, error);
+    }
+  };
+
   const extractNameFromEmail = (email) => {
     if (!email) return "";
     const parts = email.split("@")[0].split(".");
@@ -111,6 +124,35 @@ const MeetingCard = ({ meeting }) => {
           {organizer === email ? "Cancel for All" : "Cancel"}
         </button>
       )}
+      {!isPastOrStarted && status === "Pending" && isFaculty === 'true' && (
+        <div className="pending-actions">
+          <button
+            className="cancel-btn"
+            onClick={() => handleUpdateMeetingStatus("Accepted")}
+          >
+            Accept
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            className="cancel-btn"
+            onClick={() => handleUpdateMeetingStatus("Declined")}
+          >
+            Decline
+          </button>
+        </div>
+      )}
+      {isFaculty === 'false' && (
+        <p>
+          <b>Status: {status}</b>
+        </p>
+      )}
+
+      {!isFaculty && (status === "Pending" || status === "Declined") && (
+        <p>
+          <b>Status: {status}</b>
+        </p>
+      )}
+
 
       {isFaculty === "true" && organizer === email && (
         <button
