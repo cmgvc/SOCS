@@ -1,7 +1,7 @@
 // Chloe Gavrilovic 260955835
 const express = require("express");
 const Meeting = require("../models/Meeting");
-
+const nodemailer = require('nodemailer');
 const router = express.Router();
 
 // get all meetings for a user
@@ -146,6 +146,117 @@ router.post('/full', async (req, res) => {
     }
 });
 
+// create a transporter using SMTP
+const createTransporter = () => {
+    return nodemailer.createTransport({
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+};
 
+// create email HTML
+const createMeetingEmailHTML = (meetingDetails) => {
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 20px; 
+            }
+            .meeting-details { 
+                background-color: #f4f4f4; 
+                padding: 20px; 
+                border-radius: 5px; 
+            }
+            .header { 
+                background-color: #4a4a4a; 
+                color: white; 
+                padding: 10px; 
+                text-align: center; 
+            }
+            .content { 
+                padding: 20px; 
+            }
+            .footer {
+                margin-top: 20px;
+                font-size: 0.9em;
+                color: #555;
+                text-align: center;
+            }
+            .footer a {
+                color: #007BFF;
+                text-decoration: none;
+            }
+            .footer a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Meeting Confirmation</h1>
+        </div>
+        <div class="content">
+            <div class="meeting-details">
+                <h2>${meetingDetails.title}</h2>
+                <p><strong>Faculty:</strong> ${meetingDetails.faculty} (${meetingDetails.facultyEmail})</p>
+                <p><strong>Date:</strong> ${meetingDetails.date}</p>
+                <p><strong>Time:</strong> ${meetingDetails.time}</p>
+                <p><strong>Duration:</strong> ${meetingDetails.duration} minutes</p>
+                <p><strong>Meeting Type:</strong> ${meetingDetails.type}</p>
+            </div>
+            <div class="footer">
+                <p>Please <a href="http://fall2024-comp307-group04.cs.mcgill.ca:3000/signup" target="_blank">sign up or sign in</a> to view or cancel the meeting.</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+};
+
+
+// send meeting confirmation email
+router.post('/sendEmail', async (req, res) => {
+    const { email, meetingDetails } = req.body;
+
+    if (!email || !meetingDetails) {
+        return res.status(400).json({ error: 'Missing email or meeting details' });
+    }
+
+    try {
+        const transporter = createTransporter();
+
+        const mailOptions = {
+            from: `"Meeting Booking System" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: `Meeting Confirmation: ${meetingDetails.title}`,
+            html: createMeetingEmailHTML(meetingDetails)
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ 
+            message: 'Email sent successfully', 
+            messageId: info.messageId 
+        });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ 
+            error: 'Failed to send email', 
+            details: error.message 
+        });
+    }
+});
 
 module.exports = router;
