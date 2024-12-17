@@ -42,3 +42,19 @@
   max-width: 800px;
   margin: auto;
 }
+
+@media (max-width: 1300px) {
+  .tree-background {
+    top: -105px;
+  }
+
+  .login-content {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .tree-background {
+    top: -90px;
+  }
+}

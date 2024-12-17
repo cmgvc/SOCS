@@ -129,5 +129,25 @@ input::placeholder {
   }
   .login-title {
     margin-top: 1.5rem;
+    font-size: 30px;
+  }
+
+  .forgot-password a {
+    font-size: 12px;
+  }
+
+  .form-group-two {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .remember-me {
+    font-size: 12px;
+  }
+  #rememberMe {
+    width: 18px;
+  }
+  .login-button {
+    width: 50%;
   }
 }
