@@ -13,11 +13,14 @@ const MeetingCard = ({ meeting }) => {
     meetingType,
     _id: meetingId,
     status,
+    participants = [],
   } = meeting;
   const backendUrl =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
   const [showModal, setShowModal] = useState(false);
+  const [showParticipantsModal, setShowParticipantsModal] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
 
   const formatDate = (dateString) => {
     const newDate = new Date(dateString);
@@ -45,10 +48,13 @@ const MeetingCard = ({ meeting }) => {
 
   const handleCancelMeeting = async () => {
     try {
-      let endpoint = "/meetings/cancel";
-      if (isFaculty === "true") {
+      let endpoint = "/meetings/cancel"; 
+      if (organizer === email) {
         endpoint = "/meetings/cancelFaculty";
+      } else if (isFaculty === "true") {
+        endpoint = "/meetings/cancelFaculty"; 
       }
+      
       await fetch(`${backendUrl}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,19 +68,6 @@ const MeetingCard = ({ meeting }) => {
     }
   };
 
-  const handleUpdateMeetingStatus = async (status) => {
-    try {
-      await fetch(`${backendUrl}/meetings/updateStatus`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, meetingId, status }),
-      });
-      window.location.reload();
-    } catch (error) {
-      console.error(`Error updating meeting status to ${status}:`, error);
-    }
-  };
-
   const extractNameFromEmail = (email) => {
     if (!email) return "";
     const parts = email.split("@")[0].split(".");
@@ -84,6 +77,16 @@ const MeetingCard = ({ meeting }) => {
       return `${capitalize(parts[0])} ${capitalize(parts[1])}`;
     }
     return email;
+  };
+
+  const displayedParticipants = participants.slice(startIndex, startIndex + 3);
+
+  const handlePrev = () => {
+    if (startIndex > 0) setStartIndex(startIndex - 3);
+  };
+
+  const handleNext = () => {
+    if (startIndex + 3 < participants.length) setStartIndex(startIndex + 3);
   };
 
   return (
@@ -105,49 +108,59 @@ const MeetingCard = ({ meeting }) => {
 
       {!isPastOrStarted && status === "Accepted" && (
         <button className="cancel-btn" onClick={() => setShowModal(true)}>
-          Cancel
+          {organizer === email ? "Cancel for All" : "Cancel"}
         </button>
       )}
 
-      {!isPastOrStarted && status === "Pending" && isFaculty === "true" && (
-        <div className="pending-actions">
-          <button
-            className="cancel-btn"
-            onClick={() => handleUpdateMeetingStatus("Accepted")}
-          >
-            Accept
-          </button>
-          &nbsp;&nbsp;&nbsp;
-          <button
-            className="cancel-btn"
-            onClick={() => handleUpdateMeetingStatus("Declined")}
-          >
-            Decline
-          </button>
-        </div>
-      )}
-      {isFaculty === "false" && (
-        <p>
-          <b>Status: {status}</b>
-        </p>
-      )}
-
-      {!isFaculty && (status === "Pending" || status === "Declined") && (
-        <p>
-          <b>Status: {status}</b>
-        </p>
+      {isFaculty === "true" && organizer === email && (
+        <button
+          className="participants-btn"
+          onClick={() => setShowParticipantsModal(true)}>
+          View Participants
+        </button>
       )}
 
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h4>Are you sure you want to cancel the meeting?</h4>
+            <h3>Are you sure you want to cancel the meeting?</h3>
             <button className="cancel-btn" onClick={handleCancelMeeting}>
               Yes
             </button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button className="cancel-btn" onClick={() => setShowModal(false)}>
               No
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showParticipantsModal && (
+        <div className="modal">
+          <div className="modal-content-participants">
+            <h3>Participants</h3>
+            {displayedParticipants.length > 0 ? (
+              displayedParticipants.map((participant, index) => (
+                <p key={index}>{extractNameFromEmail(participant)}</p>
+              ))
+            ) : (
+              <p>No participants available.</p>
+            )}
+
+            <div className="scroll-buttons">
+              {startIndex > 0 && (
+                <button className="arrow-btn" onClick={handlePrev}>↑</button>
+              )}
+              {startIndex + 3 < participants.length && (
+                <button className="arrow-btn" onClick={handleNext}>↓</button>
+              )}
+            </div>
+
+            <button
+              className="cancel-btn"
+              onClick={() => setShowParticipantsModal(false)}
+            >
+              Close
             </button>
           </div>
         </div>

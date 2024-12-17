@@ -260,6 +260,7 @@ export const BookingPage = () => {
         ) : (
           <>
             <div className="non-recurring-meetings">
+            {availableDates.length === 0 && <p>No available times</p>}
             {showArrows && (
                 <button
                   onClick={handlePrevClick}
