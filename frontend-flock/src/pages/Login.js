@@ -1,3 +1,4 @@
+/* coded by Danielle Wahrhaftig */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/Login/LoginForm";
