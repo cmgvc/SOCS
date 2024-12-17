@@ -7,91 +7,89 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MeetingModal from "./MeetingModal";
 
 export const BookingPage = () => {
-  const [startIndex, setStartIndex] = useState(0);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [availableTimes, setAvailableTimes] = useState([]);
-  const [meeting, setMeeting] = useState(null);
-  const [recurring, setRecurring] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [bookedTimes, setBookedTimes] = useState([]);
-  const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
-  const daysOfWeek = {
-    0: "Sun",
-    1: "Mon",
-    2: "Tue",
-    3: "Wed",
-    4: "Thu",
-    5: "Fri",
-    6: "Sat",
+    const [startIndex, setStartIndex] = useState(0);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [availableTimes, setAvailableTimes] = useState([]);
+    const [meeting, setMeeting] = useState(null);
+    const [recurring, setRecurring] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
+    const [bookedTimes, setBookedTimes] = useState([]);
+    const backendUrl = 'http://localhost:5001';
+    const daysOfWeek = {
+        0: "Sun",
+        1: "Mon",
+        2: "Tue",
+        3: "Wed",
+        4: "Thu",
+        5: "Fri",
+        6: "Sat",
   };
+  
+    // fetch meeting data
+    useEffect(() => {
+        const fetchMeetings = async () => {
+            try {
+                const currentUrl = window.location.href;
+                const response = await fetch(`${backendUrl}/availabilities/url`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: currentUrl }),
+                });
+    
+                if (!response.ok) throw new Error("Failed to fetch meetings");
+                const data = await response.json();
+    
+                setMeeting(data[0]);
+                setRecurring(data[0].doesRepeatWeekly);
+    
+                const bookedResponse = await fetch(`${backendUrl}/meetings/full`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ faculty: data[0].email, title: data[0].title }),
+                });
+                const bookedData = await bookedResponse.json();
+                setBookedTimes(bookedData.map(meeting => ({
+                    date: new Date(meeting.date).toDateString(),
+                    time: meeting.time
+                })));
+            } catch (error) {
+                console.error("Error fetching meetings:", error);
+            }
+        };
+    
+        fetchMeetings();
+    }, []);
+    
+    useEffect(() => {
+        if (selectedDate) {
+            setAvailableTimes(getAvailabilitiesForSelectedDay());
+        }
+    }, [selectedDate, meeting, bookedTimes]);
 
-  // fetch meeting data
-  useEffect(() => {
-    const fetchMeetings = async () => {
-      try {
-        const currentUrl = window.location.href;
-        const response = await fetch(`${backendUrl}/availabilities/url`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: currentUrl }),
-        });
-
-        if (!response.ok) throw new Error("Failed to fetch meetings");
-        const data = await response.json();
-
-        setMeeting(data[0]);
-        setRecurring(data[0].doesRepeatWeekly);
-
-        const bookedResponse = await fetch(`${backendUrl}/meetings/full`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            faculty: data[0].email,
-            title: data[0].title,
-          }),
-        });
-
-        const bookedData = await bookedResponse.json();
-        setBookedTimes(bookedData.map((meeting) => meeting.time));
-      } catch (error) {
-        console.error("Error fetching meetings:", error);
-      }
+    const parseTimeToMinutes = (timeString) => {
+        const [time, modifier] = timeString.split(" ");
+        let [hours, minutes] = time.split(":");
+        hours = parseInt(hours);
+        minutes = parseInt(minutes);
+        if (modifier === "PM" && hours !== 12) {
+            hours += 12;
+        }
+        if (modifier === "AM" && hours === 12) {
+            hours = 0;
+        }
+        return hours * 60 + minutes;
     };
 
-    fetchMeetings();
-  }, []);
+    const convertMinutesToTime = (minutes) => {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        const modifier = hours >= 12 ? "PM" : "AM";
+        const hour12 = hours % 12 || 12;
+        return `${hour12}:${mins.toString().padStart(2, "0")} ${modifier}`;
+    };
 
-  useEffect(() => {
-    if (selectedDate) {
-      setAvailableTimes(getAvailabilitiesForSelectedDay());
-    }
-  }, [selectedDate, meeting, bookedTimes]);
-
-  const parseTimeToMinutes = (timeString) => {
-    const [time, modifier] = timeString.split(" ");
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours);
-    minutes = parseInt(minutes);
-    if (modifier === "PM" && hours !== 12) {
-      hours += 12;
-    }
-    if (modifier === "AM" && hours === 12) {
-      hours = 0;
-    }
-    return hours * 60 + minutes;
-  };
-
-  const convertMinutesToTime = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    const modifier = hours >= 12 ? "PM" : "AM";
-    const hour12 = hours % 12 || 12;
-    return `${hour12}:${mins.toString().padStart(2, "0")} ${modifier}`;
-  };
-
-  const splitAvailabilityByDuration = (startTime, endTime, duration) => {
+    const splitAvailabilityByDuration = (startTime, endTime, duration) => {
     const slots = [];
     let currentStart = parseTimeToMinutes(startTime);
     const end = parseTimeToMinutes(endTime);
@@ -99,141 +97,136 @@ export const BookingPage = () => {
 
     const numberOfSlots = totalMinutes / duration;
     for (let i = 0; i < numberOfSlots; i++) {
-      const currentEnd = currentStart + duration;
-      slots.push({
-        start: convertMinutesToTime(currentStart),
-      });
-      currentStart = currentEnd;
+        const currentEnd = currentStart + duration;
+        slots.push({
+            start: convertMinutesToTime(currentStart),
+        });
+        currentStart = currentEnd;
     }
     return slots;
-  };
+    };
 
-  const filterBookedSlots = (slots) => {
-    return slots.map((slot) => {
-      if (Array.isArray(slot.slots)) {
-        const filteredSlots = slot.slots.filter(
-          (nestedSlot) =>
-            nestedSlot.start && !bookedTimes.includes(nestedSlot.start)
+    const filterBookedSlots = (slots, bookedTimes, selectedDate) => {
+        const validBookedTimes = Array.isArray(bookedTimes) ? bookedTimes : [];
+    
+        return slots.filter((slot) => {
+            return slot.start && !validBookedTimes.some(
+                booked => booked.time === slot.start && 
+                          booked.date === selectedDate.toDateString()
+            );
+        });
+    };
+    
+  
+    // availabilities when meeting is recurring (weekly)
+    const getAvailabilitiesForSelectedDay = () => {
+        if (!meeting || !selectedDate) return [];
+        const date = new Date(selectedDate);
+        const selectedDay = daysOfWeek[date.getDay()]; 
+
+        const dayAvailabilities = meeting.availabilityData[selectedDay];
+
+        if (!dayAvailabilities || dayAvailabilities.length === 0) return [];
+
+        const duration = parseInt(meeting.meetingDuration, 10); 
+        const slots = dayAvailabilities.flatMap(({ start, end }) =>
+            splitAvailabilityByDuration(start, end, duration)
         );
-        return { ...slot, slots: filteredSlots };
-      }
-      return slot;
-    });
-  };
+        const filteredSlots = filterBookedSlots(slots, bookedTimes, selectedDate);
+        return filteredSlots;
+    };
 
-  // availabilities when meeting is recurring (weekly)
-  const getAvailabilitiesForSelectedDay = () => {
-    if (!meeting || !selectedDate) return [];
-    const date = new Date(selectedDate);
-    const selectedDay = daysOfWeek[date.getDay()];
-    const dayAvailabilities = meeting.availabilityData[selectedDay];
+    // availabilities when meeting is not recurring
+    const getAvailabilitiesByDate = () => {
+        if (!meeting) return [];
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
 
-    if (!dayAvailabilities || dayAvailabilities.length === 0) return [];
+        const slots = [];
+        Object.entries(meeting.availabilityData).forEach(([dateString, availabilities]) => {
+            const [year, month, day] = dateString.split("-").map(Number); 
+            const date = new Date(year, month - 1, day); 
+            date.setHours(0, 0, 0, 0);
+            if (date < today) {
+                return; 
+            }
+            const duration = parseInt(meeting.meetingDuration, 10);
+            const daySlots = [];
+            availabilities.forEach(({ start, end }) => {
+                if (!start || !end) {
+                    return; 
+                }
 
-    const duration = parseInt(meeting.meetingDuration, 10);
-    const slots = dayAvailabilities.flatMap(({ start, end }) =>
-      splitAvailabilityByDuration(start, end, duration)
-    );
-    const filteredSlots = filterBookedSlots(slots);
-    return filteredSlots;
-  };
+                const slotsForThisAvailability = splitAvailabilityByDuration(start, end, duration);
+                daySlots.push(...slotsForThisAvailability);
+            });
 
-  // availabilities when meeting is not recurring
-  const getAvailabilitiesByDate = () => {
-    if (!meeting) return [];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
 
-    const slots = [];
-    Object.entries(meeting.availabilityData).forEach(
-      ([dateString, availabilities]) => {
-        const [year, month, day] = dateString.split("-").map(Number);
-        const date = new Date(year, month - 1, day);
-        date.setHours(0, 0, 0, 0);
-        if (date < today) {
-          return;
-        }
-        const duration = parseInt(meeting.meetingDuration, 10);
-        const daySlots = [];
-        availabilities.forEach(({ start, end }) => {
-          if (!start || !end) {
-            return;
-          }
+            if (daySlots.length === 0) {
+                return; 
+            }
 
-          const slotsForThisAvailability = splitAvailabilityByDuration(
-            start,
-            end,
-            duration
-          );
-          daySlots.push(...slotsForThisAvailability);
+            slots.push({
+                dateName: date.toLocaleDateString("en-US", {
+                    weekday: "short", 
+                    month: "short",
+                    day: "2-digit", 
+                    year: "numeric",
+                }),
+                dateObj: date,
+                slots: daySlots.filter((slot) => !bookedTimes.includes(slot.start)),
+            });
         });
+        return slots.sort((a, b) => a.dateObj - b.dateObj);
+    };
 
-        if (daySlots.length === 0) {
-          return;
+    const extractNameFromEmail = (email) => {
+        if (!email) return "";
+        const parts = email.split("@")[0].split(".");
+        if (parts.length >= 2) {
+            const capitalize = (str) =>
+            str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            return `${capitalize(parts[0])} ${capitalize(parts[1])}`;
         }
+        return email;
+    };
 
-        slots.push({
-          dateName: date.toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "short",
-            day: "2-digit",
-            year: "numeric",
-          }),
-          dateObj: date,
-          slots: daySlots.filter((slot) => !bookedTimes.includes(slot.start)),
+    const openModal = (time, meeting, date) => {
+        setModalContent({
+            time,
+            title: meeting.title,
+            email: meeting.email,
+            name: extractNameFromEmail(meeting.email),
+            date: date ? date.toDateString() : "",
+            duration: meeting.meetingDuration,
+            type: meeting.meetingType,
         });
-      }
-    );
-    return slots.sort((a, b) => a.dateObj - b.dateObj);
-  };
+        setModalOpen(true);
+    };
 
-  const extractNameFromEmail = (email) => {
-    if (!email) return "";
-    const parts = email.split("@")[0].split(".");
-    if (parts.length >= 2) {
-      const capitalize = (str) =>
-        str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-      return `${capitalize(parts[0])} ${capitalize(parts[1])}`;
-    }
-    return email;
-  };
+    const closeModal = () => {
+        setModalOpen(false);
+        setModalContent(null);
+    };
 
-  const openModal = (time, meeting, date) => {
-    setModalContent({
-      time,
-      title: meeting.title,
-      email: meeting.email,
-      name: extractNameFromEmail(meeting.email),
-      date: date ? date.toDateString() : "",
-      duration: meeting.meetingDuration,
-      type: meeting.meetingType,
-    });
-    setModalOpen(true);
-  };
+    const availableDates = getAvailabilitiesByDate();
+    const showArrows = availableDates.length > 3
 
-  const closeModal = () => {
-    setModalOpen(false);
-    setModalContent(null);
-  };
+    const handleDateChange = (date) => {
+        setSelectedDate(new Date(date));
+    };
 
-  const availableDates = getAvailabilitiesByDate();
-  const showArrows = availableDates.length > 3;
+    const handleNextClick = () => {
+        if (startIndex + 3 < getAvailabilitiesByDate().length) {
+            setStartIndex((prevIndex) => prevIndex + 1);
+        }
+    };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(new Date(date));
-  };
-
-  const handleNextClick = () => {
-    if (startIndex + 3 < getAvailabilitiesByDate().length) {
-      setStartIndex((prevIndex) => prevIndex + 1);
-    }
-  };
-
-  const handlePrevClick = () => {
-    if (startIndex > 0) {
-      setStartIndex((prevIndex) => prevIndex - 1);
-    }
-  };
+    const handlePrevClick = () => {
+        if (startIndex > 0) {
+            setStartIndex((prevIndex) => prevIndex - 1);
+        }
+    };
 
   return (
     <div className="booking-page">
@@ -270,7 +263,8 @@ export const BookingPage = () => {
         ) : (
           <>
             <div className="non-recurring-meetings">
-              {showArrows && (
+            {availableDates.length === 0 && <p>No available times</p>}
+            {showArrows && (
                 <button
                   onClick={handlePrevClick}
                   disabled={startIndex === 0}
@@ -300,7 +294,9 @@ export const BookingPage = () => {
               {showArrows && (
                 <button
                   onClick={handleNextClick}
-                  disabled={startIndex + 3 >= availableDates.length}
+                  disabled={
+                    startIndex + 3 >= availableDates.length
+                  }
                   className="panel-arrow"
                 >
                   <ArrowForwardIosIcon />
@@ -324,3 +320,5 @@ export const BookingPage = () => {
 };
 
 export default BookingPage;
+
+

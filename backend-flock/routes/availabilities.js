@@ -31,4 +31,22 @@ router.post('/url', async (req, res) => {
     }
 });
 
+router.delete('/cancel', async (req, res) => {
+    const { _id } = req.body; 
+  
+    try {
+      const availability = await Availability.findById(_id);
+  
+      if (!availability) {
+        return res.status(404).json({ message: "Availability not found" });
+      }
+      await Availability.findByIdAndDelete(_id);
+  
+      res.json({ success: true, message: "Availability canceled" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
+
 module.exports = router;
