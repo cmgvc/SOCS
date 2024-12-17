@@ -1,3 +1,4 @@
+// Chloe Gavrilovic 260955835
 import React, { useState } from "react";
 import "./meeting-modal.css";
 
@@ -8,51 +9,48 @@ const MeetingModal = ({ onClose, content }) => {
         process.env.REACT_APP_BACKEND_URL || "http://localhost:5001";
 
     const handleBookMeeting = async () => {
-    const studentEmail = localStorage.getItem("email");
-    if (studentEmail === content.email) {
-        setErrorMessage("Cannot book your own meeting");
-        return; 
-    }
-
-    try {
-        const response = await fetch(`${backendUrl}/meetings/book`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title: content.title,
-                faculty: content.email,
-                date: content.date,
-                duration: content.duration,
-                meetingType: content.type,
-                student: localStorage.getItem("email"),
-                status: "Accepted",
-                time: content.time,
-            }),
-        });
-
-        if (response.status === 400) {
-            setErrorMessage("Meeting already booked");
-        } else if (!response.ok) {
-            throw new Error("Failed to book meeting");
-        } else {
-            setErrorMessage(""); 
-            setMeetingBooked(true);
+        const studentEmail = localStorage.getItem("email");
+        if (studentEmail === content.email) {
+            setErrorMessage("Cannot book your own meeting");
+            return; 
         }
+        try {
+            const response = await fetch(`${backendUrl}/meetings/book`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: content.title,
+                    faculty: content.email,
+                    date: content.date,
+                    duration: content.duration,
+                    meetingType: content.type,
+                    student: localStorage.getItem("email"),
+                    status: "Accepted",
+                    time: content.time,
+                }),
+            });
 
-        const data = await response.json();
-    } catch (error) {
-        console.error("Error booking meeting:", error);
-        setErrorMessage("Error booking the meeting. Please try again.");
-    }
+            if (response.status === 400) {
+                setErrorMessage("Meeting already booked");
+            } else if (!response.ok) {
+                throw new Error("Failed to book meeting");
+            } else {
+                setErrorMessage(""); 
+                setMeetingBooked(true);
+            }
+            const data = await response.json();
+        } catch (error) {
+            console.error("Error booking meeting:", error);
+            setErrorMessage("Error booking the meeting. Please try again.");
+        }
     };
 
     return (
         <div className="meeting-modal-overlay">
             <div className="meeting-modal-content">
-            <div
-                className={meetingBooked ? `meeting-modal-header-success` : "meeting-modal-header"}>
+            <div className={meetingBooked ? `meeting-modal-header-success` : "meeting-modal-header"}>
                 {meetingBooked ? (
                 <>
                     <h3>
@@ -95,8 +93,7 @@ const MeetingModal = ({ onClose, content }) => {
                     )}
                     <button
                         className="close-btn"
-                        onClick={handleBookMeeting}
-                    >
+                        onClick={handleBookMeeting}>
                         Book Meeting
                     </button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

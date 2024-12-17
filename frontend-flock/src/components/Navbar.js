@@ -1,3 +1,4 @@
+// Chloe Gavrilovic 260955835
 import React, { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import PersonIcon from "@mui/icons-material/Person";
