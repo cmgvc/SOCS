@@ -30,16 +30,24 @@ export default function Home() {
                   <button className="overlay-buttons">Create Meeting</button>
                 </a>
                 <a href="/block">
-                  <button className="overlay-buttons">Set Availability</button>
+                  <button className="overlay-buttons">Block Availability</button>
                 </a>
                 <a href="/book">
                   <button className="overlay-buttons">Book Meeting</button>
                 </a>
+                <a href="/dashboard">
+                  <button className="overlay-buttons">Dashboard</button>
+                </a>
               </>
             ) : (
+              <>
               <a href="/book">
                 <button className="overlay-buttons">Book Meeting</button>
               </a>
+              <a href="/dashboard">
+              <button className="overlay-buttons">Dashboard</button>
+              </a>
+              </>
             )}
           </div>
         </div>
@@ -59,7 +67,6 @@ export default function Home() {
           <video
             src={scheduleVideo}
             className="schedule-video"
-            controls
             autoPlay
             loop
             muted

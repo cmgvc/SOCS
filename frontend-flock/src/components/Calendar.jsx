@@ -6,6 +6,8 @@ import "../styles/Calendar.css";
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 // section for helper functions and variables
+
+//generate an array of time slots between start and end times
 function generateTimeSlots(start = "08:00", end = "19:00") {
   const increment = 5; 
   const times = [];
@@ -14,6 +16,7 @@ function generateTimeSlots(start = "08:00", end = "19:00") {
   const startTotal = startH * 60 + startM;
   const endTotal = endH * 60 + endM;
 
+  // loop through time from start to end at increment = 5
   for (let t = startTotal; t <= endTotal; t += increment) {
     const hh = String(Math.floor(t / 60)).padStart(2, '0');
     const mm = String(t % 60).padStart(2, '0');
@@ -24,17 +27,20 @@ function generateTimeSlots(start = "08:00", end = "19:00") {
 
 const timeSlots = generateTimeSlots("08:00","19:00");
 
+// convert to total minutes
 function timeToMinutes(t) {
   const [h,m] = t.split(':').map(Number);
   return h*60+m;
 }
 
+// reverse
 function minutesToTime(m) {
   const hh = String(Math.floor(m/60)).padStart(2, '0');
   const mm = String(m%60).padStart(2, '0');
   return `${hh}:${mm}`;
 }
 
+// same merge function as in blockpanel
 function mergeTimeSlots(timeSlots) {
   if (!timeSlots.length) return [];
   let intervals = timeSlots.map(ts => ({
@@ -64,7 +70,7 @@ function mergeTimeSlots(timeSlots) {
 }
 
 
-// define helper funcitons within calendar
+// define helper funcitons within calendar - modified with unavailable only after design refinement
 const StyledCalendar = ({ 
   mode = "unavailable", 
   availableBlocks, 
@@ -75,6 +81,7 @@ const StyledCalendar = ({
   onPrev,
   onNext
 }) => {
+    // state management for drag functionality - tracking if user is currently dragging and tracks the selection
     const [dragging, setDragging] = useState(false);
     const [currentSelection, setCurrentSelection] = useState(null);
 
@@ -83,11 +90,14 @@ const StyledCalendar = ({
       year: 'numeric',
     });
 
+    // when pulling down to initiate drag selection, takes in index of the day and time
     const handleMouseDown = (dayIndex, slotIndex) => {
       setDragging(true);
       setCurrentSelection({ dayIndex, startSlot: slotIndex, endSlot: slotIndex });
     };
 
+    // handles updating the selection range when dragging
+    // determines start, end, and updates
     const handleMouseMove = (dayIndex, slotIndex) => {
       if (dragging && currentSelection) {
         const start = Math.min(currentSelection.startSlot, slotIndex);
@@ -96,6 +106,7 @@ const StyledCalendar = ({
       }
     };
 
+    // handlies mouse up to finalize seleciton and update stored blocks
     const handleMouseUp = () => {
       if (dragging && currentSelection) {
         const { dayIndex, startSlot, endSlot } = currentSelection;
@@ -103,6 +114,7 @@ const StyledCalendar = ({
         const startTime = timeSlots[startSlot];
         const endTime = timeSlots[endSlot + 1] || timeSlots[endSlot];
 
+        // create copy of unabilable blocks and make new time
         let updatedUnavailable = [...unavailableBlocks];
         const dateIndex = updatedUnavailable.findIndex(b => b.date === blockDate);
         const newSlot = { startTime, endTime };
@@ -122,6 +134,7 @@ const StyledCalendar = ({
           });
         }
 
+        // update available and unavailable -> change to unavailable only
         if (mode === "available") {
           onBlocksChange([...availableBlocks], updatedUnavailable);
         } else {
@@ -129,9 +142,12 @@ const StyledCalendar = ({
         }
         setCurrentSelection(null);
       }
+
+      // reset state
       setDragging(false);
     };
 
+    // checks if time is within a specific range -> bool
     function isTimeInRange(time, start, end) {
       const tm = timeToMinutes(time);
       const st = timeToMinutes(start);
@@ -139,6 +155,7 @@ const StyledCalendar = ({
       return tm >= st && tm < en;
     }
 
+    // checks if a specific time slot is within any of the given blocks -> bool
     const isInBlock = (blocks, dayIndex, slotIndex) => {
       const blockDate = weekDates[dayIndex].toISOString().split('T')[0];
       const slotTime = timeSlots[slotIndex];
@@ -147,6 +164,7 @@ const StyledCalendar = ({
       return dateEntry.timeSlots.some(ts => isTimeInRange(slotTime, ts.startTime, ts.endTime));
     };
 
+    // determines if a slot is currently being selected during drag
     const isCurrentSelectionFn = (dayIndex, slotIndex) => {
       return (
         currentSelection &&
@@ -156,6 +174,7 @@ const StyledCalendar = ({
       );
     };
 
+    // gets css class name for given slot
     const getSlotClassName = (dayIndex, slotIndex) => {
       if (isCurrentSelectionFn(dayIndex, slotIndex)) {
         return mode === "available" ? "current-selection-red" : "current-selection-grey";
@@ -172,6 +191,8 @@ const StyledCalendar = ({
     // show calendar on screen
     return (
       <div className="styled-calendar-container"
+
+      // if mouse leaves calendar reset the selection
         onMouseLeave={() => {
           if (dragging) {
             setDragging(false);

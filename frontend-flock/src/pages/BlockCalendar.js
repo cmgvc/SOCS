@@ -1,8 +1,10 @@
+// Emily Roest, 260960015
 import React, { useState, useEffect } from "react";
 import BlockOffTimesPanel from "../components/BlockPanel.jsx";
 import StyledCalendar from "../components/Calendar";
 import "../styles/BlockCalendar.css";
 
+// define helper functions
 const getStartOfWeek = (date) => {
   const dayIndex = date.getDay();
   const diff = date.getDate() - dayIndex;
@@ -46,7 +48,7 @@ const CalendarWithSidebar = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.unavailabilities) {
-          // turn data into { date: "YYYY-MM-DD", timeSlots: [{startTime, endTime}] }[] format
+          // turn data into correct format
           const loadedBlocks = data.unavailabilities.map((ua) => ({
             date: ua.date,
             timeSlots: ua.timeSlots.map((ts) => ({
