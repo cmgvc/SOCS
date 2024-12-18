@@ -4,6 +4,7 @@ Flock is a responsive meeting management platform designed to streamline schedul
 
 ## Live Site
 Access the website here: [Flock Live Site](http://fall2024-comp307-group04.cs.mcgill.ca:3000/)
+Make sure to use http not https, and include the port (:3000) at the end of the url. If you're not on McGill campus, you must use the McGill vpn.
 
 ---
 
