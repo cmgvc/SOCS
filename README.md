@@ -48,7 +48,7 @@ To run Flock locally:
 1. **Clone the Repository**:
    ```bash
    git clone <repository-url>
-   cd Flock
+   cd SOCS
    ```
 
 2. **Install Dependencies**:
