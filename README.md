@@ -18,6 +18,7 @@ Make sure to use http not https, and include the port (:3000) at the end of the 
 - [Key Functionalities](#key-functionalities)
 - [How It Works](#how-it-works)
 - [Screenshots](#screenshots)
+- [Detailed File Contributions](#detailed-personal-file-contribution)
 
 ---
 
