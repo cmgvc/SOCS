@@ -260,3 +260,34 @@ ___
         - frontend-flock/src/styles/Calendar.css
         - frontend-flock/src/styles/home.css
         - frontend-flock/src/App.js
+- **Danielle Wahrhaftig**
+    - Backend
+        - backend-flock/models/Availability.js
+        - backend-flock/models/User.js
+        - backend-flock/routes/auth.js
+        - backend-flock/server.js
+    - Frontend
+        - frontend-flock/src/components/Login/login-form.css
+        - frontend-flock/src/components/Login/LoginForm.jsx
+        - frontend-flock/src/components/Login/SignupForm.jsx
+        - frontend-flock/src/components/Login/signup-form.css
+        - frontend-flock/src/components/CreateBooking/CreateBookingSidebar.jsx
+        - frontend-flock/src/components/CreateBooking/create-booking-sidebar.css
+        - frontend-flock/src/components/CreateBooking/CreateBookingCalendar.jsx
+        - frontend-flock/src/components/CreateBooking/create-booking-calendar.css
+        - frontend-flock/src/components/CreateBooking/DoesNotRepeat.jsx
+        - frontend-flock/src/components/CreateBooking/does-not-repeat.css
+        - frontend-flock/src/components/CreateBooking/RepeatWeeklyAvailability.jsx
+        - frontend-flock/src/components/CreateBooking/repeat-weekly-availabiliy.css
+        - frontend-flock/src/components/CreateBooking/SchedulingWindow.jsx
+        - frontend-flock/src/components/CreateBooking/scheduling-window.css
+        - frontend-flock/src/components/CreateBooking/DropdownMenu.jsx
+        - frontend-flock/src/components/CreateBooking/dropdown-menu.css
+        - frontend-flock/src/pages/Login.js
+        - frontend-flock/src/pages/login.css
+        - frontend-flock/src/pages/Signup.js
+        - frontend-flock/src/pages/Signup.css
+        - frontend-flock/src/pages/Settings.js
+        - frontend-flock/src/pages/settings.css
+        - frontend-flock/src/pages/CreateBooking.js
+        - frontend-flock/src/pages/create-booking.css
