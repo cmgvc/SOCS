@@ -194,7 +194,6 @@ Upon accessing Flock, users are greeted with:
 ---
 
 ## Future Improvements
-- Add calendar integration (e.g., Google Calendar).
 - Enhanced search and filtering options.
 - Real-time notifications for booking updates.
 
